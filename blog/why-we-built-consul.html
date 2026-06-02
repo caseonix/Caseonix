@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Why we built Consul — private wealth intelligence for self-directed investors | Caseonix</title>
+  <meta name="description" content="The portfolio analysis private banks charge 1% for is mostly deterministic math and plain-language judgment. Consul gives it to anyone with a brokerage account." />
+  <meta name="author" content="Srivatsa Kasagar" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="keywords" content="AI portfolio analysis, private wealth intelligence, self-directed investor, tax-loss harvesting, portfolio risk metrics, deterministic finance, Consul" />
+  <link rel="canonical" href="https://caseonix.ca/blog/why-we-built-consul.html" />
+  <link rel="alternate" hreflang="en-ca" href="https://caseonix.ca/blog/why-we-built-consul.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caseonix.ca/blog/why-we-built-consul.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Why we built Consul: private wealth intelligence for the people who manage their own money" />
+  <meta property="og:description" content="The portfolio analysis private banks charge 1% for is mostly deterministic math and plain-language judgment. Consul gives it to anyone with a brokerage account." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://caseonix.ca/blog/why-we-built-consul.html" />
+  <meta property="og:image" content="https://caseonix.ca/og-image-v2.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Caseonix" />
+  <meta property="og:locale" content="en_CA" />
+  <meta property="article:author" content="Srivatsa Kasagar" />
+  <meta property="article:published_time" content="2026-05-14" />
+  <meta property="article:modified_time" content="2026-05-14" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Why we built Consul: private wealth intelligence for self-directed investors" />
+  <meta name="twitter:description" content="The portfolio analysis private banks charge 1% for is mostly deterministic math and plain-language judgment. Consul gives it to anyone with a brokerage account." />
+  <meta name="twitter:image" content="https://caseonix.ca/og-image-v2.png" />
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why we built Consul: private wealth intelligence for the people who manage their own money",
+    "description": "The portfolio analysis private banks charge 1% for is mostly deterministic math and plain-language judgment. Consul gives it to anyone with a brokerage account.",
+    "author": {
+      "@type": "Person",
+      "name": "Srivatsa Kasagar",
+      "url": "https://caseonix.ca",
+      "jobTitle": "AI Builder & Solutions Architect"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Caseonix",
+      "url": "https://caseonix.ca",
+      "logo": "https://caseonix.ca/icon-512.png"
+    },
+    "datePublished": "2026-05-14",
+    "dateModified": "2026-05-14",
+    "url": "https://caseonix.ca/blog/why-we-built-consul.html",
+    "image": "https://caseonix.ca/og-image-v2.png",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://caseonix.ca/blog/why-we-built-consul.html"
+    },
+    "keywords": ["AI portfolio analysis", "private wealth intelligence", "self-directed investor", "tax-loss harvesting", "portfolio risk", "Consul"]
+  }
+  </script>
+
+  <script>
+    // Reading progress bar
+    (function () {
+      var bar = document.getElementById('readingBar');
+      if (!bar) return;
+      function update() {
+        var h = document.documentElement;
+        var scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+        bar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
+      }
+      document.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F1B2A;
+      --surface: #1A2B3C;
+      --surface-2: #223549;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(94,186,156,0.32);
+      --blue: #5EBA9C;
+      --teal: #7FCBB0;
+      --teal-1: #7FCBB0;
+      --gold: #A0DDC9;
+      --purple: #4A9A80;
+      --green: #34D399;
+      --rose: #FB7185;
+      --text: #E8ECF1;
+      --text-2: #94A3B8;
+      --text-3: #64748B;
+      --nav-bg: rgba(15,27,42,0.82);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    [data-theme="light"] {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --surface-2: #F1F5F9;
+      --border: rgba(0,0,0,0.08);
+      --border-hover: rgba(94,186,156,0.35);
+      --text: #0F172A;
+      --text-2: #334155;
+      --text-3: #64748B;
+      --nav-bg: rgba(248,250,252,0.88);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+    .nav-logo span { color: var(--blue); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .theme-toggle {
+      width: 38px; height: 38px; border-radius: 9px; border: 1px solid var(--border);
+      background: var(--surface); cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 0.95rem; color: var(--text-2);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover { border-color: var(--border-hover); transform: rotate(20deg); color: var(--text); }
+    .nav-cta {
+      padding: 9px 20px; background: var(--blue); color: #fff; border-radius: 8px;
+      text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ARTICLE */
+    .article-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    .article-meta { margin-bottom: 32px; }
+
+    .article-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.85rem; color: var(--blue); text-decoration: none;
+      font-weight: 500; margin-bottom: 24px;
+      transition: opacity 0.2s;
+    }
+    .article-back:hover { opacity: 0.7; }
+
+    .article-tag {
+      display: inline-block; padding: 4px 12px; border-radius: 6px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; background: rgba(94,186,156,0.12);
+      color: var(--blue); margin-bottom: 16px;
+    }
+
+    .article-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.15; margin-bottom: 16px;
+    }
+
+    .article-subtitle {
+      font-size: 1.1rem; color: var(--text-2);
+      line-height: 1.7; margin-bottom: 20px;
+    }
+
+    .article-info {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      font-size: 0.82rem; color: var(--text-3);
+      padding-bottom: 32px; border-bottom: 1px solid var(--border);
+    }
+    .article-info a { color: var(--blue); text-decoration: none; }
+    .article-info a:hover { text-decoration: underline; }
+
+    /* CONTENT */
+    .article-content h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.55rem; font-weight: 700;
+      letter-spacing: -0.02em; margin: 48px 0 16px;
+      line-height: 1.25;
+    }
+
+    .article-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem; font-weight: 600;
+      margin: 32px 0 12px; line-height: 1.3;
+    }
+
+    .article-content p {
+      font-size: 1rem; color: var(--text-2);
+      line-height: 1.82; margin-bottom: 20px;
+    }
+
+    .article-content strong { color: var(--text); font-weight: 600; }
+
+    .article-content em { color: var(--text); font-style: italic; }
+
+    .article-content a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+    .article-content a:hover { opacity: 0.8; }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 20px 24px;
+      color: var(--text-2);
+    }
+
+    .article-content li {
+      font-size: 1rem; line-height: 1.78;
+      margin-bottom: 8px;
+    }
+
+    .article-content li strong { color: var(--text); }
+
+    /* CALLOUT BOX */
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .callout.warning { border-left-color: var(--gold); }
+    .callout.success { border-left-color: var(--green); }
+    .callout.danger { border-left-color: var(--rose); }
+    .callout-title {
+      font-weight: 700; font-size: 0.88rem;
+      margin-bottom: 8px; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+
+    /* CODE */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; padding: 2px 7px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 5px; color: var(--teal);
+    }
+
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px; margin: 24px 0;
+      overflow-x: auto;
+    }
+    pre code {
+      padding: 0; background: none; border: none;
+      font-size: 0.84rem; line-height: 1.7; color: var(--text-2);
+    }
+
+    /* CTA LINK */
+    .article-content a.cta-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--blue); font-weight: 600; font-size: 1.05rem;
+      text-decoration: none; border-bottom: 2px solid var(--blue);
+      padding-bottom: 3px; margin: 8px 0 4px;
+      transition: gap 0.2s ease, opacity 0.2s ease;
+    }
+    .article-content a.cta-link:hover { gap: 12px; opacity: 0.82; }
+
+    /* FOOTER */
+    .article-footer {
+      margin-top: 56px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .author-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      margin-bottom: 32px;
+    }
+    .author-avatar {
+      width: 52px; height: 52px; border-radius: 13px;
+      background: rgba(94,186,156,0.14); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.25rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+    .author-bio { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
+    .author-links { display: flex; gap: 12px; margin-top: 8px; }
+    .author-links a {
+      font-size: 0.8rem; color: var(--blue); text-decoration: none;
+      font-weight: 500;
+    }
+    .author-links a:hover { text-decoration: underline; }
+
+    /* SHARE BUTTONS */
+    .share-bar {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .share-label {
+      font-size: 0.8rem; color: var(--text-3);
+      font-weight: 500; margin-right: 4px;
+    }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text-2); font-size: 0.78rem; font-weight: 500;
+      text-decoration: none; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .share-btn:hover { border-color: var(--border-hover); color: var(--text); background: rgba(94,186,156,0.07); }
+    .share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .share-btn.copied { border-color: var(--green); color: var(--green); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; z-index: 1;
+    }
+    .footer-logo { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; }
+    .footer-logo span { color: var(--blue); }
+    footer p { font-size: 0.75rem; color: var(--text-3); }
+
+    .related-posts {
+      margin-top: 24px; padding: 20px 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .related-posts-label {
+      font-size: 0.82rem; font-weight: 600; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;
+    }
+    .related-posts a {
+      display: block; font-size: 0.92rem; color: var(--blue);
+      text-decoration: none; line-height: 1.6; padding: 4px 0;
+    }
+    .related-posts a:hover { text-decoration: underline; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .article-wrapper { padding: 100px 20px 60px; }
+      .article-title { font-size: 1.6rem; }
+      .author-card { flex-direction: column; }
+      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ═══════════════════════════════════
+       LAB NAV + FOOTER V2 + READING BAR
+    ═══════════════════════════════════ */
+    .nav-links-blog {
+      display: flex; gap: 28px; list-style: none; padding: 0; margin: 0;
+    }
+    .nav-links-blog a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--text-2); text-decoration: none;
+      transition: color 120ms ease-out;
+    }
+    .nav-links-blog a:hover,
+    .nav-links-blog a.active { color: var(--text); }
+    @media (max-width: 700px) { .nav-links-blog { display: none; } }
+
+    /* Reading progress bar — 1px top, teal */
+    .reading-bar {
+      position: fixed; top: 0; left: 0; height: 2px;
+      width: 0%;
+      background: var(--teal-1);
+      z-index: 999; pointer-events: none;
+      transition: width 60ms linear;
+    }
+    @media (prefers-reduced-motion: reduce) { .reading-bar { transition: none; } }
+
+    /* Back-to-log mono link */
+    .article-back-log {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3); text-decoration: none;
+      transition: color 120ms ease-out;
+      display: inline-block; margin-bottom: 24px;
+    }
+    .article-back-log:hover { color: var(--teal-1); }
+
+    /* Footer v2 (shared) */
+    .footer-v2 { border-top: 1px solid var(--border); padding: 32px 24px; margin-top: 60px; }
+    .footer-v2-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 40px; align-items: center;
+    }
+    .footer-v2-logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem; font-weight: 600; color: var(--text);
+    }
+    .footer-v2-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3); margin-top: 4px;
+    }
+    .footer-v2-nav { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+    .footer-v2-nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--text-2); text-decoration: none;
+      transition: color 120ms ease-out;
+    }
+    .footer-v2-nav a:hover { color: var(--teal-1); }
+    .footer-v2-right {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--text-3);
+    }
+    @media (max-width: 800px) {
+      .footer-v2-inner { grid-template-columns: 1fr; gap: 18px; text-align: center; }
+      .footer-v2-nav { justify-content: center; }
+      .footer-v2-right { text-align: center; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo" style="text-decoration:none">Case<span>onix</span></a>
+    <ul class="nav-links-blog">
+      <li><a href="/#projects">Field notes</a></li>
+      <li><a href="/#arsenal">Arsenal</a></li>
+      <li><a href="/blog/index.html" class="active">Log</a></li>
+      <li><a href="/#contact">Open a thread</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9728;&#65039;</button>
+    </div>
+  </nav>
+
+  <div class="reading-bar" id="readingBar" aria-hidden="true"></div>
+
+  <article class="article-wrapper">
+    <div class="article-meta">
+      <a href="/blog/index.html" class="article-back-log">&larr; back to the log</a>
+      <div class="article-tag">Consul &amp; Wealth AI</div>
+      <h1 class="article-title">Why we built Consul: private wealth intelligence for the people who manage their own money</h1>
+      <p class="article-subtitle">The analysis a private wealth team prepares for a client &mdash; available to anyone with a brokerage account and the discipline to run it themselves.</p>
+      <div class="article-info">
+        <span>By <a href="/">Srivatsa Kasagar</a></span>
+        <span>&middot;</span>
+        <span>May 14, 2026</span>
+        <span>&middot;</span>
+        <span>6 min read</span>
+      </div>
+
+      <div class="share-bar">
+        <span class="share-label">Share:</span>
+        <a class="share-btn" id="shareLinkedIn" href="#" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="share-btn" id="shareTwitter" href="#" target="_blank" rel="noopener" aria-label="Share on X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <button class="share-btn" id="shareCopy" aria-label="Copy link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Copy link
+        </button>
+      </div>
+    </div>
+
+    <div class="article-content">
+
+      <p>If you have built real wealth and chosen to manage it yourself, you already know the strange gap you live in.</p>
+
+      <p>You are sophisticated enough to run your own portfolio. You read the filings, you understand the trade-offs, you have opinions about duration and concentration. But the moment you want a second set of eyes on the whole picture, your options collapse. A private bank will give you that caliber of analysis, then charge roughly one percent of everything you own for it, every year, forever. A robo-advisor will rebalance you into a model and call it advice. A spreadsheet will give you numbers without ever telling you what they mean.</p>
+
+      <p>We built Consul to close that gap. It is an AI Chief of Staff for your portfolio: the analysis a private wealth team would prepare for a client, available to anyone with a brokerage account and the discipline to manage it themselves.</p>
+
+      <h2>The insight that started it</h2>
+
+      <p>Spend time near private wealth management and you notice something uncomfortable. Most of what justifies the fee is not secret. The valuable part of a quarterly review is two things stacked together: a set of well-understood calculations, and a human who can explain what those calculations mean for <em>you</em>.</p>
+
+      <p>The calculations are deterministic. Volatility, Sharpe ratio, value at risk, beta against a benchmark, sector concentration, the twenty-year drag of an expense ratio. These are formulas. They do not require a relationship manager. They require the right inputs and the arithmetic done correctly.</p>
+
+      <p>The judgment is the rest. Knowing that a 0.31 sector concentration score means you are one bad quarter in one industry away from a problem. Knowing that an unrealized loss is also a tax-loss harvesting opportunity, subject to the rules of your jurisdiction. Knowing which of five flagged issues actually deserves your attention this month.</p>
+
+      <p>For decades, the only way to get both was to hand someone a percentage of your net worth. We did not think that was a law of nature. We thought it was a packaging problem.</p>
+
+      <h2>How Consul works</h2>
+
+      <p>Connect or enter your holdings and Consul builds a complete picture of your portfolio: total value across currencies, unrealized gains and losses, risk metrics, sector and asset-class weights, fee exposure, and the tax situation specific to your account type and country.</p>
+
+      <p>Then you can simply ask. "Explain my full risk exposure." "Which holdings are costing me the most in fees?" "How protected am I in a twenty percent correction?" "Identify tax-loss harvesting opportunities." Consul answers in plain language, grounded entirely in your actual positions, and it leads with the bottom line instead of burying it.</p>
+
+      <p>When you want the full picture, Consul assembles a briefing the way an advisory team would. A risk officer assesses concentration and drawdown. A tax strategist surfaces harvest candidates and account placement. A fee auditor projects the long-term cost of your expensive holdings. A diversification analyst checks your spread against your benchmark. Their findings are synthesized into one clear document with a short list of prioritized actions, ordered by what matters most.</p>
+
+      <p>It runs stress tests too. Rate hikes, recessions, inflation spikes, a tech correction, a credit crisis, and several more, each showing what your specific portfolio would do under that pressure. Not the market in the abstract. Your money, in that scenario.</p>
+
+      <h2>The rule we refused to break</h2>
+
+      <p>Here is the design decision we are proudest of, and the reason we trust Consul with our own portfolios.</p>
+
+      <p>The AI never does the math.</p>
+
+      <p>Every number you see is computed by deterministic financial code, not generated by a language model. The model's job is to read those verified figures and tell you what they mean. It is the narrator, never the calculator. When a figure is missing, Consul says so plainly rather than inventing one.</p>
+
+      <p>This matters more than it might sound. The well-known failure of AI is that it can state something false with complete confidence. In most applications that is annoying. In wealth management it is disqualifying. By separating the computation from the explanation, we get the part language models are genuinely excellent at, clear reasoning in plain English, without ever risking the part they are bad at, arithmetic under pressure. Every number on your screen traces back to a formula you could check by hand.</p>
+
+      <div class="callout success">
+        <div class="callout-title">The philosophy in one line</div>
+        <p>The math is deterministic, and the model writes the story.</p>
+      </div>
+
+      <h2>Who this is for</h2>
+
+      <p>Consul is built for the self-directed investor who has outgrown simple tools but does not want to surrender a percentage of their wealth to get serious analysis. People who hold individual stocks and ETFs across multiple accounts. People who want to understand their concentration risk before the market reminds them of it. People who would rather see a stress test in advance than learn the lesson in real time.</p>
+
+      <p>It is not a robo-advisor and it does not trade for you. It does not push products, because it has none to push. It gives you the clearest possible understanding of what you own and what it means, and then it leaves the decisions where they belong, with you.</p>
+
+      <h2>See what your portfolio actually means</h2>
+
+      <p>Most people managing their own money have never seen their portfolio analyzed the way a private bank would analyze it. Not because the analysis is rare, but because it has always been locked behind a fee.</p>
+
+      <p>It does not have to be. Add your holdings and ask Consul your first question. In a few minutes you will know your real risk exposure, your hidden fees, your concentration, and the handful of actions actually worth taking.</p>
+
+      <p><a class="cta-link" href="https://consul.caseonix.ca" target="_blank" rel="noopener">Start with Consul &rarr;</a></p>
+
+      <p style="font-size: 0.85rem; color: var(--text-3); font-style: italic; margin-top: 28px;">For informational purposes only. Consul provides analysis and education, not financial, tax, or legal advice.</p>
+
+    </div>
+
+    <div class="article-footer">
+      <div class="author-card">
+        <div class="author-avatar">&#128736;&#65039;</div>
+        <div>
+          <div class="author-name">Srivatsa Kasagar</div>
+          <div class="author-bio">AI Builder &amp; Solutions Architect with 25+ years in financial services. Building production-grade AI tools for the Canadian market at Caseonix &mdash; including LocalMind, Consul, and compliance plugins for Claude Code.</div>
+          <div class="author-links">
+            <a href="https://linkedin.com/in/skasagar" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub</a>
+            <a href="/">All Projects</a>
+          </div>
+        </div>
+      </div>
+      <div class="related-posts">
+        <div class="related-posts-label">More from Caseonix</div>
+        <a href="/blog/multi-agent-orchestration-pattern.html">Making six models look like one: a multi-agent orchestration pattern</a>
+        <a href="/blog/building-multi-agent-claude-skills-wealth-guide.html">Building a multi-agent financial planning skill for Claude</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer-v2">
+    <div class="footer-v2-inner">
+      <div class="footer-v2-left">
+        <div class="footer-v2-logo">caseonix</div>
+        <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
+      </div>
+      <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/#projects">Field notes</a>
+        <a href="/#arsenal">Arsenal</a>
+        <a href="/blog/index.html">Log</a>
+        <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+      <div class="footer-v2-right">&copy; 2026 Caseonix</div>
+    </div>
+      <div class="footer-disclaimer" style="max-width: 1200px; margin: 24px auto 0; padding: 18px 24px 0; border-top: 1px solid var(--border); text-align: center; font-size: 0.72rem; line-height: 1.65; color: var(--text-3);">
+      Caseonix is a solo AI lab. Posts, projects, and research notes are engineering commentary &mdash; not legal, compliance, tax, financial, investment, or professional advice.
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      toggle.textContent = t === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('caseonix-theme', t); } catch(e) {}
+    }
+    toggle.addEventListener('click', () => {
+      setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    try {
+      const saved = localStorage.getItem('caseonix-theme');
+      if (saved) setTheme(saved);
+    } catch(e) {}
+
+    // Share buttons
+    const pageUrl = 'https://caseonix.ca/blog/why-we-built-consul.html';
+    const pageTitle = 'Why we built Consul: private wealth intelligence for the people who manage their own money';
+
+    document.getElementById('shareLinkedIn').href =
+      'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(pageUrl);
+
+    document.getElementById('shareTwitter').href =
+      'https://x.com/intent/tweet?text=' + encodeURIComponent(pageTitle) + '&url=' + encodeURIComponent(pageUrl);
+
+    document.getElementById('shareCopy').addEventListener('click', function() {
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        const btn = this;
+        btn.classList.add('copied');
+        const orig = btn.innerHTML;
+        btn.innerHTML = btn.innerHTML.replace('Copy link', 'Copied!');
+        setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+      });
+    });
+  </script>
+
+</body>
+</html>

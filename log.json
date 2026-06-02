@@ -1,6 +1,18 @@
 {
   "items": [
     {
+      "href": "/blog/multi-agent-orchestration-pattern.html",
+      "title": "Making six models look like one: a multi-agent orchestration pattern",
+      "date": "2026-05-14",
+      "type": "blog"
+    },
+    {
+      "href": "/blog/why-we-built-consul.html",
+      "title": "Why we built Consul: private wealth intelligence for the people who manage their own money",
+      "date": "2026-05-14",
+      "type": "blog"
+    },
+    {
       "href": "/notes/cheque-fraud-detection-lab-notes.html",
       "title": "Research note — Cheque Image Fraud Detection on AWS",
       "date": "2026-04-23",
