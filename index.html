@@ -842,7 +842,7 @@
     .card-trace-link:hover .arrow { transform: translateX(4px); }
 
     .project-card.featured { grid-column: span 2; }
-    /* FIX #5: RPA now spans full width — removes blank col-3 gap */
+    /* full-width card variant */
     .project-card.full { grid-column: span 3; }
 
     .project-card {
@@ -880,7 +880,7 @@
     .project-icon { width: 58px; height: 58px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.75rem; flex-shrink: 0; }
     .icon-cyan   { background: rgba(94,186,156,0.18); }   /* localmind — primary */
     .icon-rose   { background: rgba(127,203,176,0.2); }   /* finlit — light */
-    .icon-green  { background: rgba(74,154,128,0.2); }    /* wealth-guide / rpa — dark */
+    .icon-green  { background: rgba(74,154,128,0.2); }    /* wealth-guide / odo — dark */
     .icon-blue   { background: rgba(74,154,128,0.2); }    /* consul — dark (brightened) */
     .icon-teal   { background: rgba(127,203,176,0.2); }   /* loonielog — light */
     .icon-gold   { background: rgba(160,221,201,0.22); }  /* tax-cra — pale */
@@ -1673,8 +1673,67 @@
       </div>
       <div class="projects-bento">
 
+        <!-- ODO (M) — trip ledger -->
+        <div class="project-card bento-M accent-green" data-reveal data-reveal-stagger="1" data-project="odo">
+          <div class="project-card-top">
+            <div class="project-card-top-left"><div class="project-icon icon-green">🚗</div></div>
+            <div class="project-card-badges"><div class="project-arrow">↗</div><span class="project-badge badge-app">iOS App</span></div>
+          </div>
+        <div class="card-visual">
+          <div class="visual-ledger">
+            <div class="lrow"><span class="lnum">01</span><span><span class="lsep">─</span> geofence exit <span class="lsep">─</span> iOS wakes app</span><span class="lms">auto</span></div>
+            <div class="lrow"><span class="lnum">02</span><span><span class="lsep">─</span> record <span class="lsep">─</span> GPS fixes &rarr; SQLite</span><span class="lms">on-device</span></div>
+            <div class="lrow"><span class="lnum">03</span><span><span class="lsep">─</span> park 5 min <span class="lsep">─</span> trip ends</span><span class="lms">auto</span></div>
+            <div class="lrow"><span class="lnum">04</span><span><span class="lsep">─</span> file <span class="lsep">─</span> Business | Personal</span><span class="lms">1 tap</span></div>
+            <div class="ltotal">└── export: CRA-shaped CSV · 0 servers · 0 analytics</div>
+          </div>
+        </div>
+          <div class="project-content">
+            <div class="project-name">Odo</div>
+            <p class="project-problem">Canadians who drive their own car for work reconstruct business kilometres from memory at tax time, and most mileage apps upload every trip to someone else&rsquo;s server.</p>
+            <div class="project-tagline">Private, on-device mileage logbook for iPhone. Automatic trip detection, one-tap Business/Personal filing, and a CRA-shaped CSV your accountant can open in Excel. No account, no server. Not tax advice.</div>
+            <div class="project-tags">
+              <span class="tag">react native</span><span class="tag">expo sdk 57</span><span class="tag">typescript</span><span class="tag">sqlite</span><span class="tag">core location</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CONSUL (M) — code specimen -->
+        <div class="project-card bento-M accent-blue" data-reveal data-reveal-stagger="2" data-project="consul">
+          <div class="project-card-top">
+            <div class="project-card-top-left"><div class="project-icon icon-blue">💼</div></div>
+            <div class="project-card-badges"><div class="project-arrow">↗</div><span class="project-badge badge-app">Web App</span></div>
+          </div>
+        <div class="card-visual">
+<pre class="visual-code"><span class="c">// tool call: get_portfolio_snapshot</span>
+<span class="k">const</span> { positions, cash } = <span class="k">await</span> d1.<span class="f">positions</span>(userId);
+<span class="k">const</span> metrics = <span class="f">sharpe</span>(positions); <span class="c">// deterministic, not LLM</span>
+<span class="k">const</span> narrative = <span class="k">await</span> claude.<span class="f">narrate</span>(metrics);
+<span class="c">// &lt;!-- TODO: swap for a real snippet from consul --&gt;</span></pre>
+        </div>
+          <div class="project-content">
+            <div class="project-name">Consul</div>
+            <p class="project-problem">Private investors copy holdings into spreadsheets and burn an afternoon to get a Sharpe ratio and a narrative they trust.</p>
+            <div class="project-tagline">AI-assisted portfolio analysis for private investors. Deterministic math (Sharpe, VaR, fee drag) with AI narratives. Educational tool.</div>
+            <div class="card-impact">
+              <div class="card-impact-item"><span class="card-impact-num">5m</span><span class="card-impact-label">vs 2 hr manual</span></div>
+              <div class="card-impact-sep" aria-hidden="true">·</div>
+              <div class="card-impact-item"><span class="card-impact-num">4</span><span class="card-impact-label">deterministic metrics</span></div>
+              <div class="card-impact-sep" aria-hidden="true">·</div>
+              <div class="card-impact-item"><span class="card-impact-num">live</span><span class="card-impact-label">market data</span></div>
+              <!-- TODO: confirm numbers -->
+            </div>
+            <div class="project-tags">
+              <span class="tag">react 18</span><span class="tag">hono</span><span class="tag">cloudflare d1</span><span class="tag">claude sonnet 4.6</span><span class="tag">finnhub</span>
+            </div>
+            <div class="card-links">
+              <a class="card-link-btn" href="https://consul.caseonix.ca" target="_blank" rel="noopener" onclick="event.stopPropagation()">consul.caseonix.ca</a>
+            </div>
+          </div>
+        </div>
+
         <!-- LOCALMIND (L — 2x2) — code specimen -->
-        <div class="project-card bento-L accent-cyan" data-reveal data-reveal-stagger="1" data-project="localmind">
+        <div class="project-card bento-L accent-cyan" data-reveal data-reveal-stagger="3" data-project="localmind">
           <div class="project-card-top">
             <div class="project-card-top-left">
               <div class="project-icon icon-cyan">🇨🇦</div>
@@ -1724,7 +1783,7 @@ answer = claude.<span class="f">ask</span>(query, context, audit_id=doc.id)
         </div>
 
         <!-- FINLIT (M — 2x1) — metrics -->
-        <div class="project-card bento-M accent-rose" data-reveal data-reveal-stagger="2" data-project="finlit">
+        <div class="project-card bento-M accent-rose" data-reveal data-reveal-stagger="4" data-project="finlit">
           <div class="project-card-top">
             <div class="project-card-top-left"><div class="project-icon icon-rose">🍁</div></div>
             <div class="project-card-badges"><div class="project-arrow">↗</div><span class="project-badge badge-live">Open Source</span></div>
@@ -1750,7 +1809,7 @@ answer = claude.<span class="f">ask</span>(query, context, audit_id=doc.id)
         </div>
 
         <!-- WEALTH-GUIDE (M) — step ledger -->
-        <div class="project-card bento-M accent-green" data-reveal data-reveal-stagger="3" data-project="wealth-guide">
+        <div class="project-card bento-M accent-green" data-reveal data-reveal-stagger="5" data-project="wealth-guide">
           <div class="project-card-top">
             <div class="project-card-top-left"><div class="project-icon icon-green">🧭</div></div>
             <div class="project-card-badges"><div class="project-arrow">↗</div><span class="project-badge badge-live">Open Source</span></div>
@@ -1777,41 +1836,6 @@ answer = claude.<span class="f">ask</span>(query, context, audit_id=doc.id)
             <a href="/blog/building-multi-agent-claude-skills-wealth-guide.html" class="card-trace-link" onclick="event.stopPropagation()">Read writeup <span class="arrow">→</span></a>
           </div>
         </div>
-
-        <!-- CONSUL (M) — code specimen -->
-        <div class="project-card bento-M accent-blue" data-reveal data-reveal-stagger="4" data-project="consul">
-          <div class="project-card-top">
-            <div class="project-card-top-left"><div class="project-icon icon-blue">💼</div></div>
-            <div class="project-card-badges"><div class="project-arrow">↗</div><span class="project-badge badge-app">Web App</span></div>
-          </div>
-        <div class="card-visual">
-<pre class="visual-code"><span class="c">// tool call: get_portfolio_snapshot</span>
-<span class="k">const</span> { positions, cash } = <span class="k">await</span> d1.<span class="f">positions</span>(userId);
-<span class="k">const</span> metrics = <span class="f">sharpe</span>(positions); <span class="c">// deterministic, not LLM</span>
-<span class="k">const</span> narrative = <span class="k">await</span> claude.<span class="f">narrate</span>(metrics);
-<span class="c">// &lt;!-- TODO: swap for a real snippet from consul --&gt;</span></pre>
-        </div>
-          <div class="project-content">
-            <div class="project-name">Consul</div>
-            <p class="project-problem">Private investors copy holdings into spreadsheets and burn an afternoon to get a Sharpe ratio and a narrative they trust.</p>
-            <div class="project-tagline">AI-assisted portfolio analysis for private investors. Deterministic math (Sharpe, VaR, fee drag) with AI narratives. Educational tool.</div>
-            <div class="card-impact">
-              <div class="card-impact-item"><span class="card-impact-num">5m</span><span class="card-impact-label">vs 2 hr manual</span></div>
-              <div class="card-impact-sep" aria-hidden="true">·</div>
-              <div class="card-impact-item"><span class="card-impact-num">4</span><span class="card-impact-label">deterministic metrics</span></div>
-              <div class="card-impact-sep" aria-hidden="true">·</div>
-              <div class="card-impact-item"><span class="card-impact-num">live</span><span class="card-impact-label">market data</span></div>
-              <!-- TODO: confirm numbers -->
-            </div>
-            <div class="project-tags">
-              <span class="tag">react 18</span><span class="tag">hono</span><span class="tag">cloudflare d1</span><span class="tag">claude sonnet 4.6</span><span class="tag">finnhub</span>
-            </div>
-            <div class="card-links">
-              <a class="card-link-btn" href="https://consul.caseonix.ca" target="_blank" rel="noopener" onclick="event.stopPropagation()">consul.caseonix.ca</a>
-            </div>
-          </div>
-        </div>
-
 
         <!-- TAX-CRA (M) — step ledger -->
         <div class="project-card bento-S accent-gold" data-reveal data-reveal-stagger="6" data-project="tax-cra">
@@ -1862,7 +1886,7 @@ itc = <span class="f">claim_itc</span>(capital_purchases)
         </div>
 
         <!-- LOONIELOG (S — 1x1) — metrics -->
-        <div class="project-card bento-M accent-teal" data-reveal data-reveal-stagger="5" data-project="looinielog">
+        <div class="project-card bento-M accent-teal" data-reveal data-reveal-stagger="8" data-project="looinielog">
           <div class="project-card-top">
             <div class="project-card-top-left"><div class="project-icon icon-teal">🧾</div></div>
             <div class="project-card-badges"><div class="project-arrow">↗</div><span class="project-badge badge-live">Free</span></div>
@@ -1882,29 +1906,6 @@ itc = <span class="f">claim_itc</span>(capital_purchases)
             </div>
             <div class="card-links">
               <a class="card-link-btn" href="https://github.com/caseonix/LoonieLog" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- RPA (M) — metrics -->
-        <div class="project-card bento-M accent-green" data-reveal data-reveal-stagger="8" data-project="rpa">
-          <div class="project-card-top">
-            <div class="project-card-top-left"><div class="project-icon icon-green">⚡</div></div>
-            <div class="project-card-badges"><div class="project-arrow">↗</div><span class="project-badge badge-framework">Framework</span></div>
-          </div>
-        <div class="card-visual">
-          <div class="visual-metrics">
-            <div class="metric"><span class="metric-num">35%</span><span class="metric-label">back-office savings</span></div>
-            <div class="metric"><span class="metric-num">40%</span><span class="metric-label">onboarding speedup</span></div>
-            <div class="metric"><span class="metric-num">12</span><span class="metric-label">workflows live</span></div>
-          </div>
-          <!-- TODO: confirm numbers -->
-        </div>
-          <div class="project-content">
-            <div class="project-name">Agentic RPA</div>
-            <div class="project-tagline">Claude reads live screen state, decides actions via MCP, and self-heals on failure. DynamoDB-backed site memory. No scripts, no selectors.</div>
-            <div class="project-tags">
-              <span class="tag">python</span><span class="tag">aws lambda</span><span class="tag">mcp</span><span class="tag">dynamodb</span><span class="tag">robocorp</span>
             </div>
           </div>
         </div>
@@ -2294,12 +2295,12 @@ itc = <span class="f">claim_itc</span>(capital_purchases)
         tags:['Python 3.10+','Docling','pydantic-ai','Claude API','OpenAI API','Ollama','Presidio','spaCy','Apache 2.0'],
         impact:[{num:'5',label:'CRA schemas built-in'},{num:'100%',label:'On-premises capable'},{num:'OSS',label:'Apache 2.0 licensed'},{num:'CA',label:'PIPEDA + OSFI ready'}],
       },
-      rpa: {
-        icon:'⚡', iconClass:'icon-green', name:'Agentic RPA Platform', badge:'<span class="project-badge badge-framework">Framework</span>',
-        desc:'Self-learning, intent-based browser automation. Claude reads live screen state, decides what actions to take, executes them via MCP, and self-heals when something fails. No scripts. No selectors. Just plain-language intent declarations.',
-        features:['Reasoning Loop: Claude reads live screen state, decides actions, executes via MCP protocol','Self-Healing: automatic failure recovery with re-analysis and corrective actions on each step','Site Memory: DynamoDB-backed learning system that improves accuracy over time per site','Intent-Based Missions: plain-language goal declarations instead of prescriptive step lists','Service Account Pool: atomic credential management for shared portal access','Robocorp Integration: preserved Control Room and Vault compatibility for enterprise teams','Full observability: structured logging, token counts, decision audit trail'],
-        tags:['Python','AWS Lambda','AWS EC2','MCP Protocol','DynamoDB','Claude API','Robocorp'],
-        impact:[{num:'0',label:'CSS selectors needed'},{num:'∞',label:'Self-healing retries'},{num:'AWS',label:'Cloud native'},{num:'Pega',label:'Compatible'}],
+      odo: {
+        icon:'🚗', iconClass:'icon-green', name:'Odo', badge:'<span class="project-badge badge-app">iOS App</span>',
+        desc:'A private, on-device mileage logbook for iPhone. Odo records car trips with GPS, lets you file each one as Business or Personal with one tap, and exports a logbook your accountant can open in Excel. Built for people in Canada who drive their own car for work and need a defensible record of business kilometres. No account, no server, no analytics — your location never leaves your phone. Odo records what you drove; it is not tax advice, so check current CRA guidance for what your logbook must contain.',
+        features:['Automatic trip detection — a geofence around where you parked lets iOS wake Odo when the car leaves; GPS stays off while parked','Manual Start/Stop that keeps recording with the screen locked, in a pocket or on a mount','Never loses a trip — every GPS fix goes straight to SQLite; trips are recovered after an app kill, reboot, or force-quit','One-tap filing — Trip ended sheet, lock-screen notification actions, or swipe in the Trips list','Pure-function GPS filtering (accuracy, duplicates, teleports, parked jitter) so history can be reprocessed after a fix','Summary by day, month, or year with business-use percentage from odometer readings or tracked kilometres','CRA-shaped CSV export — date, times, vehicle, from, to, purpose, category, km — with missing-purpose warnings','Single-file backup and restore via the share sheet; on-device reverse geocoding with Apple Maps'],
+        tags:['React Native 0.86','Expo SDK 57','TypeScript (strict)','Expo Router','expo-location','expo-task-manager','expo-sqlite','Apple Maps','Zustand','Jest'],
+        impact:[{num:'0',label:'Servers or analytics'},{num:'1 tap',label:'Business / Personal'},{num:'CSV',label:'CRA logbook shape'},{num:'iOS',label:'On-device only'}],
       },
     };
 
