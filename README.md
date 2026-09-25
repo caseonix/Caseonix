@@ -84,6 +84,26 @@ To run the build locally: `npm run build:notes` for HTML only, `npm run build:og
 
 Blog posts are still hand-authored HTML with JSON-LD. Drop the file, commit, push — `build-log-index.yml` picks it up for the homepage feed.
 
+New posts need the drawing-set theme block right before `</head>` (copy it from any existing post):
+
+```html
+<!-- drawing-set theme -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Martian+Mono:wdth,wght@75..112.5,300..600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/drawing-set.css" />
+<link rel="stylesheet" href="/assets/drawing-set-pages.css" />
+<!-- /drawing-set theme -->
+```
+
+## Design
+
+The site uses the "drawing set" theme: cyanotype dark by default, whiteprint in light mode. The shared styles live in `assets/drawing-set.css`, which covers the tokens, nav, theme toggle and title-block footer. Blog and notes components live in `assets/drawing-set-pages.css`. Homepage components are inline in `index.html`.
+
+The previous teal-on-navy design is kept in git as the tag `teal-design-final` and the branch `backup/teal-design-2026-09`. To switch back:
+
+```sh
+git checkout teal-design-final -- index.html blog notes scripts/templates/note.html
+```
+
 ## Why public
 
 Threads land with me directly — no agency layer, no SDR queue. Keeping the site repo public is part of that. If you want to see how something on the homepage is built, it's here.

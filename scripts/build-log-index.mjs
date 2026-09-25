@@ -21,7 +21,7 @@ const SECTIONS = [
   { dir: 'blog', type: 'blog' },
   { dir: 'notes', type: 'note' },
 ];
-const N_HOME = 4;
+const N_HOME = 5;
 
 const START = '<!-- log:auto-start -->';
 const END = '<!-- log:auto-end -->';
@@ -89,12 +89,7 @@ function titleToHtml(s) {
 
 function renderRows(items) {
   return items.map((it, i) => {
-    const stagger = i + 1;
-    return `        <a href="${it.href}" class="log-teaser-row" data-reveal data-reveal-stagger="${stagger}">
-          <span class="log-teaser-date">${formatDate(it.date)}</span>
-          <span class="log-teaser-sep" aria-hidden="true">&#9617;</span>
-          <span class="log-teaser-row-title">${titleToHtml(it.title)}</span>
-        </a>`;
+    return `        <li><a href="${it.href}"><span class="d-bub">D${i + 1}</span><span class="dt">${titleToHtml(it.title)}</span><span class="dd"><em>${it.type}</em>${it.date}</span></a></li>`;
   }).join('\n');
 }
 
@@ -186,7 +181,7 @@ async function main() {
   const startIdx = indexHtml.indexOf(START);
   const endIdx = indexHtml.indexOf(END);
   if (startIdx === -1 || endIdx === -1 || endIdx < startIdx) {
-    throw new Error(`Missing markers in index.html — expected ${START} ... ${END} inside .log-teaser-list.`);
+    throw new Error(`Missing markers in index.html — expected ${START} ... ${END} inside .detail-list.`);
   }
   const block = renderRows(all.slice(0, N_HOME));
   const next =
