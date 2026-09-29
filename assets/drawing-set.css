@@ -27,6 +27,7 @@ html[data-theme="dark"] {
   --accent-wash: rgba(95, 214, 185, 0.1);
   --on-accent: #06231C;
   --wip: #F0C987;
+  --fail: #E8806E;
   --scroll-thumb: #2E5563;
 
   --sans: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -77,6 +78,7 @@ html[data-theme="light"] {
   --accent-wash: rgba(14, 122, 99, 0.09);
   --on-accent: #FFFFFF;
   --wip: #8A5A00;
+  --fail: #A8321F;
   --scroll-thumb: #B9CCCA;
   --modal-bg: rgba(11, 36, 49, 0.45);
   color-scheme: light;
