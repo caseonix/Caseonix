@@ -4,110 +4,34 @@
 
 **Live:** [caseonix.ca](https://caseonix.ca)
 
-This repo is the source of the site itself — the homepage, blog, lab notes, and the Cloudflare Worker that powers the hero's Live Status widget. The site is where I think out loud; the `/blog/` and `/notes/` directories are the public trail.
+This repo is the source of the site: the homepage, the blog, the lab notes, and the small service behind the homepage's Revision block. The site is where I think out loud; `/blog/` and `/notes/` are the public trail.
 
 ---
 
-## What's in here
+## Builds
 
-```
-/                       Static homepage (index.html) — deployed by GitHub Pages
-/blog/                  Long-form posts (HTML with JSON-LD)
-/notes/                 Shorter lab + research notes
-/worker/                Cloudflare Worker — /api/status + GitHub webhook sink
-/scripts/               Build scripts (log index generator)
-/.github/workflows/     Automations (auto-rebuild log index on publish)
-```
+Each project has its own repo. They are all tools I use myself or built for real Canadian compliance problems.
 
-## Architecture
-
-- **Site:** plain HTML/CSS, zero build step, served by GitHub Pages from `main`.
-- **Worker:** [`worker/`](./worker) — Cloudflare Worker bound to `caseonix.ca/api/*` and `caseonix.ca/webhooks/*`. Receives GitHub webhook events from the sub-project repos, maintains a compact status snapshot in Workers KV, serves it to the homepage widget. Details in [`worker/README.md`](./worker/README.md).
-- **Single origin:** everything is `caseonix.ca` — Pages for static, Worker for `/api/*`. No CORS, no subdomain.
-
-## Major builds
-
-Each project below has its own repo. They're all tools I use myself or built for real Canadian compliance problems.
-
-| Project | What it is | Repo |
+| Project | What it is | Where |
 |---|---|---|
-| **LocalMind Sovereign** | Sovereign document intelligence — classification, PII redaction, compliance checklists on Cloudflare's Canadian edge | [localmind](https://github.com/caseonix/localmind) |
-| **Consul** | AI-assisted portfolio analysis with deterministic math (Sharpe, VaR) + AI narratives | [consul.caseonix.ca](https://consul.caseonix.ca) |
-| **Quincena** | Semi-monthly invoicing for a one-person consulting business on iPhone: PDF to OneDrive, email held by Outlook until the invoice date, receipts zipped alongside | [Quincena](https://github.com/caseonix/Quincena) |
-| **FinLit** | Python library for extracting structured data from Canadian financial documents (T-slips, SEDAR, bank statements) with PIPEDA PII detection | [FinLit](https://github.com/caseonix/FinLit) |
+| **Consul** | AI-assisted portfolio analysis for private investors. Deterministic math (Sharpe, VaR, beta, fee drag) with Claude-written narratives; the model never does the arithmetic | [consul.caseonix.ca](https://consul.caseonix.ca) |
+| **Quincena** | Semi-monthly invoicing for a one-person consulting business, on iPhone. Pre-fills days worked, adds categorized expenses with receipts, renders the PDF, saves it to OneDrive and hands the email to Outlook with delivery held until the invoice date. Nothing sends without approval | [Quincena](https://github.com/caseonix/Quincena) |
+| **LocalMind Sovereign** | Document intelligence on Cloudflare's Canadian edge: classification, entity extraction, PII redaction, review workflows | [localmind](https://github.com/caseonix/localmind) |
+| **Odo** | A private, on-device mileage logbook for iPhone. File each trip as Business or Personal with one tap and export a CRA-shaped logbook | [odo](https://github.com/caseonix/odo) |
+| **FinLit** | Python library for extracting structured data from Canadian financial documents (T-slips, SEDAR filings, bank statements) with PII detection | [FinLit](https://github.com/caseonix/FinLit) |
 | **wealth-guide** | Claude Code skill that dispatches six specialist agents to produce a 12-section financial plan | [wealth-guide](https://github.com/caseonix/wealth-guide) |
-| **Canadian Tax & CRA** | Claude Code plugin — eight slash commands for CRA compliance across 13 jurisdictions | [canadian-tax-cra](https://github.com/caseonix/canadian-tax-cra) |
-| **Canadian Regulatory** | Claude Code plugin covering 11 domains: PIPEDA, CASL, FINTRAC, OSFI, FCAC, and more | [canadian-regulatory-compliance](https://github.com/caseonix/canadian-regulatory-compliance) |
-| **LoonieLog** | Receipt tracking for Canadian freelancers — auto-scans Gmail/Drive, T2125-mapped | [LoonieLog](https://github.com/caseonix/LoonieLog) |
+| **Canadian Tax & CRA** | Claude Code plugin: eight slash commands for CRA obligations across 13 provinces and territories | [canadian-tax-cra](https://github.com/caseonix/canadian-tax-cra) |
+| **Canadian Regulatory Compliance** | Claude Code plugin covering eleven areas: PIPEDA, CASL, FINTRAC, OSFI, FCAC and more | [canadian-regulatory-compliance](https://github.com/caseonix/canadian-regulatory-compliance) |
+| **LoonieLog** | Receipt tracking for Canadian freelancers inside Google Sheets, mapped to the T2125 | [LoonieLog](https://github.com/caseonix/LoonieLog) |
 
-## Stack
+## Writing
 
-What actually powers this site and the broader work:
-
-- **Languages:** Python, TypeScript, SQL
-- **Models:** Claude (Opus, Sonnet), Gemini (extraction), MCP protocol, pydantic-ai
-- **Infra:** Cloudflare Workers, D1, R2, Vectorize, Workers AI
-- **Framework:** Hono (Workers), plain HTML for this site
-
-## Publishing a post
-
-### Lab notes (`/notes/`)
-
-Write in markdown. Drop a new `.md` file into `/notes/` with YAML frontmatter:
-
-```yaml
----
-title: "Lab note — how I broke RAG"
-date: 2026-04-23
-slug: how-i-broke-rag
-description: "A one-paragraph summary used in meta description and og:description."
-tags: [rag, cloudflare]     # optional
-series: null                 # optional, for multi-part series
----
-```
-
-Required fields: `title`, `date` (YYYY-MM-DD), `slug` (must match filename), `description`. Optional: `type` (defaults to `note`), `series`, `tags`.
-
-The body is plain markdown. Mermaid diagrams work:
-
-````
-```mermaid
-flowchart LR
-  A --> B
-```
-````
-
-Commit and push. A GitHub Action (`.github/workflows/build-notes.yml`) runs `scripts/build-notes.mjs` (generates the HTML) and `scripts/build-og-images.mjs` (generates a 1200×630 social share card at `/og/<slug>.png`), then commits both back to `main`. A second Action (`build-log-index.yml`) updates `log.json` and the homepage § RECENT FROM THE LOG rows. End-to-end latency: ~60-90s from `git push` to live.
-
-To run the build locally: `npm run build:notes` for HTML only, `npm run build:og` for just OG images, or `npm run build` to do everything (HTML + OG images + log index).
-
-### Blog posts (`/blog/`)
-
-Blog posts are still hand-authored HTML with JSON-LD. Drop the file, commit, push — `build-log-index.yml` picks it up for the homepage feed.
-
-New posts need the drawing-set theme block right before `</head>` (copy it from any existing post):
-
-```html
-<!-- drawing-set theme -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Martian+Mono:wdth,wght@75..112.5,300..600&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="/assets/drawing-set.css" />
-<link rel="stylesheet" href="/assets/drawing-set-pages.css" />
-<!-- /drawing-set theme -->
-```
-
-## Design
-
-The site uses the "drawing set" theme: cyanotype dark by default, whiteprint in light mode. The shared styles live in `assets/drawing-set.css`, which covers the tokens, nav, theme toggle and title-block footer. Blog and notes components live in `assets/drawing-set-pages.css`. Homepage components are inline in `index.html`.
-
-The previous teal-on-navy design is kept in git as the tag `teal-design-final` and the branch `backup/teal-design-2026-09`. To switch back:
-
-```sh
-git checkout teal-design-final -- index.html blog notes scripts/templates/note.html
-```
+- [Blog](https://caseonix.ca/blog/index.html): longer pieces on why each tool exists and what it took to build.
+- [Lab notes](https://caseonix.ca/#details): engineering postmortems, one build decision each.
 
 ## Why public
 
-Threads land with me directly — no agency layer, no SDR queue. Keeping the site repo public is part of that. If you want to see how something on the homepage is built, it's here.
+Threads land with me directly, with no agency layer and no SDR queue. Keeping the site repo public is part of that. If you want to see how something on the homepage is built, it is here. The mechanics of publishing and deploying are in [`docs/PUBLISHING.md`](docs/PUBLISHING.md).
 
 ## Contact
 
