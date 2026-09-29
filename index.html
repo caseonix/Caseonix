@@ -201,8 +201,9 @@
   .sheet.consul { grid-column: span 12; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); grid-template-rows: auto 1fr auto; }
   .sheet.consul .sheet-hd { grid-column: 1 / -1; }
   .sheet.consul .trace { grid-row: 2 / 4; grid-column: 2; border-left: 1px solid var(--rule); border-top: 0; }
-  .sheet.localmind { grid-column: span 7; }
-  .sheet.odo { grid-column: span 5; }
+  .sheet.quincena { grid-column: span 4; }
+  .sheet.localmind { grid-column: span 4; }
+  .sheet.odo { grid-column: span 4; }
   .sheet-hd { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-variation-settings: "wdth" 88; font-size: 0.75rem; color: var(--ink-3); }
   .sheet-hd > * { padding: 8px 14px; }
   .sheet-hd .no { color: var(--ink); border-right: 1px solid var(--rule); }
@@ -304,7 +305,7 @@
     .hero { grid-template-columns: 1fr; }
     .sheet.consul { grid-template-columns: 1fr; }
     .sheet.consul .trace { grid-row: auto; grid-column: auto; border-left: 0; border-top: 1px solid var(--rule); }
-    .sheet.localmind, .sheet.odo { grid-column: span 12; }
+    .sheet.quincena, .sheet.localmind, .sheet.odo { grid-column: span 12; }
     .details, .transmittal { grid-template-columns: 1fr; }
     footer { grid-template-columns: 1fr; }
     .titleblock { border-left: 0; border-top: 1px solid var(--rule-strong); }
@@ -403,6 +404,7 @@
         <table>
           <thead><tr><th>Date</th><th>Type</th><th>Description</th></tr></thead>
           <tbody data-field="events">
+            <tr><td>Sep 29 14:34</td><td class="k">commit</td><td>Quincena · expense categories, receipts to OneDrive</td></tr>
             <tr><td>Apr 22 09:14</td><td class="k">commit</td><td>localmind · <span class="sha">fdf3607</span> soften sovereignty claims</td></tr>
             <tr><td>Apr 21 17:43</td><td class="k">deploy</td><td>consul.caseonix.ca · <span class="sha">0eeea18</span> inline delete confirm</td></tr>
             <tr><td>Apr 17</td><td class="k">post</td><td>multi-agent Claude Code skills</td></tr>
@@ -416,6 +418,7 @@
           <tbody data-field="repos">
             <tr><td class="sha"><span class="dot"></span>Caseonix</td><td class="hide-sm">HTML</td><td class="num">45</td><td class="num">today</td></tr>
             <tr><td class="sha"><span class="dot"></span>consul-ai</td><td class="hide-sm">TS</td><td class="num">149</td><td class="num">today</td></tr>
+            <tr><td class="sha"><span class="dot"></span>Quincena</td><td class="hide-sm">SW</td><td class="num">20</td><td class="num">today</td></tr>
             <tr><td class="sha"><span class="dot"></span>localmind</td><td class="hide-sm">TS</td><td class="num">266</td><td class="num">1d</td></tr>
             <tr><td class="sha"><span class="dot"></span>wealth-guide</td><td class="hide-sm">PY</td><td class="num">34</td><td class="num">5d</td></tr>
             <tr><td class="sha"><span class="dot"></span>FinLit</td><td class="hide-sm">PY</td><td class="num">43</td><td class="num">11d</td></tr>
@@ -434,9 +437,9 @@
         <div class="bubble-no" aria-hidden="true"><b>A</b><span>100</span></div>
         <div>
           <h2 id="h-sheets">Sheets issued for use</h2>
-          <p>Eight builds for Canadian regulated work. Three are live and in active development. Open any of them.</p>
+          <p>Nine builds for Canadian regulated work. Four are live or in daily use. Open any of them.</p>
         </div>
-        <div class="meta">Issued for use · 8 sheets</div>
+        <div class="meta">Issued for use · 9 sheets</div>
       </div>
 
       <div class="sheets">
@@ -478,9 +481,42 @@
           </div>
         </article>
 
+        <!-- QUINCENA -->
+        <article class="sheet quincena" aria-labelledby="p-quincena">
+          <div class="sheet-hd"><span class="no">A-102</span><span class="kind">iOS app · Microsoft Graph</span><span class="status">In use</span></div>
+          <div class="sheet-body">
+            <h3 id="p-quincena">Quincena</h3>
+            <p class="what">Semi-monthly invoicing for a one-person consulting business. Pre-fills the days worked, adds categorized expenses with receipts, renders the PDF, saves it to OneDrive and hands the email to Outlook with delivery held until 8:00 on the invoice date.</p>
+            <ol class="notes">
+              <li><span><b>Nothing sends without approval.</b> A reminder the day before, a fallback on the day, and a resumable four-step send that never double-numbers or double-uploads.</span></li>
+              <li><span>No server. It talks only to the owner's own Microsoft account.</span></li>
+            </ol>
+          </div>
+          <div class="trace">
+            <svg viewBox="0 0 320 190" role="img" aria-label="Quincena approval flow: review, then approve, then the PDF and receipts go to OneDrive and the email is handed to Microsoft Graph with delivery held until 8:00 on the invoice date">
+              <text x="10" y="16" class="t-dim">DETAIL 2 · APPROVAL</text>
+              <rect class="n" x="10" y="60" width="66" height="34"/><text x="43" y="81" text-anchor="middle" class="t-strong">Review</text>
+              <path class="w w-acc" d="M76 77 H102"/><path class="w w-acc" d="M96 73 l6 4 -6 4"/>
+              <rect class="n n-acc" x="102" y="52" width="76" height="50"/><text x="140" y="74" text-anchor="middle" class="t-acc">Approve</text><text x="140" y="90" text-anchor="middle" class="t-dim">one tap</text>
+              <path class="w" d="M178 66 H204 V44 H220"/><path class="w" d="M214 40 l6 4 -6 4"/>
+              <rect class="n" x="220" y="28" width="90" height="32"/><text x="265" y="48" text-anchor="middle">OneDrive</text>
+              <path class="w" d="M178 88 H204 V110 H220"/><path class="w" d="M214 106 l6 4 -6 4"/>
+              <rect class="n" x="220" y="94" width="90" height="32"/><text x="265" y="114" text-anchor="middle">Graph mail</text>
+              <text x="220" y="146" class="t-dim">held until 8:00 on</text><text x="220" y="160" class="t-dim">the invoice date</text>
+              <text x="10" y="146" class="t-dim">PDF + receipts zip</text>
+              <text x="10" y="160" class="t-dim">0 servers · 0 auto-sends</text>
+            </svg>
+          </div>
+          <div class="sheet-ft">
+            <a class="btn" href="https://github.com/caseonix/Quincena">View repo
+              <svg width="16" height="10" viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></a>
+            <div class="materials"><b>Materials</b> SwiftUI · SwiftData · MSAL · Microsoft Graph · ImageRenderer</div>
+          </div>
+        </article>
+
         <!-- LOCALMIND -->
         <article class="sheet localmind" aria-labelledby="p-localmind">
-          <div class="sheet-hd"><span class="no">A-102</span><span class="kind">Document intelligence · MVP</span><span class="status">Live</span></div>
+          <div class="sheet-hd"><span class="no">A-103</span><span class="kind">Document intelligence · MVP</span><span class="status">Live</span></div>
           <div class="sheet-body">
             <h3 id="p-localmind">LocalMind <span class="flag" aria-label="routed through Canada">🇨🇦</span></h3>
             <p class="what">Canadian-edge document intelligence. Upload documents and LocalMind classifies them, extracts entities, detects PII, runs configurable review workflows, and compares across documents.</p>
@@ -491,7 +527,7 @@
           </div>
           <div class="trace">
             <svg viewBox="0 0 460 190" role="img" aria-label="LocalMind architecture: upload to Workers, storage in R2, Vectorize and D1, inference through AI Gateway pinned to the Canadian region">
-              <text x="10" y="16" class="t-dim">DETAIL 2 · PIPELINE</text>
+              <text x="10" y="16" class="t-dim">DETAIL 3 · PIPELINE</text>
               <rect class="n" x="10" y="74" width="70" height="36"/><text x="45" y="96" text-anchor="middle" class="t-strong">Upload</text>
               <path class="w" d="M80 92 H116"/><path class="w" d="M110 88 l6 4 -6 4"/>
               <rect class="n" x="116" y="70" width="86" height="44"/><text x="159" y="96" text-anchor="middle" class="t-strong">Workers</text>
@@ -514,14 +550,14 @@
 
         <!-- ODO -->
         <article class="sheet odo" aria-labelledby="p-odo">
-          <div class="sheet-hd"><span class="no">A-103</span><span class="kind">iOS app</span><span class="status soon">In build</span></div>
+          <div class="sheet-hd"><span class="no">A-104</span><span class="kind">iOS app</span><span class="status soon">In build</span></div>
           <div class="sheet-body">
             <h3 id="p-odo">Odo</h3>
             <p class="what">A private, on-device mileage logbook for iPhone. File each trip as Business or Personal with one tap, and export a logbook your accountant can open in Excel.</p>
           </div>
           <div class="trace">
             <svg viewBox="0 0 320 190" role="img" aria-label="Odo architecture: GPS fixes written to SQLite on the device, trips filed and exported as CSV, all inside the iPhone boundary">
-              <text x="10" y="16" class="t-dim">DETAIL 3 · ON DEVICE</text>
+              <text x="10" y="16" class="t-dim">DETAIL 4 · ON DEVICE</text>
               <rect class="bound" x="10" y="30" width="300" height="140"/>
               <text x="300" y="46" text-anchor="end" class="t-dim">IPHONE — NOTHING LEAVES</text>
               <rect class="n" x="26" y="84" width="70" height="34"/><text x="61" y="105" text-anchor="middle" class="t-strong">GPS fix</text>

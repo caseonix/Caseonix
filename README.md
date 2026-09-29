@@ -33,6 +33,7 @@ Each project below has its own repo. They're all tools I use myself or built for
 |---|---|---|
 | **LocalMind Sovereign** | Sovereign document intelligence — classification, PII redaction, compliance checklists on Cloudflare's Canadian edge | [localmind](https://github.com/caseonix/localmind) |
 | **Consul** | AI-assisted portfolio analysis with deterministic math (Sharpe, VaR) + AI narratives | [consul.caseonix.ca](https://consul.caseonix.ca) |
+| **Quincena** | Semi-monthly invoicing for a one-person consulting business on iPhone: PDF to OneDrive, email held by Outlook until the invoice date, receipts zipped alongside | [Quincena](https://github.com/caseonix/Quincena) |
 | **FinLit** | Python library for extracting structured data from Canadian financial documents (T-slips, SEDAR, bank statements) with PIPEDA PII detection | [FinLit](https://github.com/caseonix/FinLit) |
 | **wealth-guide** | Claude Code skill that dispatches six specialist agents to produce a 12-section financial plan | [wealth-guide](https://github.com/caseonix/wealth-guide) |
 | **Canadian Tax & CRA** | Claude Code plugin — eight slash commands for CRA compliance across 13 jurisdictions | [canadian-tax-cra](https://github.com/caseonix/canadian-tax-cra) |

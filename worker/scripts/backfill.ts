@@ -27,11 +27,12 @@ const REPOS = [
   "LoonieLog",
   "consul-ai",
   "odo",
+  "Quincena",
 ];
 
 // Private repos allowed through with metadata only (no commit messages, no SHAs).
 // Must match PRIVATE_REPOS_ALLOWLIST in worker/src/types.ts.
-const PRIVATE_ALLOWLIST = new Set(["localmind", "consul-ai", "odo"]);
+const PRIVATE_ALLOWLIST = new Set(["localmind", "consul-ai", "odo", "Quincena"]);
 
 type EventVerb = "commit" | "deploy" | "release" | "post" | "eval";
 
