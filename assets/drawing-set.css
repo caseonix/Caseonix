@@ -289,11 +289,13 @@ html[data-theme="light"] {
 /* ── Glass strip: the nav is a material the page scrolls under ──────────── */
 html:root, html[data-theme="dark"] { --strip-glass: rgba(11, 36, 49, 0.72); }
 html[data-theme="light"] { --strip-glass: rgba(242, 246, 245, 0.72); }
-body > nav {
-  background: var(--strip-glass) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(170%) !important;
-  backdrop-filter: blur(22px) saturate(170%) !important;
-  transition: border-color .25s ease;
+/* the glass is a pseudo-element under the strip: a backdrop-filter on the strip itself would
+   become the containing block for the phone's fixed tab bar inside it and pin the bar to the top */
+body > nav { background: transparent !important; transition: border-color .25s ease; }
+body > nav::before, .strip::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; background: var(--strip-glass);
+  -webkit-backdrop-filter: blur(22px) saturate(170%);
+  backdrop-filter: blur(22px) saturate(170%);
 }
 /* vibrancy: text over a translucent surface carries a little more weight */
 body > nav .nav-links-blog a, .strip nav a { font-weight: 500 !important; }
@@ -314,10 +316,10 @@ html[data-scrolled] body > nav::after, html[data-scrolled] .strip::after { opaci
 }
 /* no blur available, or the reader asked for less transparency: a solid strip */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  body > nav, .strip, .strip nav, body > nav > .nav-links-blog { background: var(--strip) !important; }
+  body > nav::before, .strip::before, .strip nav, body > nav > .nav-links-blog { background: var(--strip) !important; }
 }
 @media (prefers-reduced-transparency: reduce) {
-  body > nav, .strip, .strip nav, body > nav > .nav-links-blog {
+  body > nav::before, .strip::before, .strip nav, body > nav > .nav-links-blog {
     background: var(--strip) !important;
     -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
   }
