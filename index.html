@@ -64,6 +64,7 @@
   <!-- drawing-set theme -->
   <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Martian+Mono:wdth,wght@75..112.5,300..600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/drawing-set.css" />
+  <script src="/assets/drawing-set.js" defer></script>
   <!-- /drawing-set theme -->
   <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -110,7 +111,9 @@
   .strip {
     display: grid; grid-template-columns: auto 1fr auto; align-items: stretch;
     border-bottom: 1px solid var(--rule-strong);
-    position: sticky; top: 0; z-index: 10; background: var(--strip);
+    position: sticky; top: 0; z-index: 10; background: var(--strip-glass);
+    -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%);
+    transition: border-color .25s ease;
   }
   .strip > * { padding: 14px var(--gutter); }
   .wordmark { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; font-variation-settings: "wdth" 112; border-right: 1px solid var(--rule); display: flex; align-items: center; gap: 10px; text-decoration: none; }
@@ -151,10 +154,10 @@
     display: inline-flex; align-items: center; gap: 10px;
     background: var(--teal); color: var(--on-accent); text-decoration: none;
     font-weight: 650; font-size: 0.95rem; padding: 13px 20px; border: 1px solid var(--teal);
-    transition: background .2s, transform .15s;
+    transition: background .2s, transform .1s;
   }
   .btn:hover { background: var(--accent-hover); }
-  .btn:active { transform: translateY(1px); }
+  .btn:active { transform: scale(0.985); }
   .btn svg { transition: transform .2s; }
   .btn:hover svg { transform: translateX(3px); }
   .btn.ghost { background: transparent; color: var(--teal); }
@@ -356,6 +359,57 @@
     .strip { grid-template-columns: 1fr auto; }
     .strip .sheetno { display: none; }
   }
+
+  /* ── Phone: a shorter home. The full tables and the sheet index open in a tray. ── */
+  .more-sm, .what-sm { display: none; }
+  @media (max-width: 760px) {
+    html[data-tray-ready] main .more-sm {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 48px;
+      padding: 12px 14px; margin-top: 14px; background: transparent; border: 1px solid var(--rule-strong); color: var(--ink);
+      font-family: var(--mono); font-variation-settings: "wdth" 88; font-size: 0.75rem; text-align: left; cursor: pointer;
+      -webkit-tap-highlight-color: transparent; transition: background .2s, transform .1s;
+    }
+    html[data-tray-ready] main .more-sm:active { background: var(--accent-wash); transform: scale(0.985); }
+    html[data-tray-ready] main .revblock .more-sm { margin: 0; border: 0; border-top: 1px solid var(--rule-strong); }
+    html[data-tray-ready] main .revblock .ev thead,
+    html[data-tray-ready] main .revblock .ev tbody tr:nth-child(n+2),
+    html[data-tray-ready] main .revblock .sub,
+    html[data-tray-ready] main .revblock .repos { display: none; }
+    html[data-tray-ready] main .sheet .trace,
+    html[data-tray-ready] main .sheet .notes,
+    html[data-tray-ready] main .sheet .materials,
+    html[data-tray-ready] main .sheet .what:not(.what-sm) { display: none; }
+    html[data-tray-ready] main .sheet .what-sm { display: block; }
+    html[data-tray-ready] main #sheet-index { display: none; }
+    html[data-tray-ready] main .detail-list li:nth-child(n+4) { display: none; }
+  }
+
+  /* ── Tray: a bottom sheet on a spring, dragged by its header ── */
+  .tray {
+    position: fixed; inset: auto 0 0 0; margin: 0; width: 100%; max-width: none;
+    max-height: 88vh; max-height: 88dvh; padding: 0 0 env(safe-area-inset-bottom); border: 0; border-top: 1px solid var(--rule-strong);
+    background: var(--ground-2); color: var(--ink); flex-direction: column;
+    box-shadow: 0 -24px 64px rgba(2, 12, 18, 0.45); will-change: transform; --tray-p: 1;
+  }
+  .tray[open] { display: flex; }
+  .tray::backdrop { background: rgba(4, 16, 22, 0.6); background: var(--modal-bg); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); opacity: var(--tray-p, 1); }
+  .tray-hd { flex: none; padding: 8px 16px 12px; border-bottom: 1px solid var(--rule-strong); touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+  .tray.is-dragging .tray-hd { cursor: grabbing; }
+  .tray-grip { display: block; width: 36px; height: 4px; margin: 0 auto 12px; background: var(--ink-3); }
+  .tray-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .tray-title { font-family: var(--mono); font-variation-settings: "wdth" 88; font-size: 0.75rem; color: var(--ink-2); text-transform: uppercase; letter-spacing: 0.08em; }
+  .tray-close { min-height: 40px; padding: 8px 14px; background: transparent; border: 1px solid var(--rule-strong); color: var(--ink); font-family: var(--mono); font-size: 0.75rem; cursor: pointer; transition: background .2s, transform .1s; }
+  .tray-close:active { background: var(--accent-wash); transform: scale(0.97); }
+  .tray-body:focus { outline: none; }
+  .tray-body { overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; padding: 16px 16px 24px; }
+  .tray-body .revblock { border: 0; background: transparent; }
+  .tray-body .revblock .hd { display: none; }
+  .tray-body .index-hd { margin-top: 0; }
+  html[data-tray-open] { overflow: hidden; }
+  @media (prefers-reduced-motion: reduce) {
+    .tray[open] { animation: trayfade .2s ease both; }
+  }
+  @keyframes trayfade { from { opacity: 0; } to { opacity: 1; } }
   </style>
 </head>
 <body>
@@ -401,7 +455,7 @@
           <dt>SHA</dt><dd><span data-field="sha">0eeea18</span> · <span data-field="date">Apr 21</span></dd>
         </dl>
         <div class="scroll-x">
-        <table>
+        <table class="ev">
           <thead><tr><th>Date</th><th>Type</th><th>Description</th></tr></thead>
           <tbody data-field="events">
             <tr><td>Sep 29 14:34</td><td class="k">commit</td><td>Quincena · expense categories, receipts to OneDrive</td></tr>
@@ -413,7 +467,7 @@
         </table>
         </div>
         <div class="sub"><span>Repo schedule</span><span data-field="repos_month">Apr 2026</span></div>
-        <table>
+        <table class="repos">
           <thead><tr><th>Repo</th><th class="hide-sm">Lang</th><th class="num">Commits</th><th class="num">Last</th></tr></thead>
           <tbody data-field="repos">
             <tr><td class="sha"><span class="dot"></span>Caseonix</td><td class="hide-sm">HTML</td><td class="num">45</td><td class="num">today</td></tr>
@@ -427,6 +481,7 @@
             <tr><td class="sha"><span class="dot old"></span>canadian-regulatory-compliance</td><td class="hide-sm">HTML</td><td class="num">12</td><td class="num">30d</td></tr>
           </tbody>
         </table>
+        <button class="more-sm" type="button" data-tray="#revisions" data-tray-title="Revision block">All activity and the repo schedule <span aria-hidden="true">→</span></button>
       </aside>
     </section>
 
@@ -449,6 +504,7 @@
           <div class="sheet-body">
             <h3 id="p-consul">Consul</h3>
             <p class="what">AI-powered portfolio analysis for private investors. Deterministic calculations paired with Claude-generated narratives, with every calculation isolated from the model.</p>
+            <p class="what what-sm">Portfolio analysis for private investors. Numbers computed in code; Claude writes the narrative.</p>
             <ol class="notes">
               <li><span><b>Claude never does arithmetic.</b> Sharpe ratio, VaR at 95%, beta, HHI concentration, CAGR, 20-year fee drag are computed in code.</span></li>
               <li><span>Manual entry or CSV import, enriched with live market data via Finnhub.</span></li>
@@ -487,6 +543,7 @@
           <div class="sheet-body">
             <h3 id="p-quincena">Quincena</h3>
             <p class="what">Semi-monthly invoicing for a one-person consulting business. Pre-fills the days worked, adds categorized expenses with receipts, renders the PDF, saves it to OneDrive and hands the email to Outlook with delivery held until 8:00 on the invoice date.</p>
+            <p class="what what-sm">Semi-monthly invoicing on iPhone. PDF to OneDrive, email held by Outlook until the invoice date.</p>
             <ol class="notes">
               <li><span><b>Nothing sends without approval.</b> A reminder the day before, a fallback on the day, and a resumable four-step send that never double-numbers or double-uploads.</span></li>
               <li><span>No server. It talks only to the owner's own Microsoft account.</span></li>
@@ -520,6 +577,7 @@
           <div class="sheet-body">
             <h3 id="p-localmind">LocalMind <span class="flag" aria-label="routed through Canada">🇨🇦</span></h3>
             <p class="what">Canadian-edge document intelligence. Upload documents and LocalMind classifies them, extracts entities, detects PII, runs configurable review workflows, and compares across documents.</p>
+            <p class="what what-sm">Canadian-edge document intelligence: classification, entities, PII redaction, review workflows.</p>
             <ol class="notes">
               <li><span>Inference routed through Cloudflare's Canadian region via AI Gateway.</span></li>
               <li><span>PII detection and redaction: SIN, credit card, health ID.</span></li>
@@ -554,6 +612,7 @@
           <div class="sheet-body">
             <h3 id="p-odo">Odo</h3>
             <p class="what">A private, on-device mileage logbook for iPhone. File each trip as Business or Personal with one tap, and export a logbook your accountant can open in Excel.</p>
+            <p class="what what-sm">Private, on-device mileage logbook for iPhone. Exports a logbook your accountant can open in Excel.</p>
           </div>
           <div class="trace">
             <svg viewBox="0 0 320 190" role="img" aria-label="Odo architecture: GPS fixes written to SQLite on the device, trips filed and exported as CSV, all inside the iPhone boundary">
@@ -575,6 +634,8 @@
         </article>
       </div>
 
+      <button class="more-sm" type="button" data-tray="#sheet-index" data-tray-title="Sheet index · A-201 to A-205">Sheet index, five more tools <span aria-hidden="true">→</span></button>
+      <div id="sheet-index">
       <div class="index-hd"><h3>Sheet index — tools and libraries</h3><span>A-201 to A-205</span></div>
       <table class="idx">
         <tbody>
@@ -585,6 +646,7 @@
           <tr><td class="no">A-205</td><td><div class="nm">LoonieLog</div><div class="ty">Google Sheets · free</div></td><td class="ds">Automated receipt hunting and CRA T2125 expense logging inside Google Sheets. No signup, no server.</td><td class="go"><a href="https://github.com/caseonix/LoonieLog">View repo →</a></td></tr>
         </tbody>
       </table>
+      </div>
     </section>
 
     <!-- NOTES -->
@@ -647,6 +709,13 @@
     </div>
   </footer>
 </div>
+<dialog class="tray" id="tray" aria-labelledby="tray-title">
+  <div class="tray-hd">
+    <span class="tray-grip" aria-hidden="true"></span>
+    <div class="tray-row"><span class="tray-title" id="tray-title">Sheet</span><button class="tray-close" type="button">Close</button></div>
+  </div>
+  <div class="tray-body" tabindex="-1"></div>
+</dialog>
   <script>
     /* ── THEME TOGGLE ── (same localStorage key as the rest of the site) */
     (function () {
@@ -656,10 +725,10 @@
         html.setAttribute('data-theme', t);
         toggle.textContent = t === 'dark' ? '☀️' : '🌙';
         toggle.setAttribute('aria-label', t === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-        try { localStorage.setItem('theme', t); } catch (e) {}
+        try { localStorage.setItem('caseonix-theme', t); } catch (e) {}
       }
       var saved = 'dark';
-      try { saved = localStorage.getItem('theme') || 'dark'; } catch (e) {}
+      try { saved = localStorage.getItem('caseonix-theme') || localStorage.getItem('theme') || 'dark'; } catch (e) {}
       setTheme(saved);
       toggle.addEventListener('click', function () { setTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); });
     })();
@@ -777,6 +846,121 @@
         });
       }, { rootMargin: '-40% 0px -55% 0px' });
       Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
+    })();
+  </script>
+  <script>
+    /* Tray: the phone's bottom sheet for the full revision block and the sheet index.
+       A spring (damping ratio + response) moves it; the header tracks the finger 1:1;
+       release velocity hands off into the spring; a flick is projected to decide
+       dismiss vs return; past the top it rubber-bands; it can be grabbed mid-flight. */
+    (function () {
+      var html = document.documentElement;
+      var tray = document.getElementById('tray');
+      if (!tray || typeof tray.showModal !== 'function') return;
+      var hd = tray.querySelector('.tray-hd'), body = tray.querySelector('.tray-body'),
+          title = tray.querySelector('.tray-title'), closeBtn = tray.querySelector('.tray-close');
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var y = 0, v = 0, H = 0, raf = 0, opener = null, closing = false;
+
+      function paint() {
+        tray.style.transform = 'translate3d(0,' + y.toFixed(2) + 'px,0)';
+        tray.style.setProperty('--tray-p', String(Math.min(1, Math.max(0, 1 - y / (H || 1)))));
+      }
+      function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
+      /* damping 1.0 settles without overshoot, below 1 overshoots; response is seconds to approach the target */
+      function spring(target, damping, response, done) {
+        stop();
+        var k = Math.pow(2 * Math.PI / response, 2), c = 2 * damping * Math.sqrt(k), last = performance.now();
+        function step(now) {
+          var dt = Math.min((now - last) / 1000, 1 / 30); last = now;
+          v += (-k * (y - target) - c * v) * dt;
+          y += v * dt;
+          if (Math.abs(v) < 4 && Math.abs(y - target) < 0.5) { y = target; v = 0; paint(); raf = 0; if (done) done(); return; }
+          paint(); raf = requestAnimationFrame(step);
+        }
+        raf = requestAnimationFrame(step);
+      }
+      /* momentum projection: where a flick would come to rest */
+      function project(velocity, rate) { rate = rate || 0.998; return (velocity / 1000) * rate / (1 - rate); }
+      function rubber(x, dim, c) { c = c || 0.55; return (x * dim * c) / (dim + c * Math.abs(x)); }
+
+      function open(btn) {
+        var src = document.querySelector(btn.getAttribute('data-tray'));
+        if (!src) return;
+        opener = btn; closing = false;
+        var clone = src.cloneNode(true);
+        clone.removeAttribute('data-live-status'); clone.removeAttribute('id');
+        clone.querySelectorAll('[id]').forEach(function (n) { n.removeAttribute('id'); });
+        clone.querySelectorAll('.more-sm').forEach(function (n) { n.remove(); });
+        body.innerHTML = ''; body.appendChild(clone); body.scrollTop = 0;
+        title.textContent = btn.getAttribute('data-tray-title') || '';
+        html.setAttribute('data-tray-open', '');
+        tray.showModal(); body.focus({ preventScroll: true });
+        H = tray.getBoundingClientRect().height || window.innerHeight;
+        if (reduce.matches) { y = 0; v = 0; paint(); return; }
+        y = H; v = 0; paint();
+        spring(0, 1, 0.4);
+      }
+      function finish() {
+        stop(); if (tray.open) tray.close();
+        html.removeAttribute('data-tray-open');
+        body.innerHTML = ''; tray.style.transform = ''; y = 0; v = 0; closing = false;
+        if (opener) { opener.focus(); opener = null; }
+      }
+      function close() {
+        if (closing) return; closing = true;
+        if (reduce.matches) { finish(); return; }
+        spring(H, 1, 0.35, finish); /* v still holds the release velocity, so a flick keeps its speed */
+      }
+
+      document.querySelectorAll('[data-tray]').forEach(function (b) { b.addEventListener('click', function () { open(b); }); });
+      var justDragged = false;
+      closeBtn.addEventListener('click', function (e) { if (justDragged) { e.stopImmediatePropagation(); return; } close(); });
+      tray.addEventListener('cancel', function (e) { e.preventDefault(); close(); });
+      tray.addEventListener('close', function () { if (html.hasAttribute('data-tray-open')) finish(); });
+      tray.addEventListener('click', function (e) { if (e.target === tray) close(); });
+
+      /* drag from the header */
+      var armed = false, dragging = false, startY = 0, startPos = 0, hist = [];
+      hd.addEventListener('pointerdown', function (e) {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        stop(); closing = false; /* grabbed mid-flight: continue from the on-screen position */
+        armed = true; dragging = false; startY = e.clientY; startPos = y; hist = [[e.clientY, e.timeStamp]];
+        try { hd.setPointerCapture(e.pointerId); } catch (err) {}
+      });
+      hd.addEventListener('pointermove', function (e) {
+        if (!armed) return;
+        var dy = e.clientY - startY;
+        if (!dragging) { if (Math.abs(dy) < 6) return; dragging = true; tray.classList.add('is-dragging'); }
+        var pos = startPos + dy;
+        y = pos < 0 ? rubber(pos, H) : pos;
+        hist.push([e.clientY, e.timeStamp]); if (hist.length > 8) hist.shift();
+        paint();
+      });
+      hd.addEventListener('pointerup', function (e) {
+        if (!armed) return;
+        armed = false; tray.classList.remove('is-dragging');
+        if (dragging) {
+          dragging = false; justDragged = true; setTimeout(function () { justDragged = false; }, 0);
+          var i = hist.length - 1;
+          while (i > 0 && e.timeStamp - hist[i - 1][1] < 100) i--;
+          var dt = (e.timeStamp - hist[i][1]) / 1000;
+          v = dt > 0 ? (e.clientY - hist[i][0]) / dt : 0;
+        } else {
+          if (y === 0) return; /* a plain tap while at rest: nothing to settle */
+          v = 0;               /* grabbed mid-flight and let go: settle from where it is */
+        }
+        var dismiss = y + project(v) > H / 2;
+        if (reduce.matches) { if (dismiss) close(); else { y = 0; v = 0; paint(); } return; }
+        if (dismiss) close();
+        else spring(0, Math.abs(v) > 300 ? 0.8 : 1, 0.35); /* a little bounce only after a flick */
+      });
+      hd.addEventListener('pointercancel', function () {
+        if (!armed) return;
+        armed = false; dragging = false; tray.classList.remove('is-dragging'); v = 0;
+        if (reduce.matches) { y = 0; paint(); } else spring(0, 1, 0.35);
+      });
+      html.setAttribute('data-tray-ready', '');
     })();
   </script>
 </body>

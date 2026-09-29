@@ -415,8 +415,7 @@ tr:last-child td { border-bottom: 0 !important; }
    cell padding — restore it so the links line up with the gutter */
 body > nav > .nav-links-blog { padding: 14px var(--gutter) !important; }
 
-/* an opaque strip: at 96% the scrolled copy ghosted through the nav */
-body > nav { background: var(--ground) !important; }
+/* the strip is glass now (drawing-set.css): blurred, scrolled copy reads as a wash, not a ghost */
 /* inline footer grids centre their cells; a title block's cells stretch */
 .footer-v2-inner { align-items: stretch !important; }
 /* inline mobile rules centre the old footer; title-block cells read left-aligned */

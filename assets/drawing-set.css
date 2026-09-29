@@ -285,3 +285,47 @@ html[data-theme="light"] {
   /* the viewport frame line would cross the bar */
   body::after { bottom: calc(64px + env(safe-area-inset-bottom)); }
 }
+
+/* ── Glass strip: the nav is a material the page scrolls under ──────────── */
+html:root, html[data-theme="dark"] { --strip-glass: rgba(11, 36, 49, 0.72); }
+html[data-theme="light"] { --strip-glass: rgba(242, 246, 245, 0.72); }
+body > nav {
+  background: var(--strip-glass) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(170%) !important;
+  backdrop-filter: blur(22px) saturate(170%) !important;
+  transition: border-color .25s ease;
+}
+/* vibrancy: text over a translucent surface carries a little more weight */
+body > nav .nav-links-blog a, .strip nav a { font-weight: 500 !important; }
+/* scroll edge: a hairline while the strip is part of the sheet at rest,
+   a soft fade once the page is scrolled under it */
+body > nav::after, .strip::after {
+  content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 20px; pointer-events: none;
+  background: linear-gradient(var(--ground), transparent); opacity: 0; transition: opacity .25s ease;
+}
+html[data-scrolled] body > nav, html[data-scrolled] .strip { border-bottom-color: transparent !important; }
+html[data-scrolled] body > nav::after, html[data-scrolled] .strip::after { opacity: 1; }
+@media (max-width: 760px) {
+  .strip nav, body > nav > .nav-links-blog {
+    background: var(--strip-glass) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(170%) !important;
+    backdrop-filter: blur(22px) saturate(170%) !important;
+  }
+}
+/* no blur available, or the reader asked for less transparency: a solid strip */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  body > nav, .strip, .strip nav, body > nav > .nav-links-blog { background: var(--strip) !important; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  body > nav, .strip, .strip nav, body > nav > .nav-links-blog {
+    background: var(--strip) !important;
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  }
+  .tray::backdrop { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+}
+
+/* ── Theme cross-fade: no brightness jump between dark and light ─────────── */
+html.theme-fade, html.theme-fade *, html.theme-fade *::before, html.theme-fade *::after {
+  transition: background-color .35s ease, color .35s ease, border-color .35s ease,
+              fill .35s ease, stroke .35s ease, outline-color .35s ease !important;
+}
