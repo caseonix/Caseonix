@@ -28,7 +28,7 @@
 | 🧮 | **[Consul](https://consul.caseonix.ca)** | Portfolio analysis for private investors. Sharpe, VaR, beta, concentration and fee drag are computed in code; Claude writes the narrative and never does the arithmetic. | `live` |
 | 🧾 | **[Quincena](https://github.com/caseonix/Quincena)** | Semi-monthly consulting invoices from days worked: PDF to OneDrive, deferred email through Microsoft Graph, receipts zipped alongside, payment tracking. | `in use` |
 | 🍁 | **[LocalMind](https://github.com/caseonix/localmind)** | Document intelligence on Cloudflare's Canadian edge: classification, entity extraction, PII redaction, review workflows. Inference pinned to the Canadian region. | `live` |
-| 🚗 | **[Odo](https://github.com/caseonix/odo)** | On-device mileage logbook for the CRA. GPS to SQLite, Business or Personal with one tap, CSV export. | `in build` |
+| 🚗 | **[Odo](https://github.com/caseonix/odo)** | On-device mileage logbook for the CRA. GPS to SQLite, Business or Personal with one tap, CSV export. | `building` |
 | 📄 | **[FinLit](https://github.com/caseonix/FinLit)** | Python library that extracts structured data from T-slips, SEDAR filings and bank statements, with per-field confidence and PII detection. | `library` |
 | 🧭 | **[wealth-guide](https://github.com/caseonix/wealth-guide)** | Claude Code skill: six specialist agents turn a 10-question interview into a 12-section financial plan. | `skill` |
 | 🏛️ | **[Canadian Tax & CRA](https://github.com/caseonix/canadian-tax-cra)** | Claude Code plugin: eight slash commands for CRA obligations across all 13 provinces and territories. | `plugin` |
