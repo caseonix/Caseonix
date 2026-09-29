@@ -269,22 +269,6 @@
   /* ── Transmittal ── */
   .transmittal { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
   .transmittal p { color: var(--ink-2); max-width: 50ch; margin-top: 16px; }
-  .thread { margin-top: 32px; display: grid; gap: 18px; max-width: 50ch; }
-  .field { display: grid; gap: 7px; }
-  .field label { font-family: var(--mono); font-variation-settings: "wdth" 88; font-size: 0.72rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; }
-  .field label .opt { text-transform: none; letter-spacing: 0; color: var(--ink-3); opacity: 0.8; margin-left: 6px; }
-  .field input, .field textarea {
-    width: 100%; background: var(--ground-2); border: 1px solid var(--rule-strong); border-radius: 0;
-    color: var(--ink); font: inherit; font-size: 1rem; line-height: 1.5; padding: 12px 14px;
-    transition: border-color .2s, box-shadow .2s;
-  }
-  .field textarea { resize: vertical; min-height: 128px; }
-  .field input:focus-visible, .field textarea:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
-  .field.invalid input, .field.invalid textarea { border-color: var(--fail); }
-  .field .err { display: none; font-family: var(--mono); font-size: 0.72rem; color: var(--fail); }
-  .field.invalid .err { display: block; }
-  .thread-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; }
-  .thread-note { font-family: var(--mono); font-size: 0.7rem; color: var(--ink-3); margin-top: 0; }
   .slip { border: 1px solid var(--rule-strong); background: var(--ground-2); }
   .slip .hd { padding: 10px 16px; border-bottom: 1px solid var(--rule-strong); display: flex; justify-content: space-between; font-family: var(--mono); font-size: 0.75rem; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.08em; }
   .slip td { padding: 15px 16px; border-bottom: 1px solid var(--rule); }
@@ -698,28 +682,6 @@
         <h2 id="h-contact">Start a thread.</h2>
         <p>If you are building something like the tools on this page, or have an idea that needs one, get in touch. I build AI tooling for regulated and financial work, apps that keep data on the device or in Canada, and I am glad to give a second opinion on an architecture before it is committed to.</p>
         <p>Describe the problem in a paragraph. If it fits, I reply with how I would approach it and what it would take.</p>
-        <form class="thread" id="thread" novalidate aria-label="Start a thread">
-          <div class="field">
-            <label for="t-name">Your name</label>
-            <input id="t-name" name="name" type="text" autocomplete="name" required>
-            <span class="err" id="t-name-err">Add your name.</span>
-          </div>
-          <div class="field">
-            <label for="t-org">Where you work, or your role <span class="opt">optional</span></label>
-            <input id="t-org" name="org" type="text" autocomplete="organization">
-          </div>
-          <div class="field">
-            <label for="t-about">What you're building, or the problem</label>
-            <textarea id="t-about" name="about" rows="4" required></textarea>
-            <span class="err" id="t-about-err">Say what it's about, a sentence is enough.</span>
-          </div>
-          <div class="thread-actions">
-            <button class="btn" type="submit" value="whatsapp">Open in WhatsApp
-              <svg width="16" height="10" viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
-            <button class="btn ghost" type="submit" value="email">Send by email</button>
-          </div>
-          <p class="thread-note">Opens WhatsApp or your mail app with the message written out. Nothing is stored on this site.</p>
-        </form>
       </div>
       <div class="slip" aria-label="Transmittal">
         <div class="hd"><span>Transmittal</span><span>Issued for</span></div>
@@ -888,45 +850,6 @@
         });
       }, { rootMargin: '-40% 0px -55% 0px' });
       Object.keys(links).forEach(function (id) { var el = document.getElementById(id); if (el) io.observe(el); });
-    })();
-  </script>
-  <script>
-    /* Start a thread: compose the message from the three fields and hand it to WhatsApp or mail.
-       Nothing is sent from here and nothing is stored. Errors sit under the field they belong to. */
-    (function () {
-      var form = document.getElementById('thread');
-      if (!form) return;
-      var name = form.elements.name, org = form.elements.org, about = form.elements.about;
-      function check(el) {
-        var ok = el.value.trim().length > 0;
-        el.closest('.field').classList.toggle('invalid', !ok);
-        el.setAttribute('aria-invalid', ok ? 'false' : 'true');
-        if (!ok) el.setAttribute('aria-describedby', el.id + '-err'); else el.removeAttribute('aria-describedby');
-        return ok;
-      }
-      [name, about].forEach(function (el) {
-        el.addEventListener('blur', function () { if (el.value.trim() || el.closest('.field').classList.contains('invalid')) check(el); });
-        el.addEventListener('input', function () { if (el.closest('.field').classList.contains('invalid')) check(el); });
-      });
-      function who() { var n = name.value.trim(), o = org.value.trim(); return n + (o ? ' (' + o + ')' : ''); }
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var okName = check(name), okAbout = check(about);
-        if (!okName) { name.focus(); return; }
-        if (!okAbout) { about.focus(); return; }
-        var via = (e.submitter && e.submitter.value) || 'whatsapp';
-        var msg = 'Hi Srivatsa, I\'m ' + who() + '. I found you on caseonix.ca.\n\n' + about.value.trim();
-        var url;
-        if (via === 'email') {
-          url = 'mailto:srivatsa.kasagar@gmail.com?subject=' + encodeURIComponent('Starting a thread via caseonix.ca: ' + name.value.trim())
-              + '&body=' + encodeURIComponent(msg + '\n\n' + name.value.trim());
-        } else {
-          url = 'https://wa.me/@skasagar?text=' + encodeURIComponent(msg);
-        }
-        form.setAttribute('data-last-url', url);
-        if (via === 'email') { window.location.href = url; }
-        else { var w = window.open(url, '_blank', 'noopener'); if (!w) window.location.href = url; }
-      });
     })();
   </script>
   <script>
