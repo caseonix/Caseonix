@@ -1,3 +1,5 @@
 node_modules/
 .DS_Store
 .playwright-mcp/
+# blog drafts: only the built .html is published
+blog/*.md

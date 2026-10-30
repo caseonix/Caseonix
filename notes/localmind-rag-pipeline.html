@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lab note 1/3 — LocalMind RAG pipeline | Caseonix</title>
-  <meta name="description" content="End-to-end RAG pipeline on Cloudflare's edge — paragraph-aware chunking, BGE-Small embeddings, Vectorize ANN search, Gemma 4 reranking, citation-bound generation." />
+  <meta name="description" content="RAG pipeline on Cloudflare's edge — paragraph-aware chunking, BGE-Small embeddings, Vectorize ANN search, Gemma 4 reranking, citation-bound generation." />
   <meta name="author" content="Srivatsa Kasagar" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <meta name="keywords" content="RAG pipeline, retrieval-augmented generation, Cloudflare Workers AI, Cloudflare Vectorize, Cloudflare D1, Cloudflare R2, Durable Objects, BGE-Small embeddings, Gemma 4, contextual chunking, document chunking strategy, vector search edge, multi-tenant vector namespace, Hono framework, edge AI inference, LocalMind, document ingest pipeline, retrieval flow, query expansion, LLM rerank" />
@@ -14,7 +14,7 @@
   <link rel="next" href="https://caseonix.ca/notes/localmind-rag-quality.html" title="Lab note 2/3 — How I improved RAG quality" />
 
   <meta property="og:title" content="Lab note 1/3 — LocalMind RAG pipeline" />
-  <meta property="og:description" content="End-to-end RAG pipeline on Cloudflare's edge — paragraph-aware chunking, BGE-Small embeddings, contextual chunking, Vectorize, Gemma 4 reranking, citation-bound generation." />
+  <meta property="og:description" content="RAG pipeline on Cloudflare's edge — paragraph-aware chunking, BGE-Small embeddings, Vectorize ANN search, Gemma 4 reranking, citation-bound generation." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://caseonix.ca/notes/localmind-rag-pipeline.html" />
   <meta property="og:image" content="https://caseonix.ca/og-localmind-rag-v2.png" />
@@ -29,7 +29,7 @@
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Lab note 1/3 — LocalMind RAG pipeline" />
-  <meta name="twitter:description" content="End-to-end RAG on Cloudflare's edge — paragraph-aware chunking, BGE-Small embeddings, contextual chunking, Vectorize, Gemma 4 rerank." />
+  <meta name="twitter:description" content="RAG pipeline on Cloudflare's edge — paragraph-aware chunking, BGE-Small embeddings, Vectorize ANN search, Gemma 4 reranking, citation-bound generation." />
   <meta name="twitter:image" content="https://caseonix.ca/og-localmind-rag-v2.png" />
 
   <script type="application/ld+json">
@@ -42,18 +42,8 @@
     "articleSection": "Lab notes",
     "inLanguage": "en-CA",
     "wordCount": 1100,
-    "author": {
-      "@type": "Person",
-      "name": "Srivatsa Kasagar",
-      "url": "https://caseonix.ca",
-      "jobTitle": "AI Builder & Solutions Architect"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Caseonix",
-      "url": "https://caseonix.ca",
-      "logo": { "@type": "ImageObject", "url": "https://caseonix.ca/icon-512.png" }
-    },
+    "author": { "@type": "Person", "@id": "https://caseonix.ca/about/#person", "name": "Srivatsa Kasagar", "url": "https://caseonix.ca/about/" },
+    "publisher": { "@type": "Organization", "@id": "https://caseonix.ca/#org", "name": "Caseonix", "url": "https://caseonix.ca/", "logo": "https://caseonix.ca/icon-512.png" },
     "datePublished": "2026-04-22",
     "dateModified": "2026-04-22",
     "url": "https://caseonix.ca/notes/localmind-rag-pipeline.html",
@@ -435,6 +425,7 @@
     <div class="note-eyebrow">&sect; Lab note &middot; 1 of 3</div>
     <h1 class="note-title">LocalMind RAG — the pipeline</h1>
     <div class="note-meta">
+      <span>By <a href="/about/">Srivatsa Kasagar</a></span>
       <span>Apr 22, 2026</span>
       <span class="note-meta-sep">&middot;</span>
       <span>Working note — will evolve</span>
@@ -585,6 +576,8 @@ flowchart TB
         <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
       </div>
       <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/software/">Software</a>
         <a href="/#sheets">Sheets</a>
         <a href="/blog/index.html">Lab notes</a>
         <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>

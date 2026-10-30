@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Making six models look like one: a multi-agent orchestration pattern | Caseonix</title>
-  <meta name="description" content="How Consul's portfolio briefing runs six model calls in three phases — fan-out, a dependency stage, and streamed synthesis — and makes them read like one calm assistant thinking out loud." />
+  <title>Multi-agent orchestration: six models, one voice | Caseonix</title>
+  <meta name="description" content="How Consul's portfolio briefing runs six model calls in three phases — fan-out, a dependency stage, and streamed synthesis — to read as one assistant." />
   <meta name="author" content="Srivatsa Kasagar" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <meta name="keywords" content="multi-agent orchestration, AI agent pipeline, server-sent events streaming, LLM orchestration pattern, dependency graph agents, Claude Opus Sonnet, partial failure handling" />
@@ -13,8 +13,8 @@
   <link rel="alternate" hreflang="x-default" href="https://caseonix.ca/blog/multi-agent-orchestration-pattern.html" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Making six models look like one: a multi-agent orchestration pattern" />
-  <meta property="og:description" content="Six model calls in three phases, streaming the whole time — and the orchestration that makes them read like one assistant. The engineering behind Consul's portfolio briefing." />
+  <meta property="og:title" content="Multi-agent orchestration: six models, one voice" />
+  <meta property="og:description" content="How Consul's portfolio briefing runs six model calls in three phases — fan-out, a dependency stage, and streamed synthesis — to read as one assistant." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://caseonix.ca/blog/multi-agent-orchestration-pattern.html" />
   <meta property="og:image" content="https://caseonix.ca/og-image-v2.png" />
@@ -28,8 +28,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Making six models look like one: a multi-agent orchestration pattern" />
-  <meta name="twitter:description" content="Six model calls in three phases, streaming the whole time — and the orchestration that makes them read like one assistant." />
+  <meta name="twitter:title" content="Multi-agent orchestration: six models, one voice" />
+  <meta name="twitter:description" content="How Consul's portfolio briefing runs six model calls in three phases — fan-out, a dependency stage, and streamed synthesis — to read as one assistant." />
   <meta name="twitter:image" content="https://caseonix.ca/og-image-v2.png" />
 
   <!-- Schema.org Article JSON-LD -->
@@ -38,19 +38,9 @@
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": "Making six models look like one: a multi-agent orchestration pattern",
-    "description": "How Consul's portfolio briefing runs six model calls in three phases — fan-out, a dependency stage, and streamed synthesis — and makes them read like one calm assistant thinking out loud.",
-    "author": {
-      "@type": "Person",
-      "name": "Srivatsa Kasagar",
-      "url": "https://caseonix.ca",
-      "jobTitle": "AI Builder & Solutions Architect"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Caseonix",
-      "url": "https://caseonix.ca",
-      "logo": "https://caseonix.ca/icon-512.png"
-    },
+    "description": "How Consul's portfolio briefing runs six model calls in three phases — fan-out, a dependency stage, and streamed synthesis — to read as one assistant.",
+    "author": { "@type": "Person", "@id": "https://caseonix.ca/about/#person", "name": "Srivatsa Kasagar", "url": "https://caseonix.ca/about/" },
+    "publisher": { "@type": "Organization", "@id": "https://caseonix.ca/#org", "name": "Caseonix", "url": "https://caseonix.ca/", "logo": "https://caseonix.ca/icon-512.png" },
     "datePublished": "2026-05-14",
     "dateModified": "2026-05-14",
     "url": "https://caseonix.ca/blog/multi-agent-orchestration-pattern.html",
@@ -61,6 +51,13 @@
     },
     "keywords": ["multi-agent orchestration", "AI agent pipeline", "server-sent events", "LLM streaming", "dependency graph", "partial failure", "Consul"]
   }
+  </script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Caseonix", "item": "https://caseonix.ca/" },
+    { "@type": "ListItem", "position": 2, "name": "Lab notes", "item": "https://caseonix.ca/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "Making six models look like one: a multi-agent orchestration pattern", "item": "https://caseonix.ca/blog/multi-agent-orchestration-pattern.html" }
+  ] }
   </script>
 
   <script>
@@ -549,7 +546,7 @@
       <h1 class="article-title">Making six models look like one: a multi-agent orchestration pattern</h1>
       <p class="article-subtitle">Six model calls in three phases, streaming the whole time &mdash; and the orchestration that makes them read like one calm assistant thinking out loud.</p>
       <div class="article-info">
-        <span>By <a href="/">Srivatsa Kasagar</a></span>
+        <span>By <a href="/about/">Srivatsa Kasagar</a></span>
         <span>&middot;</span>
         <span>May 14, 2026</span>
         <span>&middot;</span>
@@ -704,12 +701,13 @@ while ((idx = buf.indexOf('\n\n')) !== -1) {
       <div class="author-card">
         <div class="author-avatar">&#128736;&#65039;</div>
         <div>
-          <div class="author-name">Srivatsa Kasagar</div>
+          <div class="author-name"><a href="/about/">Srivatsa Kasagar</a></div>
           <div class="author-bio">AI Builder &amp; Solutions Architect with 25+ years in financial services. Building production-grade AI tools for the Canadian market at Caseonix &mdash; including LocalMind, Consul, and compliance plugins for Claude Code.</div>
           <div class="author-links">
             <a href="https://linkedin.com/in/skasagar" target="_blank" rel="noopener">LinkedIn</a>
             <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub</a>
-            <a href="/">All Projects</a>
+            <a href="/about/">About</a>
+            <a href="/software/">Software</a>
           </div>
         </div>
       </div>
@@ -728,6 +726,8 @@ while ((idx = buf.indexOf('\n\n')) !== -1) {
         <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
       </div>
       <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/software/">Software</a>
         <a href="/#sheets">Sheets</a>
         <a href="/blog/index.html">Lab notes</a>
         <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>

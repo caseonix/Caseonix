@@ -8,7 +8,9 @@
     "build:notes": "node scripts/build-notes.mjs",
     "build:og": "node scripts/build-og-images.mjs",
     "build:log": "node scripts/build-log-index.mjs",
-    "build": "npm run build:notes && npm run build:og && npm run build:log"
+    "build:pages": "node scripts/build-pages.mjs",
+    "build:sitemap": "node scripts/build-sitemap.mjs",
+    "build": "npm run build:notes && npm run build:og && npm run build:pages && npm run build:log && npm run build:sitemap"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",

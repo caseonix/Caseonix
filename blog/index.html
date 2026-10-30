@@ -6,7 +6,8 @@
   <title>Lab notes | Caseonix — Research and posts from a solo AI lab</title>
   <meta name="description" content="Working notes from a solo AI lab — research and long-form posts on AI engineering for Canadian regulated contexts, RAG systems, and agentic architectures." />
   <meta name="author" content="Srivatsa Kasagar" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="alternate" type="application/rss+xml" title="Caseonix lab notes" href="/feed.xml" />
   <link rel="canonical" href="https://caseonix.ca/blog/" />
   <link rel="alternate" hreflang="en-ca" href="https://caseonix.ca/blog/" />
   <link rel="alternate" hreflang="x-default" href="https://caseonix.ca/blog/" />
@@ -37,17 +38,8 @@
       "name": "Caseonix",
       "url": "https://caseonix.ca"
     },
-    "author": {
-      "@type": "Person",
-      "name": "Srivatsa Kasagar",
-      "url": "https://caseonix.ca"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Caseonix",
-      "url": "https://caseonix.ca",
-      "logo": "https://caseonix.ca/icon-512.png"
-    }
+    "author": { "@type": "Person", "@id": "https://caseonix.ca/about/#person", "name": "Srivatsa Kasagar", "url": "https://caseonix.ca/about/" },
+    "publisher": { "@type": "Organization", "@id": "https://caseonix.ca/#org", "name": "Caseonix", "url": "https://caseonix.ca/", "logo": "https://caseonix.ca/icon-512.png" }
   }
   </script>
 
@@ -431,7 +423,7 @@
         Notes<span class="log-tab-count" data-count-for="notes">7</span>
       </button>
       <button class="log-tab" role="tab" aria-selected="false" aria-controls="tab-posts" data-tab="posts">
-        Posts<span class="log-tab-count" data-count-for="posts">7</span>
+        Posts<span class="log-tab-count" data-count-for="posts">8</span>
       </button>
     </div>
 
@@ -484,40 +476,47 @@
       <!-- log-posts:auto-start -->
       <div class="log-year"><span>2026</span></div>
 
+      <div class="log-month"><span>Oct</span></div>
+      <a href="/blog/banks-ai-agents-architecture.html" class="log-row" data-reveal data-reveal-stagger="1">
+        <span class="log-date">Oct 30</span>
+        <span class="log-sep" aria-hidden="true">&#9617;</span>
+        <span class="log-title">Banks told AI agents to stay out. Here is the architecture that lets them back in.</span>
+      </a>
+
       <div class="log-month"><span>May</span></div>
-      <a href="/blog/multi-agent-orchestration-pattern.html" class="log-row" data-reveal data-reveal-stagger="1">
+      <a href="/blog/multi-agent-orchestration-pattern.html" class="log-row" data-reveal data-reveal-stagger="2">
         <span class="log-date">May 14</span>
         <span class="log-sep" aria-hidden="true">&#9617;</span>
         <span class="log-title">Making six models look like one: a multi-agent orchestration pattern</span>
       </a>
-      <a href="/blog/why-we-built-consul.html" class="log-row" data-reveal data-reveal-stagger="2">
+      <a href="/blog/why-we-built-consul.html" class="log-row" data-reveal data-reveal-stagger="3">
         <span class="log-date">May 14</span>
         <span class="log-sep" aria-hidden="true">&#9617;</span>
         <span class="log-title">Why we built Consul: private wealth intelligence for the people who manage their own money</span>
       </a>
 
       <div class="log-month"><span>Apr</span></div>
-      <a href="/blog/building-multi-agent-claude-skills-wealth-guide.html" class="log-row" data-reveal data-reveal-stagger="3">
+      <a href="/blog/building-multi-agent-claude-skills-wealth-guide.html" class="log-row" data-reveal data-reveal-stagger="4">
         <span class="log-date">Apr 17</span>
         <span class="log-sep" aria-hidden="true">&#9617;</span>
         <span class="log-title">Multi-agent Claude Code skills &mdash; wealth-guide pattern</span>
       </a>
-      <a href="/blog/extracting-t4-data-python-canadian-developer-guide.html" class="log-row" data-reveal data-reveal-stagger="4">
+      <a href="/blog/extracting-t4-data-python-canadian-developer-guide.html" class="log-row" data-reveal data-reveal-stagger="5">
         <span class="log-date">Apr 10</span>
         <span class="log-sep" aria-hidden="true">&#9617;</span>
         <span class="log-title">Extracting T4 data from PDFs in Python (Canada)</span>
       </a>
-      <a href="/blog/ai-canadian-financial-services-compliance-playbook.html" class="log-row" data-reveal data-reveal-stagger="5">
+      <a href="/blog/ai-canadian-financial-services-compliance-playbook.html" class="log-row" data-reveal data-reveal-stagger="6">
         <span class="log-date">Apr 07</span>
         <span class="log-sep" aria-hidden="true">&#9617;</span>
         <span class="log-title">AI for Canadian financial services (OSFI E-23 notes)</span>
       </a>
-      <a href="/blog/building-pipeda-compliant-ai-tools.html" class="log-row" data-reveal data-reveal-stagger="6">
+      <a href="/blog/building-pipeda-compliant-ai-tools.html" class="log-row" data-reveal data-reveal-stagger="7">
         <span class="log-date">Apr 07</span>
         <span class="log-sep" aria-hidden="true">&#9617;</span>
         <span class="log-title">Building AI tools for PIPEDA &mdash; a developer's guide</span>
       </a>
-      <a href="/blog/chatgpt-vs-self-hosted-ai-law-firms.html" class="log-row" data-reveal data-reveal-stagger="7">
+      <a href="/blog/chatgpt-vs-self-hosted-ai-law-firms.html" class="log-row" data-reveal data-reveal-stagger="8">
         <span class="log-date">Apr 07</span>
         <span class="log-sep" aria-hidden="true">&#9617;</span>
         <span class="log-title">ChatGPT vs self-hosted AI for Canadian law firms</span>
@@ -535,6 +534,8 @@
         <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
       </div>
       <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/software/">Software</a>
         <a href="/#sheets">Sheets</a>
         <a href="/blog/index.html">Lab notes</a>
         <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>

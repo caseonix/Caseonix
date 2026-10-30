@@ -6,7 +6,10 @@ on:
     paths:
       - 'blog/**'
       - 'notes/**'
+      - 'software/**'
+      - 'about/**'
       - 'scripts/build-log-index.mjs'
+      - 'scripts/build-sitemap.mjs'
       - '.github/workflows/build-log-index.yml'
   workflow_dispatch:
 
@@ -33,14 +36,17 @@ jobs:
       - name: Regenerate log.json + homepage rows
         run: node scripts/build-log-index.mjs
 
+      - name: Regenerate sitemap.xml + feed.xml
+        run: node scripts/build-sitemap.mjs
+
       - name: Commit if changed
         run: |
-          if git diff --quiet -- log.json index.html; then
+          if git diff --quiet -- log.json index.html blog/index.html sitemap.xml feed.xml; then
             echo "No changes to log.json or index.html — skipping commit."
             exit 0
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add log.json index.html
+          git add log.json index.html blog/index.html sitemap.xml feed.xml
           git commit -m "chore(log): auto-regenerate log.json + homepage rows"
           git push

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Converts notes/*.md → notes/<slug>.html using scripts/templates/note.html.
 // Frontmatter required: title, date, slug, description.
-// Frontmatter optional: type (default 'note'), series, tags.
+// Frontmatter optional: type (default 'note'), series, tags, seo_title (a <60 char
+// title for search results when the H1 runs longer).
 
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { join, dirname, basename, extname } from 'node:path';
@@ -92,13 +93,15 @@ function buildJsonLd(fm) {
     description: fm.description,
     author: {
       '@type': 'Person',
+      '@id': 'https://caseonix.ca/about/#person',
       name: 'Srivatsa Kasagar',
-      url: 'https://caseonix.ca',
+      url: 'https://caseonix.ca/about/',
     },
     publisher: {
       '@type': 'Organization',
+      '@id': 'https://caseonix.ca/#org',
       name: 'Caseonix',
-      url: 'https://caseonix.ca',
+      url: 'https://caseonix.ca/',
       logo: { '@type': 'ImageObject', url: 'https://caseonix.ca/icon-512.png' },
     },
     datePublished: fm.date,
@@ -113,6 +116,20 @@ function buildJsonLd(fm) {
   }
   // Neutralize any literal </script that leaked from title/description into
   // JSON string values — otherwise it'd break out of the inline JSON-LD block.
+  return JSON.stringify(obj, null, 2).replace(/<\/script/gi, '<\\/script');
+}
+
+function buildBreadcrumbs(fm) {
+  const items = [
+    ['Caseonix', 'https://caseonix.ca/'],
+    ['Lab notes', 'https://caseonix.ca/blog/'],
+    [fm.seo_title ?? fm.title, `https://caseonix.ca/notes/${fm.slug}.html`],
+  ];
+  const obj = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map(([name, item], i) => ({ '@type': 'ListItem', position: i + 1, name, item })),
+  };
   return JSON.stringify(obj, null, 2).replace(/<\/script/gi, '<\\/script');
 }
 
@@ -150,12 +167,14 @@ async function main() {
     const keywords = Array.isArray(fm.tags) ? fm.tags.join(', ') : '';
     const html = substitute(template, {
       title: escapeAttr(fm.title),
+      seo_title: escapeAttr(fm.seo_title ?? fm.title),
       description: escapeAttr(fm.description),
       date: fm.date,
       date_pretty: formatDatePretty(fm.date),
       slug: fm.slug,
       keywords: escapeAttr(keywords),
       jsonld: buildJsonLd(fm),
+      breadcrumbs: buildBreadcrumbs(fm),
       body,
       mermaid_script: hasMermaid ? mermaidScriptTag() : '',
       share_text: encodeURIComponent(fm.title),

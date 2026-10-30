@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{{title}} | Caseonix</title>
+  <title>{{seo_title}} | Caseonix</title>
   <meta name="description" content="{{description}}" />
   <meta name="author" content="Srivatsa Kasagar" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <meta name="keywords" content="{{keywords}}" />
   <link rel="canonical" href="https://caseonix.ca/notes/{{slug}}.html" />
   <link rel="alternate" hreflang="en-ca" href="https://caseonix.ca/notes/{{slug}}.html" />
   <link rel="alternate" hreflang="x-default" href="https://caseonix.ca/notes/{{slug}}.html" />
 
-  <meta property="og:title" content="{{title}}" />
+  <meta property="og:title" content="{{seo_title}}" />
   <meta property="og:description" content="{{description}}" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://caseonix.ca/notes/{{slug}}.html" />
@@ -27,12 +27,15 @@
   <meta property="article:section" content="Research notes" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="{{title}}" />
+  <meta name="twitter:title" content="{{seo_title}}" />
   <meta name="twitter:description" content="{{description}}" />
   <meta name="twitter:image" content="https://caseonix.ca/og/{{slug}}.png" />
 
   <script type="application/ld+json">
 {{jsonld}}
+  </script>
+  <script type="application/ld+json">
+{{breadcrumbs}}
   </script>
 
   <link rel="icon" href="/favicon.ico" sizes="any" />
@@ -411,6 +414,7 @@
     <div class="note-eyebrow">&sect; Lab note</div>
     <h1 class="note-title">{{title}}</h1>
     <div class="note-meta">
+      <span>By <a href="/about/">Srivatsa Kasagar</a></span>
       <span>{{date_pretty}}</span>
     </div>
 
@@ -444,6 +448,8 @@
         <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
       </div>
       <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/software/">Software</a>
         <a href="/#sheets">Sheets</a>
         <a href="/blog/index.html">Lab notes</a>
         <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>

@@ -75,7 +75,7 @@ html[data-theme="light"] {
 }
 .article-info > span, .note-meta > span { padding: 8px 12px; }
 .article-info > span + span, .note-meta > span + span { border-left: 1px solid var(--rule); }
-.article-info a { color: var(--ink) !important; text-decoration: underline; text-decoration-color: var(--rule-strong); }
+.article-info a, .note-meta a { color: var(--ink) !important; text-decoration: underline; text-decoration-color: var(--rule-strong); }
 /* the literal "·" separator spans become the cell rules */
 .article-info > span:nth-child(even):not(:has(*)), .note-meta-sep { display: none !important; }
 .note-meta-sep + span { border-left: 1px solid var(--rule); }

@@ -1,6 +1,12 @@
 {
   "items": [
     {
+      "href": "/blog/banks-ai-agents-architecture.html",
+      "title": "Banks told AI agents to stay out. Here is the architecture that lets them back in.",
+      "date": "2026-10-30",
+      "type": "blog"
+    },
+    {
       "href": "/blog/multi-agent-orchestration-pattern.html",
       "title": "Making six models look like one: a multi-agent orchestration pattern",
       "date": "2026-05-14",

@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Multi-agent Claude Code skills — wealth-guide pattern | Caseonix</title>
+  <title>Multi-agent Claude Code skills: wealth-guide | Caseonix</title>
   <meta name="description" content="How to structure ambitious Claude Code skills as multi-agent pipelines — parallel dispatch, knowledge grounding, templates, and model routing." />
   <meta name="author" content="Srivatsa Kasagar" />
-  <meta name="robots" content="index, follow" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <meta name="keywords" content="Claude Code skill, multi-agent pipeline, Claude subagents, wealth-guide open source, Opus vs Sonnet routing, AI financial planner, parallel Task dispatch, Claude Code knowledge base, SKILL.md architecture, AskUserQuestion" />
   <link rel="canonical" href="https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html" />
   <link rel="alternate" hreflang="en-ca" href="https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html" />
   <link rel="alternate" hreflang="x-default" href="https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Multi-agent Claude Code skills — wealth-guide pattern" />
+  <meta property="og:title" content="Multi-agent Claude Code skills: wealth-guide" />
   <meta property="og:description" content="Six specialist subagents, parallel dispatch, curated knowledge base, Opus/Sonnet routing, local SQLite state. Reference implementation on GitHub." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html" />
@@ -28,7 +28,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Multi-agent Claude Code skills — wealth-guide pattern" />
+  <meta name="twitter:title" content="Multi-agent Claude Code skills: wealth-guide" />
   <meta name="twitter:description" content="Stop building ambitious skills as one giant prompt. Here's the six-agent pattern, with working code from wealth-guide — open source on GitHub." />
   <meta name="twitter:image" content="https://caseonix.ca/og-image-v2.png" />
 
@@ -36,20 +36,11 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "TechArticle",
     "headline": "Multi-agent Claude Code skills — wealth-guide pattern",
     "description": "How to structure ambitious Claude Code skills as multi-agent pipelines — parallel dispatch, knowledge grounding, templates, and model routing.",
-    "author": {
-      "@type": "Person",
-      "name": "Srivatsa Kasagar",
-      "url": "https://caseonix.ca",
-      "jobTitle": "AI Builder & Solutions Architect"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Caseonix",
-      "url": "https://caseonix.ca"
-    },
+    "author": { "@type": "Person", "@id": "https://caseonix.ca/about/#person", "name": "Srivatsa Kasagar", "url": "https://caseonix.ca/about/" },
+    "publisher": { "@type": "Organization", "@id": "https://caseonix.ca/#org", "name": "Caseonix", "url": "https://caseonix.ca/", "logo": "https://caseonix.ca/icon-512.png" },
     "datePublished": "2026-04-17",
     "dateModified": "2026-04-17",
     "url": "https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html",
@@ -60,6 +51,13 @@
     },
     "keywords": ["Claude Code skill", "multi-agent pipeline", "Claude subagents", "wealth-guide open source", "Opus vs Sonnet routing", "AI financial planner", "parallel Task dispatch", "SKILL.md architecture"]
   }
+  </script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Caseonix", "item": "https://caseonix.ca/" },
+    { "@type": "ListItem", "position": 2, "name": "Lab notes", "item": "https://caseonix.ca/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "Multi-agent Claude Code skills — wealth-guide pattern", "item": "https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html" }
+  ] }
   </script>
 
   <script>
@@ -503,7 +501,7 @@
       <h1 class="article-title">Multi-agent Claude Code skills</h1>
       <p class="article-subtitle">Most Claude Code skills are one prompt in a markdown file. That works for single-turn tasks. For anything ambitious — a tax tool, a legal intake, a financial planner — you'll collapse into a tangle of conditionals inside one system prompt. This is the architecture that gets you out of that hole, walked through with a working open-source example.</p>
       <div class="article-info">
-        <span>By <a href="/">Srivatsa Kasagar</a></span>
+        <span>By <a href="/about/">Srivatsa Kasagar</a></span>
         <span>&middot;</span>
         <span>April 17, 2026</span>
         <span>&middot;</span>
@@ -1007,12 +1005,13 @@ wealth guide</code></pre>
       <div class="author-card">
         <div class="author-avatar">&#128736;&#65039;</div>
         <div>
-          <div class="author-name">Srivatsa Kasagar</div>
+          <div class="author-name"><a href="/about/">Srivatsa Kasagar</a></div>
           <div class="author-bio">AI Builder &amp; Solutions Architect with 25+ years in financial services. Building production-grade AI tools for the Canadian market at Caseonix — including LocalMind Sovereign, FinLit, wealth-guide, <a href="https://consol-app.pages.dev">Consul</a>, and compliance tooling for regulated industries.</div>
           <div class="author-links">
             <a href="https://linkedin.com/in/skasagar" target="_blank" rel="noopener">LinkedIn</a>
             <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub</a>
-            <a href="/">All Projects</a>
+            <a href="/about/">About</a>
+            <a href="/software/">Software</a>
           </div>
         </div>
       </div>
@@ -1034,6 +1033,8 @@ wealth guide</code></pre>
         <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
       </div>
       <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/software/">Software</a>
         <a href="/#sheets">Sheets</a>
         <a href="/blog/index.html">Lab notes</a>
         <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>

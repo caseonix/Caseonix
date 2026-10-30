@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Caseonix lab notes</title>
+    <link>https://caseonix.ca/blog/</link>
+    <atom:link href="https://caseonix.ca/feed.xml" rel="self" type="application/rss+xml" />
+    <description>Research and long-form posts by Srivatsa Kasagar, an AI builder in Waterloo, Ontario.</description>
+    <language>en-ca</language>
+    <item>
+      <title>Banks told AI agents to stay out. Here is the architecture that lets them back in.</title>
+      <link>https://caseonix.ca/blog/banks-ai-agents-architecture.html</link>
+      <guid>https://caseonix.ca/blog/banks-ai-agents-architecture.html</guid>
+      <pubDate>Fri, 30 Oct 2026 12:00:00 GMT</pubDate>
+      <description>JPMorgan and Schwab are blocking outside AI agents. The cause is credential sharing. An agent gateway architecture with scoped consent and audit trails.</description>
+    </item>
+    <item>
+      <title>Why we built Consul: private wealth intelligence for the people who manage their own money</title>
+      <link>https://caseonix.ca/blog/why-we-built-consul.html</link>
+      <guid>https://caseonix.ca/blog/why-we-built-consul.html</guid>
+      <pubDate>Thu, 14 May 2026 12:00:00 GMT</pubDate>
+      <description>The portfolio analysis private banks charge 1% for is mostly deterministic math and plain-language judgment. Consul gives it to anyone with a brokerage account.</description>
+    </item>
+    <item>
+      <title>Making six models look like one: a multi-agent orchestration pattern</title>
+      <link>https://caseonix.ca/blog/multi-agent-orchestration-pattern.html</link>
+      <guid>https://caseonix.ca/blog/multi-agent-orchestration-pattern.html</guid>
+      <pubDate>Thu, 14 May 2026 12:00:00 GMT</pubDate>
+      <description>How Consul's portfolio briefing runs six model calls in three phases — fan-out, a dependency stage, and streamed synthesis — to read as one assistant.</description>
+    </item>
+    <item>
+      <title>Research note — Cheque Image Fraud Detection on AWS</title>
+      <link>https://caseonix.ca/notes/cheque-fraud-detection-lab-notes.html</link>
+      <guid>https://caseonix.ca/notes/cheque-fraud-detection-lab-notes.html</guid>
+      <pubDate>Thu, 23 Apr 2026 12:00:00 GMT</pubDate>
+      <description>Lab log exploring an AWS architecture for automated cheque image fraud detection, with the design options and engineering notes.</description>
+    </item>
+    <item>
+      <title>Lab note 2/3 — How I improved RAG quality in LocalMind</title>
+      <link>https://caseonix.ca/notes/localmind-rag-quality.html</link>
+      <guid>https://caseonix.ca/notes/localmind-rag-quality.html</guid>
+      <pubDate>Wed, 22 Apr 2026 12:00:00 GMT</pubDate>
+      <description>Eleven techniques I used to lift RAG quality in LocalMind beyond a naïve baseline — paragraph-aware chunking, table flattening, contextual chunking, BGE asymmetric query prefix, multi-vector query expansion, tuned similarity floor, two-stage LLM reranking, per-document fairness cap, and citation-bound synthesis.</description>
+    </item>
+    <item>
+      <title>Lab note 1/3 — LocalMind RAG pipeline</title>
+      <link>https://caseonix.ca/notes/localmind-rag-pipeline.html</link>
+      <guid>https://caseonix.ca/notes/localmind-rag-pipeline.html</guid>
+      <pubDate>Wed, 22 Apr 2026 12:00:00 GMT</pubDate>
+      <description>End-to-end retrieval-augmented generation (RAG) pipeline I built for LocalMind on Cloudflare's edge — paragraph-aware chunking, BGE-Small embeddings, contextual chunking, Vectorize ANN search with multi-tenant namespaces, Gemma 4 reranking, and citation-bound generation.</description>
+    </item>
+    <item>
+      <title>Lab note 3/3 — The NLP layer alongside LocalMind RAG</title>
+      <link>https://caseonix.ca/notes/localmind-nlp-layer.html</link>
+      <guid>https://caseonix.ca/notes/localmind-nlp-layer.html</guid>
+      <pubDate>Wed, 22 Apr 2026 12:00:00 GMT</pubDate>
+      <description>How I built the NLP layer alongside RAG in LocalMind — PIPEDA-aligned layered PII redaction (regex + LLM), hybrid regex and LLM named-entity recognition, table structure recovery for PDF and DOCX, document classification, sentiment with risk flags, and per-document-type review agents — all under JSON-schema constraints.</description>
+    </item>
+    <item>
+      <title>Multi-agent Claude Code skills — wealth-guide pattern</title>
+      <link>https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html</link>
+      <guid>https://caseonix.ca/blog/building-multi-agent-claude-skills-wealth-guide.html</guid>
+      <pubDate>Fri, 17 Apr 2026 12:00:00 GMT</pubDate>
+      <description>How to structure ambitious Claude Code skills as multi-agent pipelines — parallel dispatch, knowledge grounding, templates, and model routing.</description>
+    </item>
+    <item>
+      <title>Extracting T4 data from PDFs in Python (Canada)</title>
+      <link>https://caseonix.ca/blog/extracting-t4-data-python-canadian-developer-guide.html</link>
+      <guid>https://caseonix.ca/blog/extracting-t4-data-python-canadian-developer-guide.html</guid>
+      <pubDate>Fri, 10 Apr 2026 12:00:00 GMT</pubDate>
+      <description>Extracting structured data from Canadian T4 slips with Python — Docling, pydantic-ai, PII handling, audit trails, and the FinLit open-source framework.</description>
+    </item>
+    <item>
+      <title>ChatGPT vs self-hosted AI for Canadian law firms</title>
+      <link>https://caseonix.ca/blog/chatgpt-vs-self-hosted-ai-law-firms.html</link>
+      <guid>https://caseonix.ca/blog/chatgpt-vs-self-hosted-ai-law-firms.html</guid>
+      <pubDate>Tue, 07 Apr 2026 12:00:00 GMT</pubDate>
+      <description>Comparing ChatGPT and self-hosted AI for Canadian law firms — solicitor-client privilege, CLOUD Act exposure, hallucination risk, sovereign alternatives.</description>
+    </item>
+    <item>
+      <title>Building AI tools for PIPEDA — a developer's guide</title>
+      <link>https://caseonix.ca/blog/building-pipeda-compliant-ai-tools.html</link>
+      <guid>https://caseonix.ca/blog/building-pipeda-compliant-ai-tools.html</guid>
+      <pubDate>Tue, 07 Apr 2026 12:00:00 GMT</pubDate>
+      <description>A practical guide to building AI tools for PIPEDA, Quebec Law 25, and OSFI B-13 — data residency, consent, CLOUD Act, and Canadian infrastructure patterns.</description>
+    </item>
+    <item>
+      <title>AI for Canadian financial services (OSFI E-23 notes)</title>
+      <link>https://caseonix.ca/blog/ai-canadian-financial-services-compliance-playbook.html</link>
+      <guid>https://caseonix.ca/blog/ai-canadian-financial-services-compliance-playbook.html</guid>
+      <pubDate>Tue, 07 Apr 2026 12:00:00 GMT</pubDate>
+      <description>Engineering notes on AI in Canadian financial services — OSFI E-23, agentic accountability in AML pilots, and sovereign infrastructure patterns for builders.</description>
+    </item>
+    <item>
+      <title>Dug into Pega GenAI Autopilot to figure out what it actually takes to adopt it</title>
+      <link>https://caseonix.ca/notes/pega-autopilot-lab-notes.html</link>
+      <guid>https://caseonix.ca/notes/pega-autopilot-lab-notes.html</guid>
+      <pubDate>Mon, 23 Mar 2026 12:00:00 GMT</pubDate>
+      <description>Lab notes on adopting Pega GenAI Autopilot, the App Studio assistant that generates case types, workflows, and data models from natural-language prompts.</description>
+    </item>
+    <item>
+      <title>Research note — AuditLM and the AI governance gap</title>
+      <link>https://caseonix.ca/notes/auditlm-ai-governance-gap.html</link>
+      <guid>https://caseonix.ca/notes/auditlm-ai-governance-gap.html</guid>
+      <pubDate>Wed, 18 Mar 2026 12:00:00 GMT</pubDate>
+      <description>A working research note on AuditLM — a provider-agnostic governance layer for LLMs in regulated industries. Context, landscape, and what I'm building.</description>
+    </item>
+    <item>
+      <title>Research note — NordID and Canadian business identity infrastructure</title>
+      <link>https://caseonix.ca/notes/nordid-canadian-business-identity.html</link>
+      <guid>https://caseonix.ca/notes/nordid-canadian-business-identity.html</guid>
+      <pubDate>Thu, 12 Mar 2026 12:00:00 GMT</pubDate>
+      <description>A working research note on NordID — the data and intelligence layer under every Canadian KYB stack. Registry, tax, UBO, sanctions, and FINTRAC-rule-cited decisions through one API.</description>
+    </item>
+  </channel>
+</rss>

@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+Disallow: /docs/
+Disallow: /worker/
+Disallow: /scripts/
+Disallow: /*.md$
+Disallow: /package.json
+Disallow: /package-lock.json
 
 Sitemap: https://caseonix.ca/sitemap.xml
