@@ -65,7 +65,6 @@ export const PRIVATE_REPOS_ALLOWLIST: readonly string[] = ["localmind", "consul-
 export const REPO_ENDPOINTS: Readonly<Record<string, string>> = {
   Caseonix: "https://caseonix.ca",
   "consul-ai": "https://consul.caseonix.ca",
-  LoonieLog: "https://loonielog.ca",
   localmind: "https://localmind.caseonix.ca",
 };
 
