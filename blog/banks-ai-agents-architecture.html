@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banks blocked AI agents: the agent gateway | Caseonix</title>
+  <meta name="description" content="JPMorgan and Schwab are blocking outside AI agents. The cause is credential sharing. An agent gateway architecture with scoped consent and audit trails." />
+  <meta name="author" content="Srivatsa Kasagar" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="keywords" content="agentic AI, banking, open banking, architecture, OSFI E-23, consumer-driven banking, agent gateway, AI agent identity" />
+  <link rel="canonical" href="https://caseonix.ca/blog/banks-ai-agents-architecture.html" />
+  <link rel="alternate" hreflang="en-ca" href="https://caseonix.ca/blog/banks-ai-agents-architecture.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caseonix.ca/blog/banks-ai-agents-architecture.html" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Banks blocked AI agents: the agent gateway" />
+  <meta property="og:description" content="JPMorgan and Schwab are blocking outside AI agents. The cause is credential sharing. An agent gateway architecture with scoped consent and audit trails." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://caseonix.ca/blog/banks-ai-agents-architecture.html" />
+  <meta property="og:image" content="https://caseonix.ca/og-image-v2.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Caseonix" />
+  <meta property="og:locale" content="en_CA" />
+  <meta property="article:author" content="Srivatsa Kasagar" />
+  <meta property="article:published_time" content="2026-10-30" />
+  <meta property="article:modified_time" content="2026-10-30" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Banks blocked AI agents: the agent gateway" />
+  <meta name="twitter:description" content="JPMorgan and Schwab are blocking outside AI agents. The cause is credential sharing. An agent gateway architecture with scoped consent and audit trails." />
+  <meta name="twitter:image" content="https://caseonix.ca/og-image-v2.png" />
+
+  <!-- Schema.org Article JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Banks told AI agents to stay out. Here is the architecture that lets them back in.",
+    "description": "JPMorgan and Schwab are blocking outside AI agents. The cause is credential sharing. An agent gateway architecture with scoped consent and audit trails.",
+    "author": { "@type": "Person", "@id": "https://caseonix.ca/about/#person", "name": "Srivatsa Kasagar", "url": "https://caseonix.ca/about/" },
+    "publisher": { "@type": "Organization", "@id": "https://caseonix.ca/#org", "name": "Caseonix", "url": "https://caseonix.ca/", "logo": "https://caseonix.ca/icon-512.png" },
+    "datePublished": "2026-10-30",
+    "dateModified": "2026-10-30",
+    "url": "https://caseonix.ca/blog/banks-ai-agents-architecture.html",
+    "image": "https://caseonix.ca/og-image-v2.png",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://caseonix.ca/blog/banks-ai-agents-architecture.html"
+    },
+    "keywords": ["agentic AI","banking","open banking","architecture","OSFI E-23","consumer-driven banking"]
+  }
+  </script>
+  <script type="application/ld+json">
+  { "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Caseonix", "item": "https://caseonix.ca/" },
+    { "@type": "ListItem", "position": 2, "name": "Lab notes", "item": "https://caseonix.ca/blog/" },
+    { "@type": "ListItem", "position": 3, "name": "Banks blocked AI agents: the agent gateway", "item": "https://caseonix.ca/blog/banks-ai-agents-architecture.html" }
+  ] }
+  </script>
+
+  <script>
+    // Reading progress bar
+    (function () {
+      var bar = document.getElementById('readingBar');
+      if (!bar) return;
+      function update() {
+        var h = document.documentElement;
+        var scrolled = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+        bar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
+      }
+      document.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    })();
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F1B2A;
+      --surface: #1A2B3C;
+      --surface-2: #223549;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(94,186,156,0.32);
+      --blue: #5EBA9C;
+      --teal: #7FCBB0;
+      --teal-1: #7FCBB0;
+      --gold: #A0DDC9;
+      --purple: #4A9A80;
+      --green: #34D399;
+      --rose: #FB7185;
+      --text: #E8ECF1;
+      --text-2: #94A3B8;
+      --text-3: #64748B;
+      --nav-bg: rgba(15,27,42,0.82);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    [data-theme="light"] {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --surface-2: #F1F5F9;
+      --border: rgba(0,0,0,0.08);
+      --border-hover: rgba(94,186,156,0.35);
+      --text: #0F172A;
+      --text-2: #334155;
+      --text-3: #64748B;
+      --nav-bg: rgba(248,250,252,0.88);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+    .nav-logo span { color: var(--blue); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .theme-toggle {
+      width: 38px; height: 38px; border-radius: 9px; border: 1px solid var(--border);
+      background: var(--surface); cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 0.95rem; color: var(--text-2);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover { border-color: var(--border-hover); transform: rotate(20deg); color: var(--text); }
+    .nav-cta {
+      padding: 9px 20px; background: var(--blue); color: #fff; border-radius: 8px;
+      text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+    /* ARTICLE */
+    .article-wrapper {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    .article-meta { margin-bottom: 32px; }
+
+    .article-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.85rem; color: var(--blue); text-decoration: none;
+      font-weight: 500; margin-bottom: 24px;
+      transition: opacity 0.2s;
+    }
+    .article-back:hover { opacity: 0.7; }
+
+    .article-tag {
+      display: inline-block; padding: 4px 12px; border-radius: 6px;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em;
+      text-transform: uppercase; background: rgba(94,186,156,0.12);
+      color: var(--blue); margin-bottom: 16px;
+    }
+
+    .article-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.15; margin-bottom: 16px;
+    }
+
+    .article-subtitle {
+      font-size: 1.1rem; color: var(--text-2);
+      line-height: 1.7; margin-bottom: 20px;
+    }
+
+    .article-info {
+      display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+      font-size: 0.82rem; color: var(--text-3);
+      padding-bottom: 32px; border-bottom: 1px solid var(--border);
+    }
+    .article-info a { color: var(--blue); text-decoration: none; }
+    .article-info a:hover { text-decoration: underline; }
+
+    /* CONTENT */
+    .article-content h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.55rem; font-weight: 700;
+      letter-spacing: -0.02em; margin: 48px 0 16px;
+      line-height: 1.25;
+    }
+
+    .article-content h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.15rem; font-weight: 600;
+      margin: 32px 0 12px; line-height: 1.3;
+    }
+
+    .article-content p {
+      font-size: 1rem; color: var(--text-2);
+      line-height: 1.82; margin-bottom: 20px;
+    }
+
+    .article-content strong { color: var(--text); font-weight: 600; }
+
+    .article-content em { color: var(--text); font-style: italic; }
+
+    .article-content a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+    .article-content a:hover { opacity: 0.8; }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 20px 24px;
+      color: var(--text-2);
+    }
+
+    .article-content li {
+      font-size: 1rem; line-height: 1.78;
+      margin-bottom: 8px;
+    }
+
+    .article-content li strong { color: var(--text); }
+
+    /* CALLOUT BOX */
+    .callout {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 20px 24px;
+      margin: 28px 0;
+    }
+    .callout.warning { border-left-color: var(--gold); }
+    .callout.success { border-left-color: var(--green); }
+    .callout.danger { border-left-color: var(--rose); }
+    .callout-title {
+      font-weight: 700; font-size: 0.88rem;
+      margin-bottom: 8px; color: var(--text);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+
+    /* CODE */
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; padding: 2px 7px;
+      background: var(--surface-2); border: 1px solid var(--border);
+      border-radius: 5px; color: var(--teal);
+    }
+
+    pre {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 20px; margin: 24px 0;
+      overflow-x: auto;
+    }
+    pre code {
+      padding: 0; background: none; border: none;
+      font-size: 0.84rem; line-height: 1.7; color: var(--text-2);
+    }
+
+    /* CTA LINK */
+    .article-content a.cta-link {
+      display: inline-flex; align-items: center; gap: 7px;
+      color: var(--blue); font-weight: 600; font-size: 1.05rem;
+      text-decoration: none; border-bottom: 2px solid var(--blue);
+      padding-bottom: 3px; margin: 8px 0 4px;
+      transition: gap 0.2s ease, opacity 0.2s ease;
+    }
+    .article-content a.cta-link:hover { gap: 12px; opacity: 0.82; }
+
+    /* FOOTER */
+    .article-footer {
+      margin-top: 56px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .author-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      margin-bottom: 32px;
+    }
+    .author-avatar {
+      width: 52px; height: 52px; border-radius: 13px;
+      background: rgba(94,186,156,0.14); display: flex;
+      align-items: center; justify-content: center;
+      font-size: 1.25rem; flex-shrink: 0;
+    }
+    .author-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+    .author-bio { font-size: 0.85rem; color: var(--text-2); line-height: 1.6; }
+    .author-links { display: flex; gap: 12px; margin-top: 8px; }
+    .author-links a {
+      font-size: 0.8rem; color: var(--blue); text-decoration: none;
+      font-weight: 500;
+    }
+    .author-links a:hover { text-decoration: underline; }
+
+    /* SHARE BUTTONS */
+    .share-bar {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 20px; padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .share-label {
+      font-size: 0.8rem; color: var(--text-3);
+      font-weight: 500; margin-right: 4px;
+    }
+    .share-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--surface);
+      color: var(--text-2); font-size: 0.78rem; font-weight: 500;
+      text-decoration: none; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .share-btn:hover { border-color: var(--border-hover); color: var(--text); background: rgba(94,186,156,0.07); }
+    .share-btn svg { width: 14px; height: 14px; flex-shrink: 0; }
+    .share-btn.copied { border-color: var(--green); color: var(--green); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; z-index: 1;
+    }
+    .footer-logo { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 0.95rem; }
+    .footer-logo span { color: var(--blue); }
+    footer p { font-size: 0.75rem; color: var(--text-3); }
+
+    .related-posts {
+      margin-top: 24px; padding: 20px 24px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+    .related-posts-label {
+      font-size: 0.82rem; font-weight: 600; color: var(--text-3);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px;
+    }
+    .related-posts a {
+      display: block; font-size: 0.92rem; color: var(--blue);
+      text-decoration: none; line-height: 1.6; padding: 4px 0;
+    }
+    .related-posts a:hover { text-decoration: underline; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .article-wrapper { padding: 100px 20px 60px; }
+      .article-title { font-size: 1.6rem; }
+      .author-card { flex-direction: column; }
+      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+    }
+
+    /* ═══════════════════════════════════
+       LAB NAV + FOOTER V2 + READING BAR
+    ═══════════════════════════════════ */
+    .nav-links-blog {
+      display: flex; gap: 28px; list-style: none; padding: 0; margin: 0;
+    }
+    .nav-links-blog a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--text-2); text-decoration: none;
+      transition: color 120ms ease-out;
+    }
+    .nav-links-blog a:hover,
+    .nav-links-blog a.active { color: var(--text); }
+    @media (max-width: 700px) { .nav-links-blog { display: none; } }
+
+    /* Reading progress bar — 1px top, teal */
+    .reading-bar {
+      position: fixed; top: 0; left: 0; height: 2px;
+      width: 0%;
+      background: var(--teal-1);
+      z-index: 999; pointer-events: none;
+      transition: width 60ms linear;
+    }
+    @media (prefers-reduced-motion: reduce) { .reading-bar { transition: none; } }
+
+    /* Back-to-log mono link */
+    .article-back-log {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3); text-decoration: none;
+      transition: color 120ms ease-out;
+      display: inline-block; margin-bottom: 24px;
+    }
+    .article-back-log:hover { color: var(--teal-1); }
+
+    /* Footer v2 (shared) */
+    .footer-v2 { border-top: 1px solid var(--border); padding: 32px 24px; margin-top: 60px; }
+    .footer-v2-inner {
+      max-width: 1400px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr auto 1fr;
+      gap: 40px; align-items: center;
+    }
+    .footer-v2-logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem; font-weight: 600; color: var(--text);
+    }
+    .footer-v2-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3); margin-top: 4px;
+    }
+    .footer-v2-nav { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+    .footer-v2-nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--text-2); text-decoration: none;
+      transition: color 120ms ease-out;
+    }
+    .footer-v2-nav a:hover { color: var(--teal-1); }
+    .footer-v2-right {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--text-3);
+    }
+    @media (max-width: 800px) {
+      .footer-v2-inner { grid-template-columns: 1fr; gap: 18px; text-align: center; }
+      .footer-v2-nav { justify-content: center; }
+      .footer-v2-right { text-align: center; }
+    }
+
+  </style>
+<!-- drawing-set theme -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Martian+Mono:wdth,wght@75..112.5,300..600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/drawing-set.css" />
+<script src="/assets/drawing-set.js" defer></script>
+<link rel="stylesheet" href="/assets/drawing-set-pages.css" />
+<!-- /drawing-set theme -->
+<style>.article-content pre.mermaid { overflow-x: auto; padding: 16px; background: #0B2431 !important; width: min(1180px, calc(100vw - 48px)); max-width: none; margin-left: calc(50% - min(590px, calc(50vw - 24px))) !important; } .article-content pre.mermaid svg { width: 100% !important; height: auto; max-width: none !important; min-width: 960px; display: block; }</style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo" style="text-decoration:none">Case<span>onix</span></a>
+    <ul class="nav-links-blog">
+      <li><a href="/#sheets"><span>A-1</span> Sheets</a></li>
+      <li><a href="/#revisions"><span>R</span> Revisions</a></li>
+      <li><a href="/blog/index.html" class="active"><span>D</span> Lab notes</a></li>
+      <li><a href="/#transmittal"><span>T</span> Start a thread</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9728;&#65039;</button>
+    </div>
+  </nav>
+
+  <div class="reading-bar" id="readingBar" aria-hidden="true"></div>
+
+  <article class="article-wrapper">
+    <div class="article-meta">
+      <a href="/blog/index.html" class="article-back-log">&larr; back to the log</a>
+      <div class="article-tag">Agentic AI &amp; Banking</div>
+      <h1 class="article-title">Banks told AI agents to stay out. Here is the architecture that lets them back in.</h1>
+      <p class="article-subtitle">The block is correct. The cause is not the agent. It is an access model where agents log in with the customer&rsquo;s password.</p>
+      <div class="article-info">
+        <span>By <a href="/about/">Srivatsa Kasagar</a></span>
+        <span>&middot;</span>
+        <span>October 30, 2026</span>
+        <span>&middot;</span>
+        <span>10 min read</span>
+      </div>
+
+      <div class="share-bar">
+        <span class="share-label">Share:</span>
+        <a class="share-btn" id="shareLinkedIn" href="#" target="_blank" rel="noopener" aria-label="Share on LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a class="share-btn" id="shareTwitter" href="#" target="_blank" rel="noopener" aria-label="Share on X">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          X
+        </a>
+        <button class="share-btn" id="shareCopy" aria-label="Copy link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          Copy link
+        </button>
+      </div>
+    </div>
+
+    <div class="article-content">
+
+<p><strong>TLDR:</strong> In October 2026, JPMorgan and Schwab started to block outside AI agents from customer accounts. The block is correct. The cause is not the agent. The cause is the access model: agents log in with the customer’s password. Banks need an agent gateway. The gateway gives each agent its own identity, a scoped and revocable consent, and an audit trail. Canada has a head start because its new open banking law already bans screen scraping.</p>
+<h2>What happened</h2>
+<p>Two weeks changed the agent conversation in banking.</p>
+<ul>
+<li>On October 13, JPMorgan CEO Jamie Dimon said on the Q3 earnings call that the bank will not let outside agents into its systems.</li>
+<li>Dimon told customers that a “liability transfer” occurs when they give an agent access. (Source: CNBC, Banking Dive.)</li>
+<li>JPMorgan blocks external agents even when a connector such as Plaid holds the customer’s login. (Source: ValueAdd VC, citing a JPMorgan spokesperson.)</li>
+<li>On October 16, Schwab CEO Rick Wurster told Bloomberg TV that Schwab blocks dozens of agent login attempts each week.</li>
+<li>Meta’s Muse is the most visible target. Meta launched it in September as a personal agent for email, travel, and calendars. Its finance features connect through Plaid.</li>
+<li>Amazon blocked Muse from its retail site in September.</li>
+</ul>
+<p>The banks are not against agents. JPMorgan runs agents internally. It also pilots its own cash tool, Smart Cash, which forecasts cash flow and moves funds for yield. That is the same job an outside agent wants to do.</p>
+<p>So read the block correctly. Banks are saying two things at once:</p>
+<ul>
+<li>“Your agent is a security risk.”</li>
+<li>“We want to own the agent layer.”</li>
+</ul>
+<p>Both statements are true. The first one has an engineering fix. The second one is a business decision that the fix makes harder to defend.</p>
+<hr>
+<h2>Why credential sharing fails</h2>
+<p>Today, most personal agents reach a bank account in one way. The customer gives the agent a username and password. The agent then logs in as the customer.</p>
+<pre class="mermaid">flowchart LR
+    C[&quot;Customer&quot;] -- &quot;Gives username + password&quot; --&gt; A[&quot;Personal AI agent&quot;]
+    A -- &quot;Logs in as the customer&quot; --&gt; B[&quot;Bank login&quot;]
+    B --&gt; S[&quot;Full account session&lt;br/&gt;(read + move money)&quot;]
+    B -. &quot;Cannot tell agent from human&quot; .-&gt; X[&quot;Bank risk + fraud controls&quot;]
+</pre>
+<p>This model has four problems. Each one is a design problem, not an AI problem.</p>
+<ul>
+<li><strong>No identity.</strong> The bank sees the customer. It cannot see the agent. It cannot tell Muse from a fraudster who holds the same password.</li>
+<li><strong>No scope.</strong> A password unlocks everything. The customer may want “read my balance.” The password gives “move all my money.”</li>
+<li><strong>No clean revocation.</strong> To remove the agent, the customer must change the password. That breaks every other tool that uses it.</li>
+<li><strong>No attribution.</strong> When a wrong transfer occurs, the log says “customer.” Nobody can prove which party acted.</li>
+</ul>
+<p>Dimon’s “rogue agents” worry follows directly from these four gaps. A bank that cannot identify, limit, or attribute an actor must block it. I would block it too.</p>
+<hr>
+<h2>The target architecture: an agent gateway</h2>
+<p>The fix is not a better agent. The fix is a new front door at the bank. I call it the agent gateway.</p>
+<p>The rule is simple. <strong>An agent never holds the customer’s credentials. It holds a token that the customer granted to that agent, for named actions, for a limited time.</strong></p>
+<pre class="mermaid">flowchart TB
+    subgraph Customer side
+        C[&quot;Customer&quot;]
+        A[&quot;Personal AI agent&lt;br/&gt;(registered identity + signing key)&quot;]
+    end
+
+    subgraph Bank agent gateway
+        R[&quot;Agent registry&lt;br/&gt;who the agent is, who built it, its status&quot;]
+        CS[&quot;Consent service&lt;br/&gt;scopes, limits, expiry, revoke&quot;]
+        P[&quot;Policy engine&lt;br/&gt;value caps, velocity, risk score&quot;]
+        SU[&quot;Step-up approval&lt;br/&gt;customer confirms in bank app&quot;]
+        L[&quot;Audit log&lt;br/&gt;agent ID + consent ID on every call&quot;]
+    end
+
+    subgraph Bank systems
+        RO[&quot;Read APIs&lt;br/&gt;balances, transactions&quot;]
+        WR[&quot;Write APIs&lt;br/&gt;transfers, payments&quot;]
+        K[&quot;Kill switch&lt;br/&gt;per agent, per customer, global&quot;]
+    end
+
+    C -- &quot;Grants consent in bank app&quot; --&gt; CS
+    CS -- &quot;Issues scoped token&quot; --&gt; A
+    A -- &quot;Signed request + token&quot; --&gt; R
+    R --&gt; CS --&gt; P
+    P -- &quot;Low risk, in scope&quot; --&gt; RO
+    P -- &quot;Money movement or over limit&quot; --&gt; SU
+    SU -- &quot;Customer approves&quot; --&gt; WR
+    P --&gt; L
+    SU --&gt; L
+    K -.-&gt; R
+</pre>
+<p>Each component has one job.</p>
+<ul>
+<li><strong>Agent registry.</strong> Each agent product registers with the bank. It gets an ID and a signing key. The bank knows the vendor and can suspend the product.</li>
+<li><strong>Consent service.</strong> The customer grants consent inside the bank’s own app. The customer picks the scopes. Consent has an expiry date. The customer can revoke one agent and keep the others.</li>
+<li><strong>Policy engine.</strong> The bank sets limits per scope. Examples: a cap per transfer, a cap per day, approved payees only. The bank, not the agent vendor, owns these rules.</li>
+<li><strong>Step-up approval.</strong> Any action that moves money above a limit goes back to the customer. The customer confirms in the bank app. The agent cannot approve its own action.</li>
+<li><strong>Audit log.</strong> Every call carries the agent ID and the consent ID. This record is what makes liability workable.</li>
+<li><strong>Kill switch.</strong> The bank can stop one agent for one customer, one agent product for all customers, or all agents.</li>
+</ul>
+<p>Nothing here is new technology. OAuth 2.0 scopes, signed requests, and step-up authentication already exist. Open banking regimes already use most of them. The new part is to treat the agent as a first-class party with its own identity, rather than as a disguised customer.</p>
+<hr>
+<h2>How one request flows</h2>
+<p>Here is a common case. The agent sees a high balance in chequing. It wants to move money to a higher-yield savings account. This is the exact case that worries banks about deposit flight.</p>
+<pre class="mermaid">sequenceDiagram
+    autonumber
+    participant Cu as Customer
+    participant Ag as AI agent
+    participant GW as Agent gateway
+    participant Po as Policy engine
+    participant App as Bank app
+    participant Core as Core banking
+
+    Cu-&gt;&gt;App: Grant agent &quot;read balances&quot; + &quot;transfer between own accounts&quot;
+    App-&gt;&gt;Ag: Scoped token (expiry set)
+    Ag-&gt;&gt;GW: Read balances (signed, with token)
+    GW-&gt;&gt;Po: Check scope + risk
+    Po--&gt;&gt;GW: Allow
+    GW-&gt;&gt;Core: Get balances
+    Core--&gt;&gt;Ag: Balances
+    Ag-&gt;&gt;GW: Transfer to savings (signed, with token)
+    GW-&gt;&gt;Po: Check scope, amount, velocity
+    Po--&gt;&gt;GW: Over limit, step-up needed
+    GW-&gt;&gt;App: Ask customer to approve
+    App-&gt;&gt;Cu: Approve transfer?
+    Cu-&gt;&gt;App: Approve
+    App-&gt;&gt;GW: Approved
+    GW-&gt;&gt;Core: Execute transfer
+    GW-&gt;&gt;GW: Log agent ID, consent ID, approval ID
+    Core--&gt;&gt;Ag: Confirmation
+</pre>
+<p>Note what the bank keeps in this flow:</p>
+<ul>
+<li>The customer relationship. Consent and approval happen in the bank’s app.</li>
+<li>The risk decision. The policy engine is the bank’s.</li>
+<li>The evidence. The audit log answers “who did what, under which consent.”</li>
+</ul>
+<p>Note what the bank gives up: the ability to stop a customer from moving their own money to a better rate. I think banks should give that up. A bank that blocks agents to protect low-yield deposits will lose that argument with regulators and with customers.</p>
+<hr>
+<h2>Liability: who pays when the agent is wrong</h2>
+<p>Dimon is right that liability is the real question. Who pays for a wrong transfer is still unsettled in the US. (Source: Trending Topics, Crypto Briefing.)</p>
+<p>The gateway makes a fair answer possible because it produces evidence. Here is the split I propose:</p>
+<ul>
+<li><strong>The customer pays</strong> when the customer shared credentials outside the gateway. This is Dimon’s position, and it is fair for that case only.</li>
+<li><strong>The agent vendor pays</strong> when the agent acted outside the granted scope, or misread the customer’s instruction within it.</li>
+<li><strong>The bank pays</strong> when its policy engine approved an action that its own rules should have stopped.</li>
+</ul>
+<p>Without a gateway, every case collapses into the first line. The customer carries all the risk because nobody can prove otherwise. That outcome is bad for customers and bad for adoption.</p>
+<hr>
+<h2>The Canadian angle</h2>
+<p>Canada is in a better position than the US on this. Two pieces of law are already in motion.</p>
+<p><strong>Consumer-Driven Banking (open banking)</strong></p>
+<ul>
+<li>Bill C-15 received Royal Assent on March 26, 2026. It completes the framework and explicitly bans screen scraping. (Source: Facephi, Bank of Canada remarks via Open Banking Expo.)</li>
+<li>The Department of Finance published the proposed regulations on June 27, 2026. The Bank of Canada supervises the framework. (Source: Canada Gazette, Bennett Jones.)</li>
+<li>The framework sets a statutory liability structure between participants. (Source: Open Banking Expo, on Finance Canada’s framework.)</li>
+<li>Rollout is phased. Read access comes first. Write access, such as payment initiation, comes later. Final go-live dates were still not confirmed. (Source: Fiskil.)</li>
+</ul>
+<p>The open question: does an AI agent that logs in with a customer’s password count as screen scraping under C-15? I do not know. I think it should. If the answer is yes, every credential-sharing agent is out of bounds in Canada, and the accredited API path becomes the only legal path. That is the gateway model, written into law.</p>
+<p><strong>OSFI Guideline E-23</strong></p>
+<ul>
+<li>E-23 takes effect on May 1, 2027. It brings AI and machine learning models into model risk management at federally regulated financial institutions. (Source: BLG, Mondaq.)</li>
+<li>This applies to the bank’s own agents, not to the customer’s agent.</li>
+<li>So the bank’s own cash-sweep agent needs an inventory entry, a risk rating, validation, and monitoring. An outside agent that enters through the gateway does not. The gateway’s policy engine is what the bank governs.</li>
+</ul>
+<p>That split is useful. The gateway lets a Canadian bank say: “We govern our models under E-23. We govern outside agents through consent and policy at the door.”</p>
+<hr>
+<h2>What to build first</h2>
+<p>Do not try to build everything. Start with read access, the same order that Canada’s open banking rollout uses.</p>
+<ol>
+<li>Build the agent registry. Give each agent product an ID and a key.</li>
+<li>Add consent in the bank app. Start with read-only scopes.</li>
+<li>Log the agent ID and consent ID on every call.</li>
+<li>Add the kill switch.</li>
+<li>Add write scopes for transfers between the customer’s own accounts.</li>
+<li>Add step-up approval for any money movement over a limit.</li>
+<li>Add payments to outside payees last.</li>
+</ol>
+<p>Steps 1 to 4 carry low risk and give the bank visibility on day one. Steps 5 to 7 need the liability model agreed first.</p>
+<p>On the vendor side, Meta and Sierra are working on a protocol that lets personal agents identify themselves and get customer permission. (Source: Trending Topics, ValueAdd VC.) Banks should engage with that work now. If banks do not shape the agent identity standard, the agent vendors will shape it alone.</p>
+<hr>
+<h2>My position</h2>
+<p>The block is the correct short-term move. A bank cannot let an unidentified actor with full credentials move money.</p>
+<p>The block is the wrong long-term strategy. Customers will use agents. The only choice a bank has is whether those agents come through a door the bank controls, or through a password the bank cannot see.</p>
+<p>Build the door.</p>
+<hr>
+<h3>Sources</h3>
+<ul>
+<li>CNBC, “JPMorgan Chase blocks outside AI agents like Muse, Instinct from directly accessing accounts,” October 13, 2026.</li>
+<li>Fortune, “Jamie Dimon bars outside AI agents like Meta’s Muse from JPMorgan accounts,” October 15, 2026.</li>
+<li>Banking Dive, “JPMorgan CEO Dimon warns customers of ‘liability transfer’ with AI,” October 13, 2026.</li>
+<li>Notebookcheck, “US banks and Amazon are blocking AI agents like Meta’s Muse,” October 2026.</li>
+<li>Trending Topics, “U.S. Banks Lock Out A.I. Agents,” October 2026.</li>
+<li>ValueAdd VC, “Dimon Blocks Outside AI Agents From JPMorgan Accounts,” October 2026.</li>
+<li>Crypto Briefing, “Major US banks detect unauthorized third-party AI agents in customer accounts,” October 2026.</li>
+<li>Canada Gazette, Part I, Vol. 160, No. 26, “Consumer-Driven Banking Regulations,” June 27, 2026.</li>
+<li>Bennett Jones, “Canada Advances Consumer-Driven Banking Framework with Proposed Regulations,” July 8, 2026.</li>
+<li>Open Banking Expo, “Bank of Canada sets course for Consumer-Driven Banking and stablecoin supervision,” April 13, 2026.</li>
+<li>Facephi, “Open Banking and Real-Time Payments: The Canadian Revolution 2026.”</li>
+<li>Fiskil, “Open finance tracker: Canada.”</li>
+<li>BLG, “A Turning Point for AI in Canada in 2026,” April 1, 2026.</li>
+<li>Mondaq / Osler, on OSFI Guideline E-23 effective date.</li>
+</ul>
+
+    </div>
+
+    <div class="article-footer">
+      <div class="author-card">
+        <div class="author-avatar">&#128736;&#65039;</div>
+        <div>
+          <div class="author-name"><a href="/about/">Srivatsa Kasagar</a></div>
+          <div class="author-bio">AI Builder &amp; Solutions Architect with 25+ years in financial services. Building production-grade AI tools for the Canadian market at Caseonix &mdash; including LocalMind, Consul, and compliance plugins for Claude Code.</div>
+          <div class="author-links">
+            <a href="https://linkedin.com/in/skasagar" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub</a>
+            <a href="/about/">About</a>
+            <a href="/software/">Software</a>
+          </div>
+        </div>
+      </div>
+      <div class="related-posts">
+        <div class="related-posts-label">More from Caseonix</div>
+        <a href="/blog/ai-canadian-financial-services-compliance-playbook.html">AI for Canadian financial services (OSFI E-23 notes)</a>
+        <a href="/blog/building-pipeda-compliant-ai-tools.html">Building AI tools for PIPEDA &mdash; a developer's guide</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer-v2">
+    <div class="footer-v2-inner">
+      <div class="footer-v2-left">
+        <div class="footer-v2-logo">caseonix</div>
+        <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
+      </div>
+      <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/software/">Software</a>
+        <a href="/#sheets">Sheets</a>
+        <a href="/blog/index.html">Lab notes</a>
+        <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+      <div class="footer-v2-right">&copy; 2026 Caseonix</div>
+    </div>
+      <div class="footer-disclaimer" style="max-width: 1200px; margin: 24px auto 0; padding: 18px 24px 0; border-top: 1px solid var(--border); text-align: center; font-size: 0.72rem; line-height: 1.65; color: var(--text-3);">
+      Caseonix is a solo AI lab. Posts, projects, and research notes are engineering commentary &mdash; not legal, compliance, tax, financial, investment, or professional advice.
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      toggle.textContent = t === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('caseonix-theme', t); } catch(e) {}
+    }
+    toggle.addEventListener('click', () => {
+      setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    try {
+      const saved = localStorage.getItem('caseonix-theme');
+      if (saved) setTheme(saved);
+    } catch(e) {}
+
+    // Share buttons
+    const pageUrl = 'https://caseonix.ca/blog/banks-ai-agents-architecture.html';
+    const pageTitle = 'Why we built Consul: private wealth intelligence for the people who manage their own money';
+
+    document.getElementById('shareLinkedIn').href =
+      'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(pageUrl);
+
+    document.getElementById('shareTwitter').href =
+      'https://x.com/intent/tweet?text=' + encodeURIComponent(pageTitle) + '&url=' + encodeURIComponent(pageUrl);
+
+    document.getElementById('shareCopy').addEventListener('click', function() {
+      navigator.clipboard.writeText(pageUrl).then(() => {
+        const btn = this;
+        btn.classList.add('copied');
+        const orig = btn.innerHTML;
+        btn.innerHTML = btn.innerHTML.replace('Copy link', 'Copied!');
+        setTimeout(() => { btn.classList.remove('copied'); btn.innerHTML = orig; }, 2000);
+      });
+    });
+  </script>
+
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      flowchart: { useMaxWidth: false },
+      sequence: { useMaxWidth: false },
+      themeVariables: {
+        darkMode: true, fontSize: '15px', background: '#0B2431',
+        primaryColor: '#123446', primaryBorderColor: '#5EBA9C', primaryTextColor: '#E8F1F0',
+        secondaryColor: '#123446', tertiaryColor: '#0F2C3B', lineColor: '#9FC9BC', textColor: '#E8F1F0',
+        clusterBkg: '#0F2C3B', clusterBorder: '#3C6A6A', edgeLabelBackground: '#0B2431',
+        actorBkg: '#123446', actorBorder: '#5EBA9C', actorTextColor: '#E8F1F0', actorLineColor: '#3C6A6A',
+        signalColor: '#9FC9BC', signalTextColor: '#E8F1F0', labelBoxBkgColor: '#123446', labelBoxBorderColor: '#5EBA9C',
+        noteBkgColor: '#123446', noteTextColor: '#E8F1F0'
+      }
+    });
+  </script>
+</body>
+</html>
