@@ -20,6 +20,7 @@ const ORG_ID = `${SITE}/#org`;
 const OG_IMAGE = `${SITE}/og-image-v2.png`;
 
 const POSTS = {
+  banks: ['/blog/banks-ai-agents-architecture.html', 'Banks told AI agents to stay out: the agent gateway architecture'],
   consul: ['/blog/why-we-built-consul.html', 'Why we built Consul'],
   orchestration: ['/blog/multi-agent-orchestration-pattern.html', 'Making six models look like one: a multi-agent orchestration pattern'],
   wealth: ['/blog/building-multi-agent-claude-skills-wealth-guide.html', 'Multi-agent Claude Code skills: the wealth-guide pattern'],
@@ -281,7 +282,7 @@ function aboutPage(shell) {
     ogType: 'profile',
     eyebrow: 'About',
     h1: 'Srivatsa Kasagar',
-    meta: ['Founder &amp; Principal Architect, Caseonix', 'Waterloo, ON'],
+    meta: ['Founder &amp; Principal Architect', 'Waterloo, ON'],
     back: ['/', 'back to caseonix'],
     schema: [
       {
@@ -303,16 +304,17 @@ function aboutPage(shell) {
       },
       breadcrumbs([['Caseonix', `${SITE}/`], ['About', `${SITE}/about/`]]),
     ],
-    body: `<p>I&rsquo;m Srivatsa Kasagar, a principal architect in Waterloo, Ontario. I spent 25+ years in financial services before going solo. The AI work is the recent part.</p>
-      <p>I run <a href="/">Caseonix</a>, a solo AI lab, half research and half build. I build AI systems for Canadian regulated contexts and publish the engineering behind them: what I chose, what it cost, and what broke.</p>
+    body: `<p>I&rsquo;m Srivatsa Kasagar, founder and principal architect at <a href="/">Caseonix</a>, based in Waterloo, Ontario.</p>
+      <p>I have built systems for banks and financial services firms for 25+ years. Most of that work is case management, cloud platforms and the integrations that connect them. I still do that work as an independent architect.</p>
+      <p>Caseonix is my AI lab. I build AI systems for Canadian regulated industries and publish the engineering behind them: what I chose, what it cost, and what broke.</p>
       <h2>What I build</h2>
       <ul>
         ${software}
       </ul>
       <h2>What I write about</h2>
-      <p>RAG systems, multi-agent architectures, edge inference, and data residency engineering. Start with <a href="/blog/index.html">the lab notes</a>, or read these:</p>
+      <p>How AI fits into bank systems: case management on Pega, cloud on AWS, multi-agent architectures, RAG and data residency. Start with <a href="/blog/index.html">the lab notes</a>, or read these:</p>
       <ul>
-        ${['ragPipeline', 'orchestration', 'finserv', 'auditlm', 'nordid', 'pega'].map((k) => `<li><a href="${POSTS[k][0]}">${POSTS[k][1]}</a></li>`).join('\n        ')}
+        ${['banks', 'pega', 'cheque', 'finserv', 'orchestration', 'ragPipeline'].map((k) => `<li><a href="${POSTS[k][0]}">${POSTS[k][1]}</a></li>`).join('\n        ')}
       </ul>
       <h2>Find me elsewhere</h2>
       <ul>
