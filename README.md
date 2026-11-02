@@ -11,7 +11,7 @@
   <a href="https://caseonix.ca"><img src="https://img.shields.io/badge/caseonix.ca-site-7FCBB0?style=flat-square&labelColor=0E1B2B" alt="Site" /></a>
   <a href="https://caseonix.ca/blog/index.html"><img src="https://img.shields.io/badge/blog-lab%20notes-7FCBB0?style=flat-square&labelColor=0E1B2B" alt="Blog" /></a>
   <a href="https://linkedin.com/in/skasagar"><img src="https://img.shields.io/badge/LinkedIn-skasagar-7FCBB0?style=flat-square&labelColor=0E1B2B" alt="LinkedIn" /></a>
-  <a href="mailto:contact@caseonix.ca"><img src="https://img.shields.io/badge/email-start%20a%20thread-7FCBB0?style=flat-square&labelColor=0E1B2B" alt="Email" /></a>
+  <a href="mailto:srivatsa@caseonix.ca"><img src="https://img.shields.io/badge/email-start%20a%20thread-7FCBB0?style=flat-square&labelColor=0E1B2B" alt="Email" /></a>
 </p>
 
 <br/>
