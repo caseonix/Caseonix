@@ -87,7 +87,7 @@ async function main() {
     <title>Caseonix lab notes</title>
     <link>${SITE}/blog/</link>
     <atom:link href="${SITE}/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Research and long-form posts by Srivatsa Kasagar, an AI builder in Waterloo, Ontario.</description>
+    <description>Research and long-form posts by Srivatsa Kasagar, a principal architect in Waterloo, Ontario.</description>
     <language>en-ca</language>
 ${items}
   </channel>

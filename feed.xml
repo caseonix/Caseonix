@@ -4,7 +4,7 @@
     <title>Caseonix lab notes</title>
     <link>https://caseonix.ca/blog/</link>
     <atom:link href="https://caseonix.ca/feed.xml" rel="self" type="application/rss+xml" />
-    <description>Research and long-form posts by Srivatsa Kasagar, an AI builder in Waterloo, Ontario.</description>
+    <description>Research and long-form posts by Srivatsa Kasagar, a principal architect in Waterloo, Ontario.</description>
     <language>en-ca</language>
     <item>
       <title>Banks told AI agents to stay out. Here is the architecture that lets them back in.</title>

@@ -275,13 +275,13 @@ function aboutPage(shell) {
   const links = PROFILE_LINKS.map(([n, u]) => `<li><a href="${u}">${n}</a></li>`).join('\n        ');
   const software = PRODUCTS.map((p) => `<li><a href="/software/${p.slug}.html">${p.name.replace('&', '&amp;')}</a>: ${p.kind}</li>`).join('\n        ');
   return page(shell, {
-    title: 'Srivatsa Kasagar: AI builder in Waterloo, Ontario',
-    description: 'Srivatsa Kasagar is an AI builder and solutions architect in Waterloo, Ontario, with 25+ years in financial services. Founder of Caseonix, a solo AI lab.',
+    title: 'Srivatsa Kasagar: Founder & Principal Architect',
+    description: 'Founder of Caseonix. Principal architect for AI, Pega and AWS systems in banking. 25+ years in financial services. Based in Waterloo, Ontario.',
     path: '/about/',
     ogType: 'profile',
     eyebrow: 'About',
     h1: 'Srivatsa Kasagar',
-    meta: ['AI builder &amp; solutions architect', 'Waterloo, ON'],
+    meta: ['Founder &amp; Principal Architect, Caseonix', 'Waterloo, ON'],
     back: ['/', 'back to caseonix'],
     schema: [
       {
@@ -293,16 +293,17 @@ function aboutPage(shell) {
           '@id': PERSON_ID,
           name: 'Srivatsa Kasagar',
           url: `${SITE}/about/`,
-          jobTitle: 'AI Builder & Solutions Architect',
+          jobTitle: 'Founder & Principal Architect',
+          description: 'Founder of Caseonix. Principal architect for AI, Pega and AWS systems in banking. 25+ years in financial services. Based in Waterloo, Ontario.',
           worksFor: { '@id': ORG_ID },
           address: { '@type': 'PostalAddress', addressLocality: 'Waterloo', addressRegion: 'Ontario', addressCountry: 'CA' },
           sameAs: PROFILE_LINKS.map(([, u]) => u),
-          knowsAbout: ['Artificial Intelligence', 'Retrieval-Augmented Generation', 'Agentic AI Architectures', 'Multi-Agent Systems', 'Claude Code', 'Claude API', 'Cloudflare Workers AI', 'Financial Services Engineering', 'Python', 'Canadian Data Residency Engineering'],
+          knowsAbout: ['Artificial Intelligence', 'Retrieval-Augmented Generation', 'Agentic AI Architectures', 'Multi-Agent Systems', 'Claude Code', 'Claude API', 'Cloudflare Workers AI', 'Financial Services Engineering', 'Banking Systems Architecture', 'Pega Platform', 'Amazon Web Services', 'Python', 'Canadian Data Residency Engineering'],
         },
       },
       breadcrumbs([['Caseonix', `${SITE}/`], ['About', `${SITE}/about/`]]),
     ],
-    body: `<p>I&rsquo;m Srivatsa Kasagar, an AI builder and solutions architect in Waterloo, Ontario. I spent 25+ years in financial services before going solo. The AI building is the recent part.</p>
+    body: `<p>I&rsquo;m Srivatsa Kasagar, a principal architect in Waterloo, Ontario. I spent 25+ years in financial services before going solo. The AI work is the recent part.</p>
       <p>I run <a href="/">Caseonix</a>, a solo AI lab, half research and half build. I build AI systems for Canadian regulated contexts and publish the engineering behind them: what I chose, what it cost, and what broke.</p>
       <h2>What I build</h2>
       <ul>
