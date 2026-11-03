@@ -34,6 +34,7 @@ const POSTS = {
   auditlm: ['/notes/auditlm-ai-governance-gap.html', 'Research note: AuditLM and the AI governance gap'],
   nordid: ['/notes/nordid-canadian-business-identity.html', 'Research note: NordID and Canadian business identity'],
   pega: ['/notes/pega-autopilot-lab-notes.html', 'Pega GenAI Autopilot: what adoption really takes'],
+  pegaMcp: ['/notes/pega-mcp-starter-lab-notes.html', 'Starter lab notes: Pega Infinity 26 and MCP'],
   cheque: ['/notes/cheque-fraud-detection-lab-notes.html', 'Research note: cheque image fraud detection on AWS'],
 };
 
@@ -314,7 +315,7 @@ function aboutPage(shell) {
       <h2>What I write about</h2>
       <p>How AI fits into bank systems: case management on Pega, cloud on AWS, multi-agent architectures, RAG and data residency. Start with <a href="/blog/index.html">the lab notes</a>, or read these:</p>
       <ul>
-        ${['banks', 'pega', 'cheque', 'finserv', 'orchestration', 'ragPipeline'].map((k) => `<li><a href="${POSTS[k][0]}">${POSTS[k][1]}</a></li>`).join('\n        ')}
+        ${['banks', 'pegaMcp', 'pega', 'cheque', 'finserv', 'orchestration', 'ragPipeline'].map((k) => `<li><a href="${POSTS[k][0]}">${POSTS[k][1]}</a></li>`).join('\n        ')}
       </ul>
       <h2>Find me elsewhere</h2>
       <ul>

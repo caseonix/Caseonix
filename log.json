@@ -1,6 +1,12 @@
 {
   "items": [
     {
+      "href": "/notes/pega-mcp-starter-lab-notes.html",
+      "title": "Starter lab notes: Pega Infinity 26 and MCP",
+      "date": "2026-11-03",
+      "type": "note"
+    },
+    {
       "href": "/blog/banks-ai-agents-architecture.html",
       "title": "Banks told AI agents to stay out. Here is the architecture that lets them back in.",
       "date": "2026-10-30",

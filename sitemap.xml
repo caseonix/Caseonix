@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://caseonix.ca/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-03</lastmod>
   </url>
   <url>
     <loc>https://caseonix.ca/about/</loc>
@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://caseonix.ca/blog/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-03</lastmod>
   </url>
   <url>
     <loc>https://caseonix.ca/blog/ai-canadian-financial-services-compliance-playbook.html</loc>
@@ -111,5 +111,9 @@
   <url>
     <loc>https://caseonix.ca/notes/pega-autopilot-lab-notes.html</loc>
     <lastmod>2026-03-23</lastmod>
+  </url>
+  <url>
+    <loc>https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html</loc>
+    <lastmod>2026-11-03</lastmod>
   </url>
 </urlset>

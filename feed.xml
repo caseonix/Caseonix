@@ -7,6 +7,13 @@
     <description>Research and long-form posts by Srivatsa Kasagar, a principal architect in Waterloo, Ontario.</description>
     <language>en-ca</language>
     <item>
+      <title>Starter lab notes: Pega Infinity 26 and MCP</title>
+      <link>https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html</link>
+      <guid>https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html</guid>
+      <pubDate>Tue, 03 Nov 2026 12:00:00 GMT</pubDate>
+      <description>Hands-on guide to MCP in Pega Infinity 26: Blueprint MCP preview, Service MCP for Claude, Connect MCP for Pega AI agents, and the Claude Code authoring plugin.</description>
+    </item>
+    <item>
       <title>Banks told AI agents to stay out. Here is the architecture that lets them back in.</title>
       <link>https://caseonix.ca/blog/banks-ai-agents-architecture.html</link>
       <guid>https://caseonix.ca/blog/banks-ai-agents-architecture.html</guid>

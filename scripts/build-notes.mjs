@@ -111,6 +111,13 @@ function buildJsonLd(fm) {
       '@id': `https://caseonix.ca/notes/${fm.slug}.html`,
     },
   };
+  obj.image = `https://caseonix.ca/og/${fm.slug}.png`;
+  if (Array.isArray(fm.tags) && fm.tags.length) obj.keywords = fm.tags.join(', ');
+  // A 'level' in frontmatter marks a how-to note: emit TechArticle with proficiencyLevel.
+  if (fm.level) {
+    obj['@type'] = 'TechArticle';
+    obj.proficiencyLevel = fm.level[0].toUpperCase() + fm.level.slice(1);
+  }
   if (fm.series) {
     obj.isPartOf = { '@type': 'CreativeWorkSeries', name: fm.series };
   }
@@ -134,9 +141,19 @@ function buildBreadcrumbs(fm) {
 }
 
 function mermaidScriptTag() {
+  // Match the page theme, and re-render when the theme toggle flips data-theme.
   return `<script type="module">
     import mermaid from '${MERMAID_CDN}';
-    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+    const nodes = [...document.querySelectorAll('pre.mermaid')];
+    nodes.forEach((n) => { n.dataset.src = n.textContent; });
+    async function render() {
+      const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+      mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default' });
+      nodes.forEach((n) => { n.removeAttribute('data-processed'); n.textContent = n.dataset.src; });
+      await mermaid.run({ nodes });
+    }
+    render();
+    new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   </script>`;
 }
 

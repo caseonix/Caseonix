@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pega Infinity 26 MCP: Service MCP and Connect MCP labs | Caseonix</title>
+  <meta name="description" content="Hands-on guide to MCP in Pega Infinity 26: Blueprint MCP preview, Service MCP for Claude, Connect MCP for Pega AI agents, and the Claude Code authoring plugin." />
+  <meta name="author" content="Srivatsa Kasagar" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="keywords" content="Pega MCP, Pega Infinity 26, Service MCP, Connect MCP, Model Context Protocol, Pega Blueprint, Pega AI agents, Pega OAuth 2.0, pega-infinity-authoring, Claude Code, Pega Constellation" />
+  <link rel="canonical" href="https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html" />
+  <link rel="alternate" hreflang="en-ca" href="https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html" />
+  <link rel="alternate" hreflang="x-default" href="https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html" />
+
+  <meta property="og:title" content="Pega Infinity 26 MCP: Service MCP and Connect MCP labs" />
+  <meta property="og:description" content="Hands-on guide to MCP in Pega Infinity 26: Blueprint MCP preview, Service MCP for Claude, Connect MCP for Pega AI agents, and the Claude Code authoring plugin." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html" />
+  <meta property="og:image" content="https://caseonix.ca/og/pega-mcp-starter-lab-notes.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Caseonix" />
+  <meta property="og:locale" content="en_CA" />
+  <meta property="article:author" content="Srivatsa Kasagar" />
+  <meta property="article:published_time" content="2026-11-03" />
+  <meta property="article:modified_time" content="2026-11-03" />
+  <meta property="article:section" content="Research notes" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Pega Infinity 26 MCP: Service MCP and Connect MCP labs" />
+  <meta name="twitter:description" content="Hands-on guide to MCP in Pega Infinity 26: Blueprint MCP preview, Service MCP for Claude, Connect MCP for Pega AI agents, and the Claude Code authoring plugin." />
+  <meta name="twitter:image" content="https://caseonix.ca/og/pega-mcp-starter-lab-notes.png" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "headline": "Starter lab notes: Pega Infinity 26 and MCP",
+  "description": "Hands-on guide to MCP in Pega Infinity 26: Blueprint MCP preview, Service MCP for Claude, Connect MCP for Pega AI agents, and the Claude Code authoring plugin.",
+  "author": {
+    "@type": "Person",
+    "@id": "https://caseonix.ca/about/#person",
+    "name": "Srivatsa Kasagar",
+    "url": "https://caseonix.ca/about/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://caseonix.ca/#org",
+    "name": "Caseonix",
+    "url": "https://caseonix.ca/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://caseonix.ca/icon-512.png"
+    }
+  },
+  "datePublished": "2026-11-03",
+  "dateModified": "2026-11-03",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html"
+  },
+  "image": "https://caseonix.ca/og/pega-mcp-starter-lab-notes.png",
+  "keywords": "Pega MCP, Pega Infinity 26, Service MCP, Connect MCP, Model Context Protocol, Pega Blueprint, Pega AI agents, Pega OAuth 2.0, pega-infinity-authoring, Claude Code, Pega Constellation",
+  "proficiencyLevel": "Beginner"
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Caseonix",
+      "item": "https://caseonix.ca/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Lab notes",
+      "item": "https://caseonix.ca/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Pega Infinity 26 MCP: Service MCP and Connect MCP labs",
+      "item": "https://caseonix.ca/notes/pega-mcp-starter-lab-notes.html"
+    }
+  ]
+}
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0F1B2A;
+      --surface: #1A2B3C;
+      --surface-2: #223549;
+      --border: rgba(255,255,255,0.06);
+      --border-hover: rgba(94,186,156,0.32);
+      --blue: #5EBA9C;
+      --teal-1: #7FCBB0;
+      --text: #E8ECF1;
+      --text-2: #94A3B8;
+      --text-3: #64748B;
+      --nav-bg: rgba(15,27,42,0.82);
+      --radius: 16px;
+    }
+
+    [data-theme="light"] {
+      --bg: #F8FAFC;
+      --surface: #FFFFFF;
+      --surface-2: #F1F5F9;
+      --border: rgba(0,0,0,0.08);
+      --border-hover: rgba(94,186,156,0.35);
+      --text: #0F172A;
+      --text-2: #334155;
+      --text-3: #64748B;
+      --nav-bg: rgba(248,250,252,0.88);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 60px;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: 'Inter', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; text-decoration: none; color: var(--text); }
+    .nav-logo span { color: var(--blue); }
+    .nav-links-blog { display: flex; gap: 30px; list-style: none; }
+    .nav-links-blog a {
+      text-decoration: none; color: var(--text-2);
+      font-size: 0.9rem; font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links-blog a:hover, .nav-links-blog a.active { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .theme-toggle {
+      width: 38px; height: 38px; border-radius: 9px; border: 1px solid var(--border);
+      background: var(--surface); cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: 0.95rem; color: var(--text-2);
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .theme-toggle:hover { border-color: var(--border-hover); transform: rotate(20deg); color: var(--text); }
+    @media (max-width: 800px) {
+      nav { padding: 16px 24px; }
+      .nav-links-blog { display: none; }
+    }
+
+    /* NOTE WRAPPER */
+    .note-wrapper {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 140px 24px 80px;
+    }
+
+    .note-back {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; color: var(--text-3); text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.04em;
+      margin-bottom: 40px;
+      transition: color 0.2s;
+    }
+    .note-back:hover { color: var(--teal-1); }
+
+    .note-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal-1);
+      margin-bottom: 16px;
+    }
+
+    .note-title {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 600; letter-spacing: -0.025em;
+      color: var(--text); line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    .note-meta {
+      display: flex; gap: 14px; align-items: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem; color: var(--text-3);
+      margin-bottom: 48px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--border);
+    }
+    .note-meta-sep { color: var(--text-3); opacity: 0.5; }
+
+    .note-body p {
+      font-size: 1.02rem;
+      color: var(--text-2);
+      margin-bottom: 22px;
+      line-height: 1.75;
+    }
+    .note-body p strong,
+    .note-body li strong,
+    .note-body td strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    .note-body em { color: var(--text-2); font-style: italic; }
+    .note-body code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.86rem;
+      color: var(--teal-1);
+      background: var(--surface);
+      padding: 1px 6px;
+      border-radius: 4px;
+    }
+    .note-body h2 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--text); letter-spacing: -0.02em;
+      margin: 48px 0 16px; line-height: 1.3;
+    }
+    .note-body h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 1.18rem; font-weight: 600;
+      color: var(--text); letter-spacing: -0.01em;
+      margin: 36px 0 12px; line-height: 1.35;
+    }
+    .note-body h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--teal-1);
+      margin: 28px 0 10px;
+    }
+    .note-body ul,
+    .note-body ol {
+      margin: 0 0 22px; padding-left: 24px;
+      color: var(--text-2); font-size: 1.02rem;
+      line-height: 1.75;
+    }
+    .note-body li { margin-bottom: 6px; }
+    .note-body li > ul,
+    .note-body li > ol { margin: 6px 0 0; }
+    .note-body a {
+      color: var(--teal-1); text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .note-body a:hover { color: var(--teal-3); border-bottom-color: var(--teal-3); }
+    .note-body hr {
+      border: 0; border-top: 1px solid var(--border);
+      margin: 44px 0;
+    }
+    .note-body blockquote {
+      margin: 0 0 22px; padding: 12px 20px;
+      border-left: 3px solid var(--teal-1);
+      background: var(--surface);
+      color: var(--text-2);
+      font-size: 0.98rem; line-height: 1.7;
+      border-radius: 0 6px 6px 0;
+    }
+    .note-body blockquote p { margin-bottom: 0; }
+    .note-body pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem; line-height: 1.6;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 0 0 22px;
+      overflow-x: auto;
+      color: var(--text-2);
+    }
+    .note-body pre code {
+      background: none; padding: 0; color: inherit;
+      font-size: inherit;
+    }
+    .note-body table {
+      width: 100%; border-collapse: collapse;
+      margin: 0 0 22px;
+      font-size: 0.95rem;
+    }
+    .note-body th,
+    .note-body td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      color: var(--text-2);
+      line-height: 1.55;
+    }
+    .note-body th {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3);
+      border-bottom: 1px solid var(--border-hover);
+    }
+    .note-body tr:last-child td { border-bottom: none; }
+
+    .note-share {
+      display: flex; align-items: center; gap: 18px;
+      flex-wrap: wrap;
+      margin: 48px 0 0;
+      padding: 16px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .note-share-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text-3);
+      margin-right: auto;
+    }
+    .note-share-link {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem; font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--teal-1);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .note-share-link:hover { color: var(--teal-3); }
+    .note-share-link .arrow { font-size: 0.76rem; }
+
+    .note-cta {
+      margin-top: 56px;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .note-cta:hover { border-color: var(--border-hover); background: var(--surface-2); }
+    .note-cta-body {
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .note-cta-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--teal-1);
+    }
+    .note-cta-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem; font-weight: 500;
+      color: var(--text); line-height: 1.4;
+    }
+    .note-cta-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem; font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--teal-1);
+      white-space: nowrap;
+    }
+    .note-cta-link .arrow {
+      transition: transform 0.2s;
+    }
+    .note-cta:hover .note-cta-link .arrow { transform: translateX(4px); }
+    @media (max-width: 640px) {
+      .note-cta { flex-direction: column; align-items: flex-start; }
+    }
+    a.note-cta { text-decoration: none; }
+
+    /* FOOTER */
+    .footer-v2 {
+      border-top: 1px solid var(--border);
+      padding: 40px 60px;
+      margin-top: 80px;
+    }
+    .footer-v2-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 32px;
+    }
+    .footer-v2-logo {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem; font-weight: 600; color: var(--text);
+    }
+    .footer-v2-meta {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.64rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3); margin-top: 4px;
+    }
+    .footer-v2-nav { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+    .footer-v2-nav a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88rem; font-weight: 400;
+      color: var(--text-2); text-decoration: none;
+      transition: color 120ms ease-out;
+    }
+    .footer-v2-nav a:hover { color: var(--teal-1); }
+    .footer-v2-right {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; color: var(--text-3);
+    }
+    @media (max-width: 800px) {
+      .footer-v2 { padding: 40px 24px; }
+      .footer-v2-inner { grid-template-columns: 1fr; gap: 18px; text-align: center; }
+      .footer-v2-nav { justify-content: center; }
+      .footer-v2-right { text-align: center; }
+    }
+  </style>
+<!-- drawing-set theme -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Martian+Mono:wdth,wght@75..112.5,300..600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/assets/drawing-set.css" />
+<script src="/assets/drawing-set.js" defer></script>
+<link rel="stylesheet" href="/assets/drawing-set-pages.css" />
+<!-- /drawing-set theme -->
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">Case<span>onix</span></a>
+    <ul class="nav-links-blog">
+      <li><a href="/#sheets"><span>A-1</span> Sheets</a></li>
+      <li><a href="/#revisions"><span>R</span> Revisions</a></li>
+      <li><a href="/blog/index.html" class="active"><span>D</span> Lab notes</a></li>
+      <li><a href="/#transmittal"><span>T</span> Start a thread</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9728;&#65039;</button>
+    </div>
+  </nav>
+
+  <main class="note-wrapper">
+    <a href="/blog/index.html#notes" class="note-back">&larr; back to lab notes</a>
+
+    <div class="note-eyebrow">&sect; Lab note</div>
+    <h1 class="note-title">Starter lab notes: Pega Infinity 26 and MCP</h1>
+    <div class="note-meta">
+      <span>By <a href="/about/">Srivatsa Kasagar</a></span>
+      <span>Nov 03, 2026</span>
+    </div>
+
+    <div class="note-body">
+<p>MCP is a standard plug that lets AI tools talk to other systems. Pega Infinity 26 supports this plug in four places. These notes explain the basic ideas first. Then they walk you through four labs, from the easiest to the hardest.</p>
+<ul>
+<li><strong>Lab 1 (easiest):</strong> Connect an AI assistant to a Pega Blueprint design. You do not need a Pega instance.</li>
+<li><strong>Lab 2:</strong> Let Claude create real cases in your Pega application.</li>
+<li><strong>Lab 3:</strong> Let a Pega AI agent use tools from outside Pega.</li>
+<li><strong>Lab 4:</strong> Let a coding assistant, such as Claude Code, build Pega rules for you.</li>
+</ul>
+<p>Read Part 1 first if MCP or OAuth is new to you.</p>
+<p><strong>Where this information comes from:</strong> Pega Forums posts, the Pega GitHub repository, and Pega press releases. I did not find the official <a href="http://docs.pega.com">docs.pega.com</a> pages for these features. Treat each step as a starting point. Check it on your own instance.</p>
+<hr>
+<h2>Part 1: The basic ideas</h2>
+<h3>What problem does MCP solve?</h3>
+<p>An AI assistant, such as Claude or ChatGPT, is good at language. By itself, it cannot open a case in your Pega application. It does not know your case types. It cannot log in.</p>
+<p>Before MCP, each AI vendor and each system needed a custom integration. Ten AI tools and ten systems meant up to one hundred integrations.</p>
+<p>MCP (Model Context Protocol) is one standard way to connect them. A system describes what it can do in a standard format. Any AI tool that speaks MCP can then use it.</p>
+<p>A simple comparison: MCP is like a USB port for AI. The system gives the port. The AI tool plugs in.</p>
+<h3>The four words you need</h3>
+<ul>
+<li><strong>MCP server:</strong> The system that offers capabilities. In Lab 2, Pega is the MCP server.</li>
+<li><strong>MCP client:</strong> The AI tool that uses those capabilities. In Lab 2, Claude is the MCP client.</li>
+<li><strong>Tool:</strong> One action that the server offers. Example: “Create a grant application.” Each tool has a name, a description, and the inputs it needs.</li>
+<li><strong>Endpoint URL:</strong> The web address of the MCP server. The client connects to this address.</li>
+</ul>
+<pre class="mermaid">flowchart LR
+    U[&quot;You&quot;] -- &quot;Asks in plain English:&lt;br/&gt;'Create a grant application for Acme'&quot; --&gt; C[&quot;MCP client&lt;br/&gt;(Claude)&quot;]
+    C -- &quot;Step 1: What tools do you have?&quot; --&gt; S[&quot;MCP server&lt;br/&gt;(Pega)&quot;]
+    S -- &quot;Step 2: I have 'Create Grant Application'.&lt;br/&gt;It needs: applicant, amount&quot; --&gt; C
+    C -- &quot;Step 3: Call the tool:&lt;br/&gt;applicant=Acme, amount=50000&quot; --&gt; S
+    S -- &quot;Step 4: Done. Case A-3001&quot; --&gt; C
+    C -- &quot;Answer: 'Created case A-3001'&quot; --&gt; U
+</pre>
+<p>What happens in this flow:</p>
+<ol>
+<li>The client asks the server for its list of tools.</li>
+<li>The server sends back each tool and the inputs it needs.</li>
+<li>The AI reads your request and picks the right tool. It fills in the inputs from your words.</li>
+<li>The server runs the action and returns the result.</li>
+</ol>
+<p>The AI decides <strong>which</strong> tool to call. Pega decides <strong>whether</strong> the call is allowed and <strong>how</strong> the work is done. Keep this split in mind. It matters for security.</p>
+<h3>Pega can be on either side</h3>
+<p>Pega can be the server, the client, or both.</p>
+<ul>
+<li><strong>Pega as the server:</strong> an outside AI tool works in Pega. The Pega rule for this is <strong>Service MCP</strong>. (Lab 2)</li>
+<li><strong>Pega as the client:</strong> a Pega AI agent uses tools outside Pega. The Pega rule for this is <strong>Connect MCP</strong>. (Lab 3)</li>
+</ul>
+<p>This matches how Pega already names integrations. A “Service” rule lets others call Pega. A “Connect” rule lets Pega call others. If you know Service REST and Connect REST, you already know the pattern.</p>
+<h3>What is OAuth, and why does every lab need it?</h3>
+<p>An MCP server must know who is calling. Otherwise, anyone with the URL could create cases.</p>
+<p>OAuth 2.0 is the standard way to answer “who is calling, and what may they do?” The AI tool never sees the user’s Pega password. It gets a <strong>token</strong> instead. A token is a temporary pass that Pega can check and cancel.</p>
+<p>Pega uses two OAuth styles (called <strong>grant types</strong>) for MCP:</p>
+<table>
+<thead>
+<tr>
+<th>Grant type</th>
+<th>When to use it</th>
+<th>What happens</th>
+<th>The work runs as</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authorization code</strong></td>
+<td>A person uses an AI assistant</td>
+<td>The person logs in to Pega once. Pega gives the assistant a token.</td>
+<td>That person</td>
+</tr>
+<tr>
+<td><strong>Client credentials</strong></td>
+<td>A machine calls Pega, such as another Pega app</td>
+<td>The machine proves its identity with a client ID and a secret. No person logs in.</td>
+<td>A named Pega operator</td>
+</tr>
+</tbody>
+</table>
+<p>The rule of thumb:</p>
+<ul>
+<li>If a person is in the conversation, use <strong>authorization code</strong>.</li>
+<li>If no person is involved, use <strong>client credentials</strong>.</li>
+</ul>
+<p>In Pega, you set this up in an <strong>OAuth 2.0 Client Registration</strong> rule. There are two client types:</p>
+<ul>
+<li><strong>Public client:</strong> for tools that cannot keep a secret safe, such as a chat app. It uses authorization code.</li>
+<li><strong>Confidential client:</strong> for servers that can keep a secret safe. It can use client credentials.</li>
+</ul>
+<h3>Pega terms used in these notes</h3>
+<ul>
+<li><strong>Case type:</strong> A business process in Pega, such as “Grant Application” or “Dispute.”</li>
+<li><strong>Rule:</strong> Any configuration item in Pega. Case types, OAuth registrations, and MCP services are all rules.</li>
+<li><strong>Operator:</strong> A Pega user account.</li>
+<li><strong>Access group:</strong> The set of permissions an operator has.</li>
+<li><strong>Data page:</strong> A Pega rule that loads and caches data.</li>
+<li><strong>Constellation:</strong> Pega’s current UI architecture.</li>
+<li><strong>UI Kit:</strong> Pega’s older UI architecture. Some MCP features are not yet confirmed on UI Kit.</li>
+<li><strong>Dev Studio / App Studio / Infinity Studio:</strong> Pega’s design-time tools. Infinity Studio is the unified tool in Infinity 26.</li>
+<li><strong>OOTB:</strong> Out of the box. A feature Pega already provides.</li>
+</ul>
+<h3>The big picture</h3>
+<pre class="mermaid">flowchart LR
+    subgraph Design time
+        BP[&quot;Lab 1: Blueprint preview&lt;br/&gt;as MCP server&quot;]
+    end
+
+    subgraph Runtime
+        SM[&quot;Lab 2: Service MCP&lt;br/&gt;(Pega is the server)&quot;]
+        CM[&quot;Lab 3: Connect MCP&lt;br/&gt;(Pega is the client)&quot;]
+        AG[&quot;Pega AI agent&quot;]
+    end
+
+    subgraph Build time
+        CC[&quot;Lab 4: Claude Code /&lt;br/&gt;Copilot CLI / Codex&quot;]
+        PL[&quot;Pega authoring plugin&lt;br/&gt;(MCP server on your laptop)&quot;]
+    end
+
+    EXT[&quot;AI assistants&lt;br/&gt;(Claude and others)&quot;]
+    XT[&quot;Outside MCP server&quot;]
+    P[(&quot;Pega Infinity 26&quot;)]
+
+    EXT -- &quot;temporary URL&quot; --&gt; BP
+    EXT -- &quot;OAuth&quot; --&gt; SM --&gt; P
+    AG --&gt; CM --&gt; XT
+    CC --&gt; PL -- &quot;OAuth&quot; --&gt; P
+</pre>
+<hr>
+<h2>Part 2: Before you start</h2>
+<h3>What you need</h3>
+<ul>
+<li>A Pega Infinity 26 instance (for Labs 2, 3, and 4). Lab 3 also works on Pega Platform 25.1.3.</li>
+<li>Access to Pega Blueprint (for Lab 1).</li>
+<li>A Claude account (for Labs 1 and 2).</li>
+<li>Admin rights in your Pega application, so you can create rules.</li>
+<li>For Lab 4: Node.js 22.14 or newer and Java 17 or newer on your laptop.</li>
+</ul>
+<h3>Check network access first</h3>
+<p>This is the most common reason a first attempt fails.</p>
+<ul>
+<li>Claude runs in the cloud. It must reach your Pega instance over the internet.</li>
+<li>On <strong>Pega Labs</strong> instances, a forum user got “Authorization with the MCP server failed.” The fix was a support ticket. The Pega Lab team then allowed traffic from Claude.</li>
+<li>On <strong>Community</strong> and <strong>Academy</strong> editions, it is not clear whether this traffic is allowed. Raise a support ticket to check.</li>
+<li><strong>Microsoft Copilot Studio</strong> has a known problem. It sends requests from changing IP addresses. Pega Cloud accepts requests only from approved IP addresses. So Copilot Studio cannot connect directly.</li>
+</ul>
+<p>If you work at a bank, expect the same IP allowlist problem with any cloud AI tool. Talk to the network team before you plan a demo.</p>
+<h3>Use a sandbox</h3>
+<p>Do every lab on a personal or sandbox instance. Do not use a client’s production system.</p>
+<hr>
+<h2>Part 3: The labs</h2>
+<h3>Lab 1: Talk to a Blueprint design (no Pega instance needed)</h3>
+<p><strong>Goal:</strong> See MCP work end to end in about 30 minutes, with no rules and no OAuth.</p>
+<p><strong>What you will learn:</strong> How an AI client discovers and calls tools.</p>
+<p><strong>Why start here:</strong> Blueprint creates a temporary MCP server for your design. You can test a workflow with an AI assistant before anyone builds it in Pega. Nothing touches a real environment.</p>
+<pre class="mermaid">flowchart LR
+    BP[&quot;Your Blueprint design&lt;br/&gt;(not imported to Pega)&quot;] --&gt; CH[&quot;Preview panel:&lt;br/&gt;MCP Agent DEVELOPER channel&quot;]
+    CH -- &quot;Creates a name and a&lt;br/&gt;temporary URL with a token&quot; --&gt; URL[&quot;MCP URL&quot;]
+    URL --&gt; CL[&quot;Claude&lt;br/&gt;custom connector&quot;]
+    CL -- &quot;'Open a dispute for $120'&quot; --&gt; CH
+    CH -- &quot;Simulated case&quot; --&gt; CL
+</pre>
+<p><strong>Steps</strong></p>
+<ol>
+<li>In Pega Blueprint, create a small design. Example: a card dispute with three stages.</li>
+<li>Open the workflow preview.</li>
+<li>Select the <strong>MCP Agent DEVELOPER</strong> channel.</li>
+<li>Blueprint shows a unique name and a temporary MCP URL. The URL includes a token.</li>
+<li>In Claude, add a custom MCP connector. Paste the URL.</li>
+<li>Ask Claude: “What can you do?” Claude lists the tools from your design.</li>
+<li>Ask Claude: “Open a dispute for $120 on my last card payment.”</li>
+<li>Watch Claude call the tools and walk through your simulated workflow.</li>
+</ol>
+<p><strong>What to notice</strong></p>
+<ul>
+<li>You did not write any tool definitions. Blueprint created them from your design.</li>
+<li>The quality of the AI’s choices depends on clear stage and step names. Vague names give vague results.</li>
+</ul>
+<p><strong>If it does not work</strong></p>
+<ul>
+<li>Some users report that their Claude account does not allow the custom connector this preview needs.</li>
+<li>A community member published a local workaround called the Universal MCP Gateway (<code>pega-blueprint-mcp-gateway</code> on GitHub). It runs on your laptop and forwards requests. It is not a Pega product. Read its code before you give it your token.</li>
+</ul>
+<p><strong>Security note:</strong> The URL contains a token. Anyone with the URL can use it. Do not share it in screenshots, chats, or tickets.</p>
+<p><strong>Checklist</strong></p>
+<ul>
+<li>☐ Build a small Blueprint.</li>
+<li>☐ Turn on the MCP Agent DEVELOPER channel.</li>
+<li>☐ Connect Claude and run one request end to end.</li>
+<li>☐ Rename one step to something vague. Run the same request. Compare the result.</li>
+</ul>
+<hr>
+<h3>Lab 2: Let Claude create real cases in Pega (Service MCP)</h3>
+<p><strong>Goal:</strong> A user types a request in Claude. Claude creates a real case in your Pega application.</p>
+<p><strong>What you will learn:</strong> How to make Pega an MCP server, and how OAuth protects it.</p>
+<p><strong>Why it matters:</strong> This is the main runtime feature of Infinity 26. Users can start work from the AI tool they already use, without opening Pega.</p>
+<p><strong>Version note:</strong> The Service MCP rule type first appeared in 25.1.3. The steps below come from an Infinity 26.1 walkthrough.</p>
+<h4>How the pieces fit together</h4>
+<p>You create three rules. Each one has one job.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Its job</th>
+<th>Simple comparison</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OAuth 2.0 Client Registration</strong></td>
+<td>Decides who may connect, and how they log in</td>
+<td>The door lock</td>
+</tr>
+<tr>
+<td><strong>MCP tool</strong></td>
+<td>Describes one action and the inputs it needs</td>
+<td>One item on a menu</td>
+</tr>
+<tr>
+<td><strong>Service MCP</strong></td>
+<td>Publishes the tools at one URL</td>
+<td>The menu itself</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid">flowchart TB
+    O[&quot;Rule 1: OAuth 2.0 Client Registration&lt;br/&gt;client type, grant type, redirect URI&quot;] --&gt; S
+    T[&quot;Rule 2: MCP tool&lt;br/&gt;e.g. Start Grant Application&quot;] --&gt; S
+    S[&quot;Rule 3: Service MCP&lt;br/&gt;Records → Integration Services → Service MCP&quot;]
+    S --&gt; CT[&quot;CASE TYPES tab:&lt;br/&gt;select the tool&quot;]
+    S --&gt; TL[&quot;Tools tab:&lt;br/&gt;optional OOTB tools&quot;]
+    S --&gt; CC[&quot;Configure Clients:&lt;br/&gt;Claude.ai + OAuth registration&quot;]
+    S --&gt; E[&quot;Endpoint URL&quot;]
+    E --&gt; C[&quot;Claude: Customize →&lt;br/&gt;custom connector&quot;]
+</pre>
+<h4>Step 1: Create the OAuth 2.0 client registration (the lock)</h4>
+<p><strong>Why:</strong> Claude needs a way to log the user in to Pega. This rule tells Pega how.</p>
+<ol>
+<li>Create a new <strong>OAuth 2.0 Client Registration</strong> rule. In Dev Studio, it is under <strong>Records → Security</strong>.</li>
+<li>Under <strong>Client Credentials → Type of client</strong>, select <strong>Public</strong>.
+<ul>
+<li>Why Public: Claude is a chat app used by people. It uses the authorization code flow, where each person logs in.</li>
+</ul>
+</li>
+<li>Under <strong>Supported grant types</strong>, configure <strong>authorization code</strong>.</li>
+<li>Add this redirect URI:</li>
+</ol>
+<pre><code class="language-text">https://claude.ai/api/mcp/auth_callback
+</code></pre>
+<p><strong>What is a redirect URI?</strong> After the user logs in to Pega, Pega must send them back to Claude. The redirect URI is the address Pega sends them back to. Pega only redirects to addresses on this list. This stops an attacker from stealing the login.</p>
+<h4>Step 2: Create an MCP tool (one item on the menu)</h4>
+<p><strong>Why:</strong> The tool tells the AI what it can do and what inputs it must provide.</p>
+<ol>
+<li>Create a new MCP tool. Example: “Start a grant application intake.”</li>
+<li>On the <strong>ACTION</strong> tab, select the case type the tool creates.</li>
+<li>On the <strong>PARAMETERS</strong> tab, add the inputs the AI must supply. Examples: applicant organization, requested amount, contact email.</li>
+</ol>
+<p><strong>Tips</strong></p>
+<ul>
+<li>Give the tool a clear name and description. The AI reads them to decide when to use the tool.</li>
+<li>Name each parameter the same as the case property it fills. In the walkthrough, this was enough. Pega filled the case properties directly from the AI’s values. This was on a Constellation case type.</li>
+<li>Create one tool per action. Small, clear tools work better than one large tool.</li>
+</ul>
+<h4>Step 3: Create the Service MCP rule (the menu)</h4>
+<p><strong>Why:</strong> This rule publishes your tools at one address that AI clients can reach.</p>
+<ol>
+<li>Go to <strong>Records → Integration Services → Service MCP</strong>.</li>
+<li>Create a new rule. Enable the MCP service for your application.</li>
+<li>On the <strong>CASE TYPES</strong> tab, select the tool from Step 2.</li>
+<li>Optional: on the <strong>Tools</strong> tab, add OOTB tools. The forum examples used OOTB tools that let the AI update fields, add Pulse notes, read the current assignment, complete an assignment, and change the stage.
+<ul>
+<li>For a first lab, start with only your own tool. Add OOTB tools later. Fewer tools make it easier to see what the AI does.</li>
+</ul>
+</li>
+<li>Under <strong>Configure Clients</strong>, select <strong><a href="http://Claude.ai">Claude.ai</a></strong> and the OAuth registration from Step 1. Pega fills in the connection details. Copy them to a note.</li>
+<li>Save the rule. Copy the endpoint URL.</li>
+</ol>
+<p>The endpoint URL looks like this:</p>
+<pre><code class="language-text">https://&lt;host&gt;/prweb/app/&lt;app-alias&gt;/api/service/v1/mcp/Rule-Service-MCP!&lt;ServiceName&gt;
+</code></pre>
+<h4>Step 4: Connect Claude (plug in)</h4>
+<ol>
+<li>In <a href="http://claude.ai">claude.ai</a>, open <strong>Customize</strong> in the left menu.</li>
+<li>Add a <strong>custom connector</strong>.</li>
+<li>Enter the endpoint URL and the OAuth client ID. Click <strong>Add</strong>.</li>
+<li>Click <strong>Connect</strong>. Claude opens the Pega login page.</li>
+<li>Log in with your Pega operator ID and password.</li>
+<li>Pega sends you back to Claude.</li>
+<li>Check that the connector lists your Pega tools.</li>
+</ol>
+<pre class="mermaid">sequenceDiagram
+    autonumber
+    participant User
+    participant Claude
+    participant Pega as Pega (Service MCP)
+    participant Case as Case type
+
+    User-&gt;&gt;Claude: Add connector (URL + client ID)
+    Claude-&gt;&gt;Pega: Start OAuth login
+    Pega-&gt;&gt;User: Show Pega login page
+    User-&gt;&gt;Pega: Log in
+    Pega--&gt;&gt;Claude: Token (sent to the redirect URI)
+    User-&gt;&gt;Claude: &quot;Create a grant application for Acme, $50,000&quot;
+    Claude-&gt;&gt;Pega: List tools
+    Pega--&gt;&gt;Claude: &quot;Start Grant Application&quot; tool
+    Claude-&gt;&gt;Pega: Call tool (applicant=Acme, amount=50000)
+    Pega-&gt;&gt;Case: Create case, set properties
+    Pega-&gt;&gt;Pega: Save audit record
+    Case--&gt;&gt;Claude: Case ID
+    Claude--&gt;&gt;User: &quot;Created case A-3001&quot;
+</pre>
+<p>Note: the user logs in once. After that, Claude uses the token. Every tool call runs as that user, with that user’s permissions.</p>
+<h4>Step 5: Test</h4>
+<ol>
+<li>Ask Claude to create a case. Give it specific values.</li>
+<li>Claude calls the tool and returns a case ID.</li>
+<li>Open the case in Pega. Check that each property matches what you typed.</li>
+</ol>
+<h4>Step 6: Check the audit record</h4>
+<p><strong>Why:</strong> In a regulated business, you must be able to show what the AI did.</p>
+<ul>
+<li>Pega saves each MCP interaction as an instance of the <code>Pega-Autopilot-Conversation</code> class.</li>
+<li>Each record shows the request Claude sent and the response Pega returned.</li>
+<li>Open the latest record. Find your request.</li>
+</ul>
+<h4>Common problems</h4>
+<p><strong>“Authorization with the MCP server failed”</strong></p>
+<ul>
+<li>Most likely a network block. See “Check network access first” in Part 2.</li>
+<li>Also check that the redirect URI matches exactly. One wrong character breaks it.</li>
+</ul>
+<p><strong>The case is created, but the fields are empty (UI Kit applications)</strong></p>
+<ul>
+<li>The walkthrough author tested only Constellation case types.</li>
+<li>One user created a UI Kit case but could not fill its properties from the tool inputs.</li>
+<li>Things to try:
+<ul>
+<li>Make each tool parameter name match the case property name exactly.</li>
+<li>Use the case’s <code>pyDefault</code> data transform to copy the incoming values into the case.</li>
+</ul>
+</li>
+<li>Another contributor said the OOTB <code>pxCommon</code> MCP service may need a view for each assignment in UI Kit applications. Pega has not confirmed this yet.</li>
+</ul>
+<p><strong>Other AI clients</strong></p>
+<ul>
+<li>A forum author also tested Service MCP with GitHub Copilot in VS Code and other MCP clients.</li>
+<li>Pega says ChatGPT and Microsoft 365 Copilot can call Pega through MCP. I found no public step-by-step guide for either. Test before you promise it to anyone.</li>
+</ul>
+<p><strong>Checklist</strong></p>
+<ul>
+<li>☐ Create the OAuth registration with the Claude redirect URI.</li>
+<li>☐ Create one MCP tool for one case type.</li>
+<li>☐ Create the Service MCP rule and copy the URL.</li>
+<li>☐ Connect Claude and log in.</li>
+<li>☐ Create one case from Claude.</li>
+<li>☐ Find the matching <code>Pega-Autopilot-Conversation</code> record.</li>
+</ul>
+<hr>
+<h3>Lab 3: Let a Pega agent use outside tools (Connect MCP)</h3>
+<p><strong>Goal:</strong> A Pega AI agent, working inside a case, calls a tool from another system.</p>
+<p><strong>What you will learn:</strong> How Pega acts as an MCP client.</p>
+<p><strong>Why it matters:</strong> Your Pega agent can use tools from other systems without a custom integration for each one.</p>
+<p><strong>Version note:</strong> The first walkthrough used Pega Platform 25.1.3.</p>
+<h4>Part A: Connect to a simple outside tool</h4>
+<p>The walkthrough used a public test server with time-zone tools. It needs no login, so it is a good first test:</p>
+<pre><code class="language-text">https://date-time-tools.iabhishek.workers.dev/mcp
+</code></pre>
+<p>This is a community test server. Use it for learning only. Never send real data to it.</p>
+<p><strong>Steps</strong></p>
+<ol>
+<li>Create a <strong>Connect MCP</strong> rule. Enter the MCP server URL.</li>
+<li>Click <strong>Test connectivity</strong>. If it works, Pega lists the tools the server offers.</li>
+<li>Open an <strong>AI Agent</strong> rule. Go to the <strong>Advanced Tools</strong> tab. Under <strong>External Agents and Tools</strong>, add the Connect MCP rule.
+<ul>
+<li>The walkthrough author could not see the Advanced Tools tab in App Studio. Use Dev Studio.</li>
+</ul>
+</li>
+<li>Open the case type. On the <strong>UX</strong> tab, add the AI agent to <strong>Full Page View → Agents</strong>.</li>
+<li>Create a new case. Click the <strong>Chat with AI</strong> icon in the bottom-right corner.</li>
+<li>Ask: “What can you do for me?” The agent lists what its tools can do.</li>
+<li>Ask: “Convert the current time to Korean time.”</li>
+<li>Run <strong>AI Tracer</strong>. Confirm that the agent called the outside tool.</li>
+</ol>
+<p><strong>Why use AI Tracer:</strong> The answer alone does not prove the agent used the tool. The AI could guess. AI Tracer shows the actual tool call.</p>
+<p>Note: The forum posts call this rule both “Connect MCP” and “MCP Connector.” They mean the same rule type.</p>
+<h4>Part B: Connect two Pega applications</h4>
+<p><strong>Goal:</strong> An agent in App B works cases in App A.</p>
+<p>This combines Lab 2 and Lab 3. App A is the server. App B is the client. The example used Infinity 26.1.1.</p>
+<p>This time no person logs in to App A. So use <strong>client credentials</strong> instead of authorization code.</p>
+<pre class="mermaid">flowchart LR
+    subgraph AppB[&quot;App B: the client&quot;]
+        AGB[&quot;AI agent&lt;br/&gt;Advanced Tools&quot;] --&gt; CMB[&quot;Connect MCP rule&lt;br/&gt;URL + Authentication Profile&quot;]
+    end
+    subgraph AppA[&quot;App A: the server&quot;]
+        SMA[&quot;Service MCP rule&quot;] --&gt; CTA[&quot;Case types and tools&quot;]
+        OA[&quot;OAuth registration&lt;br/&gt;Client credentials + Operator ID&quot;]
+    end
+    CMB -- &quot;Token from client credentials&quot; --&gt; SMA
+    OA -.-&gt; SMA
+</pre>
+<p><strong>In App A (the server)</strong></p>
+<ol>
+<li>Create an MCP tool for the case type. Add its parameters.</li>
+<li>Create a Service MCP rule. Select the tool. Add OOTB tools on the <strong>Tools</strong> tab if needed.</li>
+<li>Create an OAuth 2.0 client registration:
+<ul>
+<li>Under <strong>Supported grant types</strong>, select <strong>Client credentials</strong> and <strong>Operator ID</strong>.</li>
+<li>Click <strong>View &amp; download</strong> before you save. The file has the client ID, the client secret, and the access token endpoint.</li>
+<li>Keep this file secret. Store it in a password vault, not in email or chat.</li>
+</ul>
+</li>
+</ol>
+<p><strong>What does Operator ID mean here?</strong> Pega runs every call as the operator you name. That operator’s access group decides what the agent can do. Create a dedicated operator with only the access it needs.</p>
+<p><strong>In App B (the client)</strong></p>
+<ol>
+<li>Create an <strong>Authentication Profile</strong>:
+<ul>
+<li>Enter the client ID and the client secret from the file.</li>
+<li>Enter the access token endpoint from the file.</li>
+</ul>
+</li>
+<li>Create the <strong>Connect MCP</strong> rule:
+<ul>
+<li>Enter the endpoint URL from App A’s Service MCP rule.</li>
+<li>Select the Authentication Profile.</li>
+<li>Click <strong>Test connectivity</strong>. App A’s tools appear.</li>
+</ul>
+</li>
+<li>Create an AI agent. Add the Connect MCP rule under <strong>Advanced Tools</strong>. Add OOTB tools in the <strong>Actions</strong> section if needed.</li>
+<li>Add the agent to a case type on the <strong>UX</strong> tab.</li>
+</ol>
+<p><strong>What the agent could do in the example</strong></p>
+<ul>
+<li>Create a case in App A.</li>
+<li>Update fields and add a Pulse note.</li>
+<li>Read and complete the current assignment.</li>
+<li>Move the case to the Resolve stage.</li>
+<li>Create a PDF of the case, attach it, and email it.</li>
+<li>Answer list and count questions without report definitions.</li>
+</ul>
+<p><strong>What did not work perfectly</strong></p>
+<ul>
+<li>The same prompt did not always give the same result. Sometimes a field update needed a second prompt.</li>
+<li>The agent did not remember earlier chats. You had to give it the case ID again.</li>
+</ul>
+<h4>Agent tool or workflow step?</h4>
+<p>This is the most important design choice in Lab 3.</p>
+<ul>
+<li><strong>As an agent tool:</strong> the AI decides whether to call the tool. Good for work that needs judgment.</li>
+<li><strong>As a workflow step:</strong> in Infinity 26, you can call a Connect MCP rule as a step in the case flow. It runs every time. Pega maps the response to the case.</li>
+</ul>
+<p>The rule of thumb:</p>
+<ul>
+<li>If the call must happen every time, use a <strong>workflow step</strong>.</li>
+<li>If the call depends on the situation, use an <strong>agent tool</strong>, with a person approving where it matters.</li>
+</ul>
+<p><strong>Checklist</strong></p>
+<ul>
+<li>☐ Connect to the public test server and see its tools.</li>
+<li>☐ Add the Connect MCP rule to an agent.</li>
+<li>☐ Run one request and confirm it in AI Tracer.</li>
+<li>☐ Optional: connect two Pega apps with client credentials.</li>
+</ul>
+<hr>
+<h3>Lab 4: Let Claude Code build Pega rules (authoring plugin)</h3>
+<p><strong>Goal:</strong> You describe a change in your coding assistant. It creates or updates rules in your Pega instance.</p>
+<p><strong>What you will learn:</strong> How Pega uses MCP at build time.</p>
+<p><strong>Why it matters:</strong> Pega now supports popular coding assistants for Pega development, not only its own tools.</p>
+<p><strong>How it works:</strong> Pega publishes a plugin. The plugin runs a small MCP server on your laptop. Your coding assistant talks to that local server. The local server talks to your Pega instance.</p>
+<pre class="mermaid">sequenceDiagram
+    autonumber
+    participant Dev as You
+    participant CC as Claude Code
+    participant PL as Pega plugin&lt;br/&gt;(MCP server on your laptop)
+    participant Br as Browser
+    participant Pega as Pega instance
+
+    Dev-&gt;&gt;CC: /pega-infinity-authoring:pega-setup
+    CC-&gt;&gt;PL: Save settings to ~/.infinity-rules-mcp/config.json
+    PL-&gt;&gt;Br: Open the Pega login page
+    Br-&gt;&gt;Pega: You log in
+    Pega--&gt;&gt;PL: Token
+    Dev-&gt;&gt;CC: &quot;Create a Dispute case type with 2 stages&quot;
+    CC-&gt;&gt;PL: Call authoring tools
+    PL-&gt;&gt;Pega: Create and update rules
+    Pega--&gt;&gt;CC: Result
+    CC--&gt;&gt;Dev: Summary of changed rules
+</pre>
+<h4>What it is</h4>
+<ul>
+<li>The plugin is at <code>github.com/pegasystems/infinity-ai-plugins</code>.</li>
+<li>It supports Claude Code, GitHub Copilot CLI, OpenAI Codex, Devin, and OpenCode.</li>
+<li>Release 0.2.1 has MCP server 0.7.11 and skills 0.1.14.</li>
+<li>The bundled skills target Pega Infinity 24-2, 25-1, and 26-1, according to an open issue in the repository.</li>
+</ul>
+<h4>Before you install</h4>
+<ul>
+<li>Install Node.js 22.14 or newer.</li>
+<li>Install Java 17 or newer. The MCP server is a Java program.</li>
+<li>On first use, the plugin downloads its files and checks them against fixed SHA-256 hashes. This proves the files were not changed.</li>
+</ul>
+<h4>Install in Claude Code</h4>
+<pre><code class="language-bash">claude plugin marketplace add https://github.com/pegasystems/infinity-ai-plugins.git
+claude plugin install pega-infinity-authoring@Pega
+</code></pre>
+<p>Then, inside Claude Code, run the setup skill:</p>
+<pre><code class="language-text">/pega-infinity-authoring:pega-setup
+</code></pre>
+<p>The setup skill asks for:</p>
+<ul>
+<li>Your Pega instance URL.</li>
+<li>Your OAuth client ID.</li>
+</ul>
+<p>Then a browser window opens. Log in to Pega. This is the authorization code flow from Part 1.</p>
+<p>The setup saves your settings in <code>~/.infinity-rules-mcp/config.json</code>.</p>
+<h4>Install in other tools</h4>
+<pre><code class="language-bash"># GitHub Copilot CLI (restart Copilot CLI afterward)
+copilot plugin marketplace add https://github.com/pegasystems/infinity-ai-plugins.git
+copilot plugin install pega-infinity-authoring@Pega
+
+# OpenAI Codex
+codex plugin marketplace add https://github.com/pegasystems/infinity-ai-plugins.git
+codex plugin add pega-infinity-authoring@Pega
+</code></pre>
+<h4>First test</h4>
+<ol>
+<li>Ask Claude Code: “Create a case type called Dispute with two stages: Review and Resolve.”</li>
+<li>Read the summary of rules it created.</li>
+<li>Open the case type in Pega. Check that it matches.</li>
+<li>Check the rule history. Note which operator Pega shows as the author.</li>
+</ol>
+<h4>Work with more than one environment</h4>
+<p>By default, the plugin connects to one Pega instance. To use a different instance for each project:</p>
+<ol>
+<li>Create <code>&lt;project-root&gt;/.infinity-rules-mcp/config.json</code> with that instance’s URL.</li>
+<li>Add this to <code>&lt;project-root&gt;/.claude/settings.local.json</code>:</li>
+</ol>
+<pre><code class="language-json">{
+  &quot;env&quot;: {
+    &quot;INFINITY_RULES_MCP_CONFIG_FILE&quot;: &quot;${CLAUDE_PROJECT_DIR}/.infinity-rules-mcp/config.json&quot;
+  }
+}
+</code></pre>
+<p>A forum user reports that this works in Claude Code CLI and in Claude Desktop.</p>
+<h4>Update the plugin</h4>
+<pre><code class="language-bash">claude plugin marketplace update Pega
+claude plugin update pega-infinity-authoring@Pega
+</code></pre>
+<p>Then run <code>/reload-plugins</code> or start a new session.</p>
+<h4>Things to know</h4>
+<ul>
+<li><strong>Use a sandbox.</strong> The plugin changes real rules. Do not point it at a production instance.</li>
+<li><strong>Review every change.</strong> The assistant can make mistakes. Read the rules it creates before you use them.</li>
+<li><strong>License limit:</strong> the Pega Infinity AI Plugins License allows use only with Pegasystems software. Read it before you build your own tools on top of the plugin.</li>
+<li><strong>Other coding tools:</strong> one user ran the plugin in Devin (formerly Windsurf) on Infinity 26.1 and created a decision table. Another user got 401 errors in Windsurf.</li>
+</ul>
+<p><strong>Checklist</strong></p>
+<ul>
+<li>☐ Install Node.js and Java.</li>
+<li>☐ Install the plugin and run <code>pega-setup</code>.</li>
+<li>☐ Create one case type from Claude Code.</li>
+<li>☐ Create one decision table.</li>
+<li>☐ Note what was right, what was wrong, and how long it took.</li>
+</ul>
+<hr>
+<h2>Part 4: Going further</h2>
+<h3>Older Pega versions</h3>
+<p>For Pega Infinity 23 and later with the DX API turned on, a community project called <code>marco-looy/pega-dx-mcp</code> wraps the DX API as MCP tools.</p>
+<ul>
+<li>It is experimental. It is not a Pega product.</li>
+<li>On 25.1.3 or 26, use Service MCP instead.</li>
+</ul>
+<pre><code class="language-bash">claude mcp add-json pega-dx-mcp '{&quot;command&quot;:&quot;npx&quot;,&quot;args&quot;:[&quot;-y&quot;,&quot;@marco-looy/pega-dx-mcp&quot;],&quot;env&quot;:{&quot;PEGA_BASE_URL&quot;:&quot;https://your-pega-instance.com&quot;,&quot;PEGA_CLIENT_ID&quot;:&quot;your-client-id&quot;,&quot;PEGA_CLIENT_SECRET&quot;:&quot;your-client-secret&quot;,&quot;PEGA_API_VERSION&quot;:&quot;v2&quot;}}'
+</code></pre>
+<h3>MCP or A2A?</h3>
+<p>You will also see A2A (Agent-to-Agent protocol). Pega Infinity 26 supports both.</p>
+<ul>
+<li><strong>MCP</strong> connects an agent to a capability, such as a case type or a tool.</li>
+<li><strong>A2A</strong> connects one agent to another agent.</li>
+<li>Use MCP when an AI assistant needs to work Pega cases, or when a Pega agent needs an outside tool.</li>
+</ul>
+<h3>Security checklist for a regulated client</h3>
+<p>These are my recommendations, not Pega guidance.</p>
+<ul>
+<li>☐ Start with read-only tools. Add tools that create or change data later.</li>
+<li>☐ Expose one case type per Service MCP rule. Do not expose the whole application.</li>
+<li>☐ For people, use authorization code. Each call then runs as a named user.</li>
+<li>☐ For machines, create a dedicated operator with a narrow access group.</li>
+<li>☐ Register each AI client separately. Then you can turn off one client and keep the others.</li>
+<li>☐ Check that the audit record shows the client, the user, and the tool for every call.</li>
+<li>☐ Set a retention period for <code>Pega-Autopilot-Conversation</code> records. They can contain customer data.</li>
+<li>☐ Use workflow steps for calls that must always happen.</li>
+<li>☐ Solve IP allowlist issues before the demo.</li>
+<li>☐ Use the authoring plugin only on sandbox and development instances.</li>
+</ul>
+<h3>What is proven, and what is only claimed</h3>
+<p>Pega’s press release says Infinity 26 works with Claude Code, GitHub Copilot, Codex, Claude, ChatGPT, and Microsoft 365 Copilot. My research found different levels of evidence:</p>
+<ul>
+<li><strong>Clear public steps:</strong> the authoring plugin for Claude Code, Copilot CLI, and Codex; Claude as a runtime client.</li>
+<li><strong>Reported by community users:</strong> GitHub Copilot in VS Code; Devin.</li>
+<li><strong>Claimed, with no public guide found:</strong> ChatGPT; Microsoft 365 Copilot.</li>
+<li><strong>Known problem:</strong> Copilot Studio with Pega Cloud, because of IP allowlists.</li>
+</ul>
+<h3>Related on Caseonix</h3>
+<ul>
+<li><a href="/notes/pega-autopilot-lab-notes.html">Pega GenAI Autopilot: what adoption really takes</a>, my earlier notes on Autopilot in App Studio.</li>
+<li><a href="/blog/banks-ai-agents-architecture.html">Banks told AI agents to stay out. Here is the architecture that lets them back in.</a>, on agent gateways for regulated clients.</li>
+</ul>
+<hr>
+<h2>Glossary</h2>
+<ul>
+<li><strong>Access token / token:</strong> A temporary pass that proves a client may call Pega. Pega can cancel it.</li>
+<li><strong>AI Tracer:</strong> A Pega tool that shows which tools an AI agent called.</li>
+<li><strong>Authentication Profile:</strong> A Pega rule that stores how Pega logs in to another system.</li>
+<li><strong>Authorization code:</strong> An OAuth grant type where a person logs in.</li>
+<li><strong>Client credentials:</strong> An OAuth grant type where a machine logs in with an ID and a secret.</li>
+<li><strong>Connect MCP:</strong> The Pega rule that lets Pega use an outside MCP server.</li>
+<li><strong>Endpoint URL:</strong> The web address of an MCP server.</li>
+<li><strong>MCP (Model Context Protocol):</strong> A standard way for AI tools to connect to other systems.</li>
+<li><strong>MCP client:</strong> The AI tool that uses an MCP server.</li>
+<li><strong>MCP server:</strong> The system that offers tools through MCP.</li>
+<li><strong>Redirect URI:</strong> The address Pega sends a user back to after login.</li>
+<li><strong>Service MCP:</strong> The Pega rule that makes Pega an MCP server.</li>
+<li><strong>Tool:</strong> One action an MCP server offers, with its inputs.</li>
+</ul>
+<hr>
+<h2>Sources</h2>
+<ul>
+<li>Pega Forums, “How to expose Pega as MCP server for external AI clients (Infinity '26).”</li>
+<li>Pega Forums, “Pega Infinity '26 MCP Server and Pega 25.1.3 MCP Connect.”</li>
+<li>Pega Forums, “How to connect Pega AI Agent to external MCP server.”</li>
+<li>Pega Forums, “How to use MCP to connect two Pega apps and use AI agent to work cases in the other Pega app,” October 21, 2026.</li>
+<li>Pega Forums, “Service MCP Authentication in Pega 26.”</li>
+<li>Pega Forums, “Issue while exposing pega as MCP server with Copilot Studio.”</li>
+<li>Pega Forums, “Exposing Pega Workflows to LLMs via MCP.”</li>
+<li>Pega Forums, “MCP Agent feature in Blueprint Preview.”</li>
+<li>Pega Forums, “Blueprint MCP Preview With A Universal MCP Gateway.”</li>
+<li>Pega Forums, “Pega AI plugin: connecting to multiple environments.”</li>
+<li>Pega Forums, “Agentic development through MCP - Unable to access.”</li>
+<li>Pega Forums, “Anyone tried running Pega Infinity AI Plugins (MCP) inside Windsurf?”</li>
+<li>Pega Forums, “MCP or A2A.”</li>
+<li>GitHub, pegasystems/infinity-ai-plugins (README, release 0.2.1, issue #35).</li>
+<li>GitHub, WeekendNoobs/pi-pega-mcp-bridge (license note).</li>
+<li>GitHub, marco-looy/pega-dx-mcp.</li>
+<li>Business Wire, “Pega Infinity 26 Now Available to Deliver Predictable Outcomes with Predictable AI Costs,” July 14, 2026.</li>
+</ul>
+
+    </div>
+
+    <div class="note-share" aria-label="Share this note">
+      <span class="note-share-eyebrow">&sect; Share</span>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fcaseonix.ca%2Fnotes%2Fpega-mcp-starter-lab-notes.html" target="_blank" rel="noopener" class="note-share-link">
+        LinkedIn <span class="arrow" aria-hidden="true">&#8599;</span>
+      </a>
+      <a href="https://twitter.com/intent/tweet?text=Starter%20lab%20notes%3A%20Pega%20Infinity%2026%20and%20MCP&amp;url=https%3A%2F%2Fcaseonix.ca%2Fnotes%2Fpega-mcp-starter-lab-notes.html" target="_blank" rel="noopener" class="note-share-link">
+        X <span class="arrow" aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+
+    <a href="/#transmittal" class="note-cta">
+      <div class="note-cta-body">
+        <span class="note-cta-eyebrow">&sect; Open a thread</span>
+        <span class="note-cta-text">Working on a related problem? Let&rsquo;s compare notes.</span>
+      </div>
+      <span class="note-cta-link">Start a thread <span class="arrow" aria-hidden="true">&rarr;</span></span>
+    </a>
+  </main>
+
+  <footer class="footer-v2">
+    <div class="footer-v2-inner">
+      <div class="footer-v2-left">
+        <div class="footer-v2-logo">caseonix</div>
+        <div class="footer-v2-meta">A solo AI lab &middot; Est. 2024 &middot; Waterloo, ON</div>
+      </div>
+      <nav class="footer-v2-nav" aria-label="Footer navigation">
+        <a href="/about/">About</a>
+        <a href="/software/">Software</a>
+        <a href="/#sheets">Sheets</a>
+        <a href="/blog/index.html">Lab notes</a>
+        <a href="https://github.com/caseonix" target="_blank" rel="noopener">GitHub &#8599;</a>
+      </nav>
+      <div class="footer-v2-right">&copy; 2026 Caseonix</div>
+    </div>
+      <div class="footer-disclaimer" style="max-width: 1200px; margin: 24px auto 0; padding: 18px 24px 0; border-top: 1px solid var(--border); text-align: center; font-size: 0.72rem; line-height: 1.65; color: var(--text-3);">
+      Caseonix is a solo AI lab. Posts, projects, and research notes are engineering commentary &mdash; not legal, compliance, tax, financial, investment, or professional advice.
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    function setTheme(t) {
+      document.documentElement.setAttribute('data-theme', t);
+      toggle.textContent = t === 'dark' ? '☀️' : '🌙';
+      try { localStorage.setItem('caseonix-theme', t); } catch(e) {}
+    }
+    toggle.addEventListener('click', () => {
+      setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+    try {
+      const saved = localStorage.getItem('caseonix-theme');
+      if (saved) setTheme(saved);
+    } catch(e) {}
+  </script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.esm.min.mjs';
+    const nodes = [...document.querySelectorAll('pre.mermaid')];
+    nodes.forEach((n) => { n.dataset.src = n.textContent; });
+    async function render() {
+      const dark = document.documentElement.getAttribute('data-theme') !== 'light';
+      mermaid.initialize({ startOnLoad: false, theme: dark ? 'dark' : 'default' });
+      nodes.forEach((n) => { n.removeAttribute('data-processed'); n.textContent = n.dataset.src; });
+      await mermaid.run({ nodes });
+    }
+    render();
+    new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  </script>
+</body>
+</html>
